@@ -235,6 +235,15 @@ strong { font-weight: 700; color: var(--titulo); }
 .nav__submenu a:focus-visible { outline: 2px solid var(--acento); outline-offset: -2px; }
 .nav__submenu a.activo { color: var(--acento); font-weight: 700; }
 
+@media (min-width: 1101px) {
+  /* Puente invisible entre el disparador y el panel. Sin él, al bajar el
+     puntero por el hueco de 8px se disparaba mouseleave sobre el grupo y
+     el submenú se cerraba antes de poder elegir nada. */
+  .nav__grupo.abierto::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 12px;
+  }
+}
+
 .acciones { display: flex; align-items: center; gap: 8px; position: relative; z-index: 2; }
 .boton-tema, .boton-menu {
   background: var(--superficie); border: 1px solid var(--borde); color: var(--texto);

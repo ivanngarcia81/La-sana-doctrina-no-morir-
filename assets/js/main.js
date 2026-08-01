@@ -58,12 +58,22 @@
       pintarGrupo(grupo, abierto);
     });
 
-    /* En escritorio también se abre al pasar el puntero */
+    /* En escritorio también se abre al pasar el puntero. El cierre lleva
+       un margen de 260 ms para que dé tiempo a llegar al submenú aunque el
+       puntero salga un instante del grupo. */
     if (window.matchMedia('(hover: hover) and (min-width: 1101px)').matches) {
+      var temporizador = null;
+
       grupo.addEventListener('mouseenter', function () {
-        cerrarGrupos(grupo); pintarGrupo(grupo, true);
+        clearTimeout(temporizador);
+        cerrarGrupos(grupo);
+        pintarGrupo(grupo, true);
       });
-      grupo.addEventListener('mouseleave', function () { pintarGrupo(grupo, false); });
+
+      grupo.addEventListener('mouseleave', function () {
+        clearTimeout(temporizador);
+        temporizador = setTimeout(function () { pintarGrupo(grupo, false); }, 260);
+      });
     }
 
     /* El foco sale del grupo con Tab: se cierra solo */
