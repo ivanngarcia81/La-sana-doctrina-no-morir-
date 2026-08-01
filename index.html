@@ -83,6 +83,13 @@
         “Retén la forma de las sanas palabras que de mí oíste…”
         <cite>2 Timoteo 1:13</cite>
       </p>
+
+      <a class="aviso" href="#congreso" data-aviso>
+        <span class="aviso__marca" data-aviso-marca>Congreso anual</span>
+        <span class="aviso__texto" data-aviso-texto>Próxima sede y fecha por anunciar</span>
+        <span class="aviso__flecha" aria-hidden="true">→</span>
+      </a>
+
       <div class="botones">
         <a class="boton boton--principal" href="#remanente">¿Eres parte del remanente?</a>
         <a class="boton boton--fantasma" href="#que-es">Conoce el proyecto</a>
@@ -328,10 +335,57 @@
   <section class="seccion seccion--centrada" id="congreso">
     <div class="contenedor">
       <div class="seccion__encabezado revelar">
-        <p class="seccion__eyebrow">Próximo Congreso</p>
-        <h2>Cartagena, Colombia · Julio 2026</h2>
+        <p class="seccion__eyebrow">Cada año, en una ciudad distinta</p>
+        <h2>Próximo Congreso</h2>
         <div class="plomada"></div>
+        <p>
+          El Congreso “La Sana Doctrina No Morirá” se celebra una vez al año y cada
+          edición se realiza en un lugar diferente, para que la enseñanza alcance a
+          más iglesias y más pueblos.
+        </p>
       </div>
+
+      <!-- ============================================================
+           PRÓXIMO CONGRESO — ESTE ES EL ÚNICO BLOQUE QUE HAY QUE EDITAR
+           CADA AÑO. Rellena los cinco atributos de abajo:
+
+             data-edicion  Nombre de la edición, p. ej. "Edición 2027"
+             data-sede     Ciudad y país, p. ej. "Ciudad de Panamá, Panamá"
+             data-fechas   Texto de las fechas, p. ej. "16, 17 y 18 de julio de 2027"
+             data-inicio   Fecha y hora de inicio en formato ISO con zona horaria,
+                           p. ej. "2027-07-16T09:00:00-05:00"
+             data-fin      Fecha y hora de cierre, p. ej. "2027-07-18T23:59:00-05:00"
+
+           Si los dejas vacíos, la página muestra sola el aviso
+           "sede y fecha por anunciar", tanto aquí como en la portada.
+           ============================================================ -->
+      <article class="proximo revelar" data-proximo
+               data-edicion=""
+               data-sede=""
+               data-fechas=""
+               data-inicio=""
+               data-fin="">
+        <p class="proximo__edicion" data-proximo-edicion>Próxima edición</p>
+        <h3 class="proximo__sede" data-proximo-sede>Sede por anunciar</h3>
+        <p class="proximo__fechas" data-proximo-fechas>Fechas por anunciar</p>
+
+        <div class="cuenta" aria-live="polite" hidden>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-dias>—</span><span class="cuenta__rotulo">Días</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-horas>—</span><span class="cuenta__rotulo">Horas</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-minutos>—</span><span class="cuenta__rotulo">Minutos</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-segundos>—</span><span class="cuenta__rotulo">Segundos</span></div>
+        </div>
+        <p class="cuenta__aviso" data-cuenta-mensaje hidden></p>
+
+        <div class="botones" style="margin-top:30px">
+          <a class="boton boton--principal" href="#contacto">Quiero asistir</a>
+          <a class="boton boton--fantasma" href="#suscribete">Avísenme la fecha</a>
+        </div>
+      </article>
+
+      <h3 class="programa__titulo revelar">
+        Última edición · Cartagena, Colombia — julio de 2026
+      </h3>
 
       <div class="rejilla rejilla--3 revelar">
         <article class="jornada">
@@ -361,7 +415,7 @@
         </article>
 
         <article class="jornada">
-          <p class="jornada__fecha">Tercer día</p>
+          <p class="jornada__fecha">Domingo 19 julio 2026</p>
           <h3>La Sana Doctrina No Morirá · Tercer día</h3>
           <p>
             En este tercer día del congreso, nos reunimos con un mismo propósito:
@@ -372,6 +426,20 @@
           </p>
         </article>
       </div>
+
+      <!--
+        EDICIONES ANTERIORES
+        Cuando quieras publicar los congresos ya celebrados, copia este bloque
+        justo debajo y ve agregando un <li> por cada edición:
+
+        <div class="ediciones revelar">
+          <h3 class="programa__titulo">Ediciones anteriores</h3>
+          <ul class="ediciones__lista">
+            <li><span class="ediciones__anio">2025</span> <span>Ciudad, País</span></li>
+            <li><span class="ediciones__anio">2024</span> <span>Ciudad, País</span></li>
+          </ul>
+        </div>
+      -->
     </div>
   </section>
 

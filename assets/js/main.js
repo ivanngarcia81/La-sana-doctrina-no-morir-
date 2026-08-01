@@ -98,6 +98,98 @@
     secciones.forEach(function (s) { espia.observe(s); });
   }
 
+  /* ---------- Próximo congreso: datos, aviso y cuenta regresiva ----------
+     Toda la información sale de los atributos data-* del bloque
+     <article data-proximo> que está en index.html. Si están vacíos o la
+     fecha ya pasó, la página muestra sola el aviso correspondiente.        */
+  var proximo = document.querySelector('[data-proximo]');
+
+  if (proximo) {
+    var dato = function (nombre) {
+      return (proximo.getAttribute('data-' + nombre) || '').trim();
+    };
+    var pon = function (selector, texto) {
+      var el = proximo.querySelector(selector);
+      if (el && texto) el.textContent = texto;
+    };
+
+    var edicion = dato('edicion');
+    var sede    = dato('sede');
+    var fechas  = dato('fechas');
+    var inicio  = new Date(dato('inicio')).getTime();
+    var fin     = new Date(dato('fin')).getTime();
+    if (isNaN(fin)) fin = inicio;
+
+    pon('[data-proximo-edicion]', edicion);
+    pon('[data-proximo-sede]', sede);
+    pon('[data-proximo-fechas]', fechas);
+
+    var cuenta = proximo.querySelector('.cuenta');
+    var mensaje = proximo.querySelector('[data-cuenta-mensaje]');
+    var avisoMarca = document.querySelector('[data-aviso-marca]');
+    var avisoTexto = document.querySelector('[data-aviso-texto]');
+
+    var casillas = {
+      dias: cuenta && cuenta.querySelector('[data-dias]'),
+      horas: cuenta && cuenta.querySelector('[data-horas]'),
+      minutos: cuenta && cuenta.querySelector('[data-minutos]'),
+      segundos: cuenta && cuenta.querySelector('[data-segundos]')
+    };
+
+    function dosCifras(n) { return n < 10 ? '0' + n : String(n); }
+
+    function anunciar(texto) {
+      if (cuenta) cuenta.hidden = true;
+      if (mensaje) { mensaje.textContent = texto; mensaje.hidden = false; }
+    }
+
+    function pintarAviso(marca, texto) {
+      if (avisoMarca) avisoMarca.textContent = marca;
+      if (avisoTexto) avisoTexto.textContent = texto;
+    }
+
+    function refrescar() {
+      var ahora = Date.now();
+
+      /* Todavía no hay fecha anunciada */
+      if (isNaN(inicio) || !sede) {
+        anunciar('Estamos preparando la próxima edición. Muy pronto anunciaremos la sede y las fechas.');
+        pintarAviso('Congreso anual', 'Próxima sede y fecha por anunciar');
+        return true;
+      }
+
+      /* El congreso ya empezó */
+      if (inicio - ahora <= 0) {
+        if (ahora <= fin) {
+          anunciar('¡El congreso está en curso! Bienvenidos todos.');
+          pintarAviso('En curso', sede + ' · ' + fechas);
+        } else {
+          anunciar('Esta edición ya se celebró. Pronto anunciaremos la sede del próximo congreso.');
+          pintarAviso('Congreso anual', 'Próxima sede y fecha por anunciar');
+        }
+        return true;
+      }
+
+      /* Falta para el congreso: se actualiza la cuenta regresiva */
+      if (cuenta) cuenta.hidden = false;
+      if (mensaje) mensaje.hidden = true;
+      pintarAviso('Próximo congreso', sede + (fechas ? ' · ' + fechas : ''));
+
+      var seg = Math.floor((inicio - ahora) / 1000);
+      if (casillas.dias) casillas.dias.textContent = Math.floor(seg / 86400);
+      if (casillas.horas) casillas.horas.textContent = dosCifras(Math.floor(seg / 3600) % 24);
+      if (casillas.minutos) casillas.minutos.textContent = dosCifras(Math.floor(seg / 60) % 60);
+      if (casillas.segundos) casillas.segundos.textContent = dosCifras(seg % 60);
+      return false;
+    }
+
+    if (!refrescar()) {
+      var reloj = setInterval(function () {
+        if (refrescar()) clearInterval(reloj);
+      }, 1000);
+    }
+  }
+
   /* ---------- Año actual en el pie ---------- */
   var anio = document.querySelector('[data-anio]');
   if (anio) anio.textContent = String(new Date().getFullYear());

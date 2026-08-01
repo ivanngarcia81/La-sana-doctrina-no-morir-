@@ -30,7 +30,7 @@ assets/video/             Carpeta para los videos de los pastores
 | ¿Eres Parte del Remanente? | `#remanente` |
 | Un Movimiento de Dios | `#movimiento` |
 | Pastores Defensores De La Sana Doctrina (videos) | `#pastores` |
-| Próximo Congreso — Cartagena, Colombia | `#congreso` |
+| Próximo Congreso (anual, sede rotativa) | `#congreso` |
 | Suscríbete para más información | `#suscribete` |
 | Localización, horarios y contacto | `#contacto` |
 
@@ -51,6 +51,42 @@ python3 -m http.server 8000
 4. Guarda. En unos minutos el sitio queda publicado.
 
 El archivo `.nojekyll` ya está incluido para que GitHub publique los archivos tal cual.
+
+## Cómo anunciar el congreso de cada año
+
+El congreso se celebra una vez al año y en una ciudad distinta, así que la sección
+`#congreso` está hecha para actualizarse **en un solo lugar**. Busca en `index.html`
+el bloque marcado con el comentario `PRÓXIMO CONGRESO` y rellena sus cinco atributos:
+
+```html
+<article class="proximo revelar" data-proximo
+         data-edicion="Edición 2027"
+         data-sede="Ciudad de Panamá, Panamá"
+         data-fechas="16, 17 y 18 de julio de 2027"
+         data-inicio="2027-07-16T09:00:00-05:00"
+         data-fin="2027-07-18T23:59:00-05:00">
+```
+
+- `data-inicio` y `data-fin` van en formato ISO con la zona horaria de la sede
+  (`-05:00` para Colombia y Panamá, `-04:00` para Nueva York en verano).
+- Con eso se actualizan solos: el título de la sección, la cuenta regresiva y el
+  aviso que aparece en la portada. No hay que tocar nada más.
+
+La página se comporta sola en los tres casos:
+
+| Situación | Qué muestra |
+|---|---|
+| Atributos vacíos | «Sede por anunciar» + «Estamos preparando la próxima edición» |
+| Falta para el congreso | Cuenta regresiva en días, horas, minutos y segundos |
+| Congreso en curso | «¡El congreso está en curso! Bienvenidos todos» |
+| Ya terminó | «Esta edición ya se celebró. Pronto anunciaremos la sede del próximo» |
+
+Debajo de esa tarjeta va el programa por jornadas de la última edición. Cuando se
+anuncie una nueva, reemplaza los tres textos de las jornadas y cambia el título
+`Última edición · …`.
+
+Para publicar el historial de congresos ya celebrados hay una plantilla lista como
+comentario al final de la misma sección (`EDICIONES ANTERIORES`).
 
 ## Cómo poner los videos reales
 
@@ -81,9 +117,11 @@ Las instrucciones también están como comentario dentro del propio `index.html`
 
 ## Qué falta por confirmar
 
-- **Fecha del tercer día del congreso**: en la captura no aparece, por eso la tarjeta
-  dice solo «Tercer día». Si es el domingo 19 de julio de 2026, cámbialo en la
-  etiqueta `jornada__fecha`.
+- **Sede y fechas del próximo congreso**: el de Cartagena (17–19 de julio de 2026)
+  ya se celebró, así que la tarjeta está en modo «por anunciar». En cuanto se
+  definan, se rellenan los cinco atributos explicados arriba.
+- **Fecha del tercer día de Cartagena**: en la captura no aparecía. Como el congreso
+  empezó el viernes 17, se puso «domingo 19 julio 2026»; conviene confirmarlo.
 - **Correo de contacto**: se usa `ig07644@gmail.com` en los dos formularios y en la
   tarjeta de contacto. Si el correo oficial es otro, cámbialo en `index.html`
   (atributos `data-destino` y los enlaces `mailto:`).
