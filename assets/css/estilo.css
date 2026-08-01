@@ -1,20 +1,22 @@
 /* ============================================================
    La Sana Doctrina No Morirá — hoja de estilos
    Sitio estático, sin dependencias externas.
-   Paleta tomada del emblema: acero, carmesí y oro.
+   Paleta: grafito, acero y oro (tomada del emblema).
+
+   PARA CAMBIAR LOS COLORES DE TODO EL SITIO basta con editar los valores
+   del bloque :root que viene a continuación; se aplican a las nueve páginas.
    ============================================================ */
 
 :root {
   /* Colores base */
-  --negro:        #101216;
-  --negro-2:      #191c22;
-  --acero:        #5d6875;
+  --negro:        #14161a;   /* cabeceras oscuras, pie de página */
+  --negro-2:      #22262c;
+  --acero:        #5d6875;   /* gris del escudo */
   --acero-claro:  #8d99a6;
-  --carmesi:      #c1121f;
-  --carmesi-osc:  #8d0810;
-  --oro:          #c9a227;
-  --oro-claro:    #e9c877;
-  --hueso:        #f6f4f1;
+  --oro:          #a8842c;   /* barras, filetes y detalles */
+  --oro-osc:      #7c5d17;   /* botones al pasar el ratón */
+  --oro-claro:    #d9bb6a;   /* textos dorados sobre fondo oscuro */
+  --hueso:        #f6f5f2;   /* fondo claro */
   --blanco:       #ffffff;
 
   /* Roles */
@@ -22,9 +24,14 @@
   --superficie:   var(--blanco);
   --texto:        #1c1f25;
   --texto-suave:  #565e6b;
-  --borde:        #e0dcd5;
+  --borde:        #e2e0da;
   --titulo:       var(--negro);
-  --acento:       var(--carmesi);
+  --acento:       #8f6d1f;   /* enlaces y botones: oro oscurecido para que se lea bien */
+  /* Color del texto que va encima del acento (botones, franja de salto).
+     Con acentos oscuros va blanco; con acentos claros, casi negro. */
+  --acento-texto: #ffffff;
+  /* Resplandor de color detrás de las cabeceras oscuras */
+  --brillo:       rgba(168, 132, 44, .30);
 
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
            "Times New Roman", serif;
@@ -39,32 +46,35 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fondo:      #0f1216;
-    --superficie: #171b21;
-    --texto:      #e3e6ea;
-    --texto-suave:#9aa3af;
-    --borde:      #2a3039;
-    --titulo:     #f4f2ef;
-    --acento:     #e2434f;
+    --fondo:      #101216;
+    --superficie: #191c21;
+    --texto:      #e4e3df;
+    --texto-suave:#a3a29c;
+    --borde:      #2e3138;
+    --titulo:     #f4f2ec;
+    --acento:     #d9bb6a;
+    --acento-texto: #14161a;
   }
 }
 :root[data-tema="oscuro"] {
-  --fondo:      #0f1216;
-  --superficie: #171b21;
-  --texto:      #e3e6ea;
-  --texto-suave:#9aa3af;
-  --borde:      #2a3039;
-  --titulo:     #f4f2ef;
-  --acento:     #e2434f;
+  --fondo:      #101216;
+  --superficie: #191c21;
+  --texto:      #e4e3df;
+  --texto-suave:#a3a29c;
+  --borde:      #2e3138;
+  --titulo:     #f4f2ec;
+  --acento:     #d9bb6a;
+  --acento-texto: #14161a;
 }
 :root[data-tema="claro"] {
   --fondo:      var(--hueso);
   --superficie: var(--blanco);
   --texto:      #1c1f25;
   --texto-suave:#565e6b;
-  --borde:      #e0dcd5;
+  --borde:      #e2e0da;
   --titulo:     var(--negro);
-  --acento:     var(--carmesi);
+  --acento:     #8f6d1f;
+  --acento-texto: #ffffff;
 }
 
 * { box-sizing: border-box; }
@@ -84,8 +94,8 @@ img, svg { max-width: 100%; }
 img { height: auto; display: block; }
 
 a { color: var(--acento); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--carmesi-osc); }
-@media (prefers-color-scheme: dark) { a:hover { color: var(--oro-claro); } }
+a:hover { color: var(--oro-osc); }
+@media (prefers-color-scheme: dark) { a:hover { color: #eed79c; } }
 
 h1, h2, h3, h4 {
   color: var(--titulo);
@@ -107,7 +117,7 @@ strong { font-weight: 700; color: var(--titulo); }
 
 .saltar {
   position: absolute; left: -9999px; top: 0; z-index: 300;
-  background: var(--carmesi); color: #fff; padding: 10px 16px;
+  background: var(--acento); color: var(--acento-texto); padding: 10px 16px;
 }
 .saltar:focus { left: 8px; top: 8px; }
 
@@ -122,7 +132,7 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 .encabezado::after {
   content: ""; display: block; height: 3px;
-  background: linear-gradient(90deg, var(--carmesi) 0 33%, var(--oro) 33% 66%, var(--acero) 66% 100%);
+  background: linear-gradient(90deg, var(--negro) 0 33%, var(--oro) 33% 66%, var(--acero) 66% 100%);
 }
 .encabezado__fila {
   display: flex; align-items: center; justify-content: space-between;
@@ -182,7 +192,7 @@ strong { font-weight: 700; color: var(--titulo); }
 .portada {
   position: relative; overflow: hidden;
   background:
-    radial-gradient(900px 480px at 50% 0%, rgba(193,18,31,.30), transparent 65%),
+    radial-gradient(900px 480px at 50% 0%, var(--brillo), transparent 65%),
     linear-gradient(180deg, #14181e 0%, #0c0e12 100%);
   color: #eceef1;
   padding: clamp(56px, 10vw, 96px) 0 clamp(56px, 9vw, 96px);
@@ -244,8 +254,8 @@ strong { font-weight: 700; color: var(--titulo); }
   text-decoration: none; border: 1px solid transparent; cursor: pointer;
   font-family: inherit; transition: var(--transicion);
 }
-.boton--principal { background: var(--carmesi); color: #fff; }
-.boton--principal:hover { background: var(--carmesi-osc); color: #fff; }
+.boton--principal { background: var(--acento); color: var(--acento-texto); }
+.boton--principal:hover { background: var(--oro-osc); color: var(--acento-texto); }
 .boton--fantasma { border-color: rgba(255,255,255,.3); color: #eceef1; }
 .boton--fantasma:hover { border-color: var(--oro); color: var(--oro-claro); }
 .boton--linea { border-color: var(--borde); color: var(--texto); background: transparent; }
@@ -255,7 +265,7 @@ strong { font-weight: 700; color: var(--titulo); }
 .franja {
   background: var(--negro); color: #d7dbe1; text-align: center;
   padding: clamp(34px, 6vw, 60px) 0;
-  border-top: 3px solid var(--carmesi);
+  border-top: 3px solid var(--oro);
 }
 .franja blockquote {
   margin: 0 auto; max-width: 58ch; font-family: var(--serif); font-style: italic;
@@ -281,7 +291,7 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 .seccion__encabezado p:last-child { color: var(--texto-suave); margin-bottom: 0; }
 
-.plomada { width: 54px; height: 3px; background: var(--carmesi); margin: 0 0 26px; }
+.plomada { width: 54px; height: 3px; background: var(--oro); margin: 0 0 26px; }
 .seccion--centrada .plomada { margin-inline: auto; }
 
 .texto-guia { font-size: clamp(1.02rem, 2vw, 1.13rem); max-width: 66ch; }
@@ -294,7 +304,7 @@ strong { font-weight: 700; color: var(--titulo); }
 /* Tarjetas de misión / distintivos */
 .tarjeta {
   background: var(--fondo); border: 1px solid var(--borde);
-  border-top: 3px solid var(--carmesi);
+  border-top: 3px solid var(--oro);
   border-radius: var(--radio); padding: 28px 26px;
   transition: var(--transicion); text-align: left;
 }
@@ -316,7 +326,7 @@ strong { font-weight: 700; color: var(--titulo); }
 .lista-marcada li:last-child { border-bottom: 0; }
 .lista-marcada li::before {
   content: ""; position: absolute; left: 4px; top: 20px;
-  width: 12px; height: 14px; background: var(--carmesi);
+  width: 12px; height: 14px; background: var(--oro);
   clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
 }
 
@@ -362,7 +372,7 @@ strong { font-weight: 700; color: var(--titulo); }
 .proximo {
   position: relative; overflow: hidden;
   background:
-    radial-gradient(700px 340px at 50% 0%, rgba(193,18,31,.34), transparent 70%),
+    radial-gradient(700px 340px at 50% 0%, var(--brillo), transparent 70%),
     linear-gradient(180deg, #171b21 0%, #0d1014 100%);
   border: 1px solid rgba(233,200,119,.28);
   border-radius: var(--radio);
@@ -372,7 +382,7 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 .proximo::before {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
-  background: linear-gradient(90deg, var(--carmesi), var(--oro), var(--acero));
+  background: linear-gradient(90deg, var(--negro-2), var(--oro), var(--acero));
 }
 .proximo__edicion {
   font-size: .72rem; font-weight: 800; letter-spacing: .24em; text-transform: uppercase;
@@ -434,7 +444,7 @@ strong { font-weight: 700; color: var(--titulo); }
 /* Congreso — jornadas */
 .jornada {
   background: var(--fondo); border: 1px solid var(--borde);
-  border-left: 4px solid var(--carmesi); border-radius: var(--radio);
+  border-left: 4px solid var(--oro); border-radius: var(--radio);
   padding: 30px 28px; text-align: left;
 }
 .jornada__fecha {

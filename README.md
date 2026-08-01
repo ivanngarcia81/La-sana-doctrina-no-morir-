@@ -23,7 +23,7 @@ remanente.html            ¿Eres Parte del Remanente? + suscripción
 pastores.html             Pastores Defensores (videos del congreso)
 congreso.html             Próximo congreso, cuenta regresiva y programa
 contacto.html             Formulario y contacto directo
-assets/css/estilo.css     Estilos (paleta del emblema + tema claro/oscuro)
+assets/css/estilo.css     Estilos (paleta grafito y oro + tema claro/oscuro)
 assets/js/main.js         Menú móvil, tema, animaciones, formularios
 assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
 assets/img/logo.png       Respaldo del logotipo para navegadores antiguos
@@ -165,6 +165,32 @@ im.save('assets/img/logo.webp', quality=90, method=6)
 im.save('assets/img/logo.png', optimize=True)
 "
 ```
+
+## Cómo cambiar los colores
+
+Todos los colores están definidos como variables al principio de
+`assets/css/estilo.css`, dentro del bloque `:root`. Cambiarlos ahí los cambia en las
+nueve páginas de golpe.
+
+```css
+:root {
+  --negro:   #14161a;   /* cabeceras oscuras y pie de página */
+  --oro:     #a8842c;   /* barras, filetes y detalles */
+  --oro-osc: #7c5d17;   /* botones al pasar el ratón */
+  --oro-claro: #d9bb6a; /* textos dorados sobre fondo oscuro */
+  --hueso:   #f6f5f2;   /* fondo claro */
+  --acento:  #8f6d1f;   /* enlaces y botones */
+  --brillo:  rgba(168, 132, 44, .30);  /* resplandor de las cabeceras */
+}
+```
+
+Debajo hay dos bloques más —`prefers-color-scheme: dark` y `[data-tema="oscuro"]`—
+con los mismos roles para el tema oscuro; conviene ajustarlos a la vez.
+
+Al elegir un acento nuevo, comprueba que el texto se siga leyendo: el color de
+`--acento` debe contrastar al menos 4,5 a 1 con el fondo claro. Si el acento es claro
+(un dorado, por ejemplo), pon `--acento-texto: #14161a` para que las letras de los
+botones sean oscuras en vez de blancas.
 
 ## Notas técnicas
 
