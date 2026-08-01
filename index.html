@@ -490,45 +490,86 @@
   <section class="seccion" id="contacto">
     <div class="contenedor">
       <div class="seccion__encabezado revelar">
-        <p class="seccion__eyebrow">Visítanos</p>
-        <h2>Localización, horarios y contacto</h2>
+        <p class="seccion__eyebrow">Escríbenos</p>
+        <h2>Contacto</h2>
         <div class="plomada"></div>
+        <p>
+          Si tu iglesia quiere sumarse al movimiento, proponer una sede para el
+          próximo congreso o hacer una consulta, este es el camino.
+        </p>
       </div>
 
-      <div class="rejilla rejilla--3 revelar">
-        <div class="tarjeta">
-          <span class="tarjeta__indice">Localización</span>
-          <h3>Dirección</h3>
-          <p style="margin-bottom:14px">
-            114 Hudson Street<br>
-            Newark, NJ 07103
-          </p>
-          <p>
-            <a href="https://maps.google.com/?q=114+Hudson+Street+Newark+NJ+07103"
-               rel="noopener">Ver en el mapa</a>
-          </p>
-        </div>
-
-        <div class="tarjeta">
-          <span class="tarjeta__indice">Horarios</span>
-          <h3>Servicios</h3>
-          <ul class="horario">
-            <li><span>Martes, jueves y viernes</span><span>7:30 pm</span></li>
-            <li><span>Domingo · Escuela Bíblica</span><span>10:30 am</span></li>
-            <li><span>Domingo · Culto Evangelístico</span><span>12:30 pm</span></li>
-          </ul>
-        </div>
-
-        <div class="tarjeta">
-          <span class="tarjeta__indice">Contacto</span>
-          <h3>Pastor Junior Castillo</h3>
-          <div class="dato" style="margin-top:16px">
-            <p class="dato__etiqueta">Teléfono</p>
-            <p class="dato__valor"><a href="tel:+18622416144">(862) 241-6144</a></p>
+      <div class="duo revelar">
+        <form class="formulario" data-formulario-contacto
+              data-destino="ig07644@gmail.com" data-asunto="Contacto">
+          <div class="dosxdos">
+            <div class="campo">
+              <label for="c-nombre">Nombre completo</label>
+              <input id="c-nombre" name="nombre" type="text" required autocomplete="name">
+            </div>
+            <div class="campo">
+              <label for="c-iglesia">Iglesia o ministerio</label>
+              <input id="c-iglesia" name="iglesia" type="text" autocomplete="organization">
+            </div>
           </div>
-          <div class="dato">
-            <p class="dato__etiqueta">Correo</p>
-            <p class="dato__valor"><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></p>
+
+          <div class="dosxdos">
+            <div class="campo">
+              <label for="c-correo">Correo electrónico</label>
+              <input id="c-correo" name="correo" type="email" required autocomplete="email">
+            </div>
+            <div class="campo">
+              <label for="c-ciudad">Ciudad y país</label>
+              <input id="c-ciudad" name="ciudad" type="text">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="c-motivo">Motivo</label>
+            <select id="c-motivo" name="motivo">
+              <option>Mi iglesia quiere unirse al movimiento</option>
+              <option>Proponer una sede para el próximo congreso</option>
+              <option>Información sobre el congreso</option>
+              <option>Invitación a predicar o enseñar</option>
+              <option>Pregunta bíblica o doctrinal</option>
+              <option>Petición de oración</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="c-mensaje">Mensaje</label>
+            <textarea id="c-mensaje" name="mensaje" required></textarea>
+          </div>
+
+          <div>
+            <button class="boton boton--principal" type="submit">Enviar mensaje</button>
+          </div>
+          <p class="ayuda">Al enviar se abrirá tu programa de correo con el mensaje ya redactado.</p>
+        </form>
+
+        <div>
+          <div class="tarjeta">
+            <span class="tarjeta__indice">Contacto directo</span>
+            <h3>Pastor Junior Castillo</h3>
+            <div class="dato" style="margin-top:18px">
+              <p class="dato__etiqueta">Teléfono</p>
+              <p class="dato__valor"><a href="tel:+18622416144">(862) 241-6144</a></p>
+            </div>
+            <div class="dato">
+              <p class="dato__etiqueta">Correo</p>
+              <p class="dato__valor"><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="tarjeta" style="margin-top:20px">
+            <span class="tarjeta__indice">Sedes</span>
+            <h3>Lleva el congreso a tu ciudad</h3>
+            <p>
+              El congreso se celebra cada año en un lugar distinto. Si tu iglesia
+              desea recibirlo, escríbenos y conversamos sobre los requisitos y las
+              fechas disponibles.
+            </p>
           </div>
         </div>
       </div>
@@ -562,7 +603,7 @@
       <div>
         <h4>Contacto</h4>
         <ul class="pie__lista">
-          <li>114 Hudson Street, Newark, NJ 07103</li>
+          <li>Pastor Junior Castillo</li>
           <li><a href="tel:+18622416144">(862) 241-6144</a></li>
           <li><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></li>
           <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">ipdfv.com</a></li>

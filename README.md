@@ -35,7 +35,7 @@ assets/video/             Carpeta para los videos de los pastores
 | Pastores Defensores De La Sana Doctrina (videos) | `#pastores` |
 | Próximo Congreso (anual, sede rotativa) | `#congreso` |
 | Suscríbete para más información | `#suscribete` |
-| Localización, horarios y contacto | `#contacto` |
+| Contacto (formulario y datos del pastor) | `#contacto` |
 
 ## Cómo verlo en tu computadora
 

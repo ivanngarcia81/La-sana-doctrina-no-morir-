@@ -463,15 +463,6 @@ strong { font-weight: 700; color: var(--titulo); }
 .dato__valor { color: var(--texto); margin: 0; }
 .dato__valor a { font-weight: 600; }
 
-.horario { list-style: none; padding: 0; margin: 0; }
-.horario li {
-  display: flex; justify-content: space-between; gap: 16px;
-  padding: 12px 0; border-bottom: 1px solid var(--borde);
-}
-.horario li:last-child { border-bottom: 0; }
-.horario span:first-child { color: var(--texto); font-weight: 600; }
-.horario span:last-child { color: var(--texto-suave); white-space: nowrap; }
-
 /* Pie */
 .pie { background: var(--negro); color: #a9b2bd; padding: 58px 0 26px; }
 .pie a { color: #e2d5b8; }
