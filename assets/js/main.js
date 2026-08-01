@@ -126,15 +126,34 @@
     if (ev.matches) pintarMenu(false);
   });
 
-  /* ---------- Sombra del encabezado al desplazarse ---------- */
+  /* ---------- Encabezado: sombra y barra de progreso de lectura ---------- */
   var encabezado = document.querySelector('.encabezado');
+  var progreso = document.querySelector('.encabezado__progreso');
 
   if (encabezado) {
-    var marcarEncabezado = function () {
-      encabezado.classList.toggle('encabezado--fijo', window.scrollY > 8);
+    var pendiente = false;
+
+    var pintarEncabezado = function () {
+      pendiente = false;
+      var y = window.scrollY || document.documentElement.scrollTop;
+      encabezado.classList.toggle('encabezado--fijo', y > 8);
+
+      if (progreso) {
+        var alto = document.documentElement.scrollHeight - window.innerHeight;
+        var avance = alto > 0 ? Math.min(1, Math.max(0, y / alto)) : 0;
+        progreso.style.transform = 'scaleX(' + avance + ')';
+      }
     };
-    marcarEncabezado();
-    window.addEventListener('scroll', marcarEncabezado, { passive: true });
+
+    var alDesplazar = function () {
+      if (pendiente) return;
+      pendiente = true;
+      window.requestAnimationFrame(pintarEncabezado);
+    };
+
+    pintarEncabezado();
+    window.addEventListener('scroll', alDesplazar, { passive: true });
+    window.addEventListener('resize', alDesplazar, { passive: true });
   }
 
   /* ---------- Tema claro / oscuro ---------- */

@@ -152,19 +152,26 @@ strong { font-weight: 700; color: var(--titulo); }
   /* Opaco a propósito: con fondo translúcido el contenido oscuro se
      transparentaba al desplazarse y los bordes claros desaparecían. */
   background: var(--fondo);
-  border-bottom: 1px solid var(--borde);
-  padding-bottom: 3px;          /* deja sitio a la banda inferior */
+  padding-bottom: 3px;          /* deja sitio a la pista de progreso */
   transition: box-shadow var(--transicion);
 }
 .encabezado--fijo { box-shadow: var(--sombra-fija); }
 
-/* Banda inferior: anclada al borde del encabezado y sin cortes de color */
+/* Pista de la barra de progreso: hace de separador del encabezado */
 .encabezado::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: 0;
   height: 3px;
-  background: linear-gradient(90deg,
-    var(--acento) 0%, var(--oro) 50%, var(--acento) 100%);
+  background: var(--borde);
+}
+
+/* Indicador de progreso de lectura: 0 arriba del todo, 100% al final */
+.encabezado__progreso {
+  position: absolute; left: 0; bottom: 0; z-index: 3;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--oro), var(--oro-claro));
+  transform: scaleX(0); transform-origin: left center;
+  will-change: transform;
 }
 .encabezado__fila {
   display: flex; align-items: center; justify-content: space-between;
@@ -325,8 +332,9 @@ body.sin-scroll { overflow: hidden; }
 
 /* Se dimensiona por altura para que el pliegue sea predecible */
 .portada__emblema {
-  display: block; height: clamp(150px, 21vh, 230px); width: auto;
-  margin: 0 auto 16px;
+  display: block; height: clamp(150px, 21vh, 230px);
+  width: fit-content;              /* sin esto el bloque ocupa el 100% */
+  margin-inline: auto; margin-bottom: 16px;
   filter: drop-shadow(0 14px 26px rgba(0,0,0,.5));
 }
 .portada__emblema img { display: block; height: 100%; width: auto; }
