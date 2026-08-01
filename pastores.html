@@ -3,22 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pastores Defensores — La Sana Doctrina No Morirá</title>
-<meta name="description" content="Pastores comprometidos con la verdad inmutable del Evangelio que se levantaron como firmes defensores de la sana doctrina.">
-<meta name="theme-color" content="#101216">
+<title>Pastores defensores de la sana doctrina — La Sana Doctrina No Morirá</title>
+<meta name="description" content="Pastores defensores de la sana doctrina: siervos de Dios que se levantaron como firmes defensores de la verdad inmutable del Evangelio.">
+<meta name="theme-color" content="#0d1f38">
+<link rel="canonical" href="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/pastores.html">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pastores Defensores — La Sana Doctrina No Morirá">
-<meta property="og:description" content="Pastores comprometidos con la verdad inmutable del Evangelio que se levantaron como firmes defensores de la sana doctrina.">
-<!-- Cuando el sitio tenga dominio propio, cambia esta ruta por la dirección
-     completa (https://tudominio.com/assets/img/logo.png) para que el logo
-     aparezca al compartir el enlace en WhatsApp, Facebook, etc. -->
-<meta property="og:image" content="assets/img/logo.png?v=2">
+<meta property="og:site_name" content="La Sana Doctrina No Morirá">
+<meta property="og:title" content="Pastores defensores de la sana doctrina — La Sana Doctrina No Morirá">
+<meta property="og:description" content="Pastores defensores de la sana doctrina: siervos de Dios que se levantaron como firmes defensores de la verdad inmutable del Evangelio.">
+<meta property="og:url" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/pastores.html">
+<meta property="og:image" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/assets/img/logo.png">
+<meta property="og:image:alt" content="Escudo con espada y la cinta «La sana doctrina no morirá»">
 <meta property="og:locale" content="es_ES">
-<meta name="twitter:card" content="summary_large_image">
 
-<link rel="stylesheet" href="assets/css/estilo.css">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pastores defensores de la sana doctrina — La Sana Doctrina No Morirá">
+<meta name="twitter:description" content="Pastores defensores de la sana doctrina: siervos de Dios que se levantaron como firmes defensores de la verdad inmutable del Evangelio.">
+<meta name="twitter:image" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/assets/img/logo.png">
+
+<link rel="stylesheet" href="assets/css/estilo.css?v=2">
 <link rel="icon" href="assets/img/favicon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/sello.png?v=2">
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -37,15 +43,29 @@
     </a>
 
     <nav class="nav" id="menu-principal" aria-label="Navegación principal">
-      <a href="index.html">Inicio</a>
-      <a href="que-es.html">¿Qué es?</a>
-      <a href="apostasia.html">Apostasía</a>
-      <a href="mision.html">Misión</a>
-      <a href="iglesias.html">Iglesias</a>
-      <a href="remanente.html">Remanente</a>
-      <a href="pastores.html" class="activo" aria-current="page">Pastores</a>
-      <a href="congreso.html">Congreso</a>
-      <a href="contacto.html">Contacto</a>
+      <ul class="nav__lista">
+        <li class="nav__item"><a href="index.html" class="nav__enlace">Inicio</a></li>
+        <li class="nav__item nav__grupo" data-grupo>
+          <button type="button" class="nav__disparador" aria-expanded="false"
+                  aria-controls="submenu-proyecto" aria-haspopup="true">
+            El proyecto
+            <svg class="nav__flecha" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
+              <path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor"
+                    stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="nav__submenu" id="submenu-proyecto">
+            <li><a href="que-es.html">¿Qué es?</a></li>
+            <li><a href="apostasia.html">Apostasía</a></li>
+            <li><a href="mision.html">Misión</a></li>
+          </ul>
+        </li>
+        <li class="nav__item"><a href="iglesias.html" class="nav__enlace">Iglesias</a></li>
+        <li class="nav__item"><a href="remanente.html" class="nav__enlace">Remanente</a></li>
+        <li class="nav__item"><a href="pastores.html" class="nav__enlace activo" aria-current="page">Pastores</a></li>
+        <li class="nav__item"><a href="congreso.html" class="nav__enlace">Congreso</a></li>
+        <li class="nav__item"><a href="contacto.html" class="nav__enlace">Contacto</a></li>
+      </ul>
     </nav>
 
     <div class="acciones">
@@ -80,7 +100,9 @@
   <section class="portada portada--interior">
     <div class="contenedor">
       <p class="portada__antetitulo">Testimonios del congreso</p>
-      <h1>Pastores Defensores De La Sana Doctrina</h1>
+      <h1>Pastores defensores de la sana doctrina</h1>
+      <p class="portada__entrada">Siervos de Dios que se levantaron como firmes defensores de la verdad.</p>
+      <div class="plomada plomada--clara"></div>
     </div>
   </section>
 
@@ -97,43 +119,81 @@
       </div>
 
       <!--
-        VIDEOS — Para publicar los videos reales, sustituye cada bloque
-        <div class="video__marco"> … </div> por uno de estos dos:
+        FASE DE DISEÑO — Los marcos muestran un póster provisional
+        (assets/img/poster-video.jpg) para que no salgan negros. Cuando estén
+        los videos reales, sustituye el <div class="video__marco"> por:
 
-          a) Archivo propio:
-             <video controls preload="metadata" poster="assets/img/portada-1.jpg">
-               <source src="assets/video/pastor-1.mp4" type="video/mp4">
-             </video>
+          <video class="video__medio" controls preload="metadata"
+                 poster="assets/img/poster-video.jpg">
+            <source src="assets/video/pastor-1.mp4" type="video/mp4">
+          </video>
 
-          b) YouTube:
-             <div class="video__marco"><iframe style="width:100%;height:100%;border:0"
-               src="https://www.youtube.com/embed/ID" title="Testimonio"
-               allowfullscreen loading="lazy"></iframe></div>
+        o, si van en YouTube:
+
+          <div class="video__marco">
+            <iframe class="video__medio" src="https://www.youtube.com/embed/ID"
+                    title="Testimonio" allowfullscreen loading="lazy"></iframe>
+          </div>
       -->
       <div class="rejilla rejilla--3 revelar">
-        <figure class="video" style="margin:0">
-          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+        <figure class="video">
+          <div class="video__marco">
+            <picture>
+              <source srcset="assets/img/poster-video.webp?v=2" type="image/webp">
+              <img class="video__poster" src="assets/img/poster-video.jpg?v=2" alt=""
+                   width="800" height="450" loading="lazy" decoding="async">
+            </picture>
+            <span class="video__play" aria-hidden="true"></span>
+          </div>
           <figcaption class="video__pie"><strong>Testimonio 1</strong><span>01:35</span></figcaption>
         </figure>
-        <figure class="video" style="margin:0">
-          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+        <figure class="video">
+          <div class="video__marco">
+            <picture>
+              <source srcset="assets/img/poster-video.webp?v=2" type="image/webp">
+              <img class="video__poster" src="assets/img/poster-video.jpg?v=2" alt=""
+                   width="800" height="450" loading="lazy" decoding="async">
+            </picture>
+            <span class="video__play" aria-hidden="true"></span>
+          </div>
           <figcaption class="video__pie"><strong>Testimonio 2</strong><span>01:06</span></figcaption>
         </figure>
-        <figure class="video" style="margin:0">
-          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+        <figure class="video">
+          <div class="video__marco">
+            <picture>
+              <source srcset="assets/img/poster-video.webp?v=2" type="image/webp">
+              <img class="video__poster" src="assets/img/poster-video.jpg?v=2" alt=""
+                   width="800" height="450" loading="lazy" decoding="async">
+            </picture>
+            <span class="video__play" aria-hidden="true"></span>
+          </div>
           <figcaption class="video__pie"><strong>Testimonio 3</strong><span>01:33</span></figcaption>
         </figure>
-        <figure class="video" style="margin:0">
-          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+        <figure class="video">
+          <div class="video__marco">
+            <picture>
+              <source srcset="assets/img/poster-video.webp?v=2" type="image/webp">
+              <img class="video__poster" src="assets/img/poster-video.jpg?v=2" alt=""
+                   width="800" height="450" loading="lazy" decoding="async">
+            </picture>
+            <span class="video__play" aria-hidden="true"></span>
+          </div>
           <figcaption class="video__pie"><strong>Testimonio 4</strong><span>01:45</span></figcaption>
         </figure>
-        <figure class="video" style="margin:0">
-          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+        <figure class="video">
+          <div class="video__marco">
+            <picture>
+              <source srcset="assets/img/poster-video.webp?v=2" type="image/webp">
+              <img class="video__poster" src="assets/img/poster-video.jpg?v=2" alt=""
+                   width="800" height="450" loading="lazy" decoding="async">
+            </picture>
+            <span class="video__play" aria-hidden="true"></span>
+          </div>
           <figcaption class="video__pie"><strong>Testimonio 5</strong><span>01:17</span></figcaption>
         </figure>
       </div>
 
-      <div class="botones" style="margin-top:40px">
+      <div class="botones seccion__pie">
         <a class="boton boton--linea" href="congreso.html">Ver el próximo congreso</a>
       </div>
     </div>
@@ -146,7 +206,7 @@
     <div class="pie__rejilla">
       <div>
         <h4>La Sana Doctrina No Morirá</h4>
-        <p style="font-size:.92rem">
+        <p class="pie__lema">
           Un llamado a permanecer firmes en la verdad. No es una organización, sino
           un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!
         </p>
@@ -161,6 +221,7 @@
           <li><a href="mision.html">Misión</a></li>
           <li><a href="iglesias.html">Iglesias</a></li>
           <li><a href="remanente.html">Remanente</a></li>
+          <li><a href="pastores.html" class="pie__actual" aria-current="page">Pastores</a></li>
           <li><a href="congreso.html">Congreso</a></li>
           <li><a href="contacto.html">Contacto</a></li>
         </ul>
@@ -168,11 +229,13 @@
 
       <div>
         <h4>Contacto</h4>
+        <!-- FASE DE DISEÑO: datos provisionales, se revisan en la fase de contenido -->
         <ul class="pie__lista">
           <li>Pastor Junior Castillo</li>
           <li><a href="tel:+18622416144">(862) 241-6144</a></li>
           <li><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></li>
-          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">ipdfv.com</a></li>
+          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira"
+                 rel="noopener noreferrer">ipdfv.com</a></li>
         </ul>
       </div>
     </div>
@@ -184,6 +247,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=2"></script>
 </body>
 </html>

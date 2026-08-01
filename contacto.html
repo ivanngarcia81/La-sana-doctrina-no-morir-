@@ -4,21 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contacto — La Sana Doctrina No Morirá</title>
-<meta name="description" content="Escríbenos para sumar tu iglesia al movimiento, proponer una sede para el próximo congreso o hacer una consulta.">
-<meta name="theme-color" content="#101216">
+<meta name="description" content="Contacto: escríbenos para sumar tu iglesia al movimiento, proponer una sede para el próximo congreso o hacer una consulta.">
+<meta name="theme-color" content="#0d1f38">
+<link rel="canonical" href="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/contacto.html">
 
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="La Sana Doctrina No Morirá">
 <meta property="og:title" content="Contacto — La Sana Doctrina No Morirá">
-<meta property="og:description" content="Escríbenos para sumar tu iglesia al movimiento, proponer una sede para el próximo congreso o hacer una consulta.">
-<!-- Cuando el sitio tenga dominio propio, cambia esta ruta por la dirección
-     completa (https://tudominio.com/assets/img/logo.png) para que el logo
-     aparezca al compartir el enlace en WhatsApp, Facebook, etc. -->
-<meta property="og:image" content="assets/img/logo.png?v=2">
+<meta property="og:description" content="Contacto: escríbenos para sumar tu iglesia al movimiento, proponer una sede para el próximo congreso o hacer una consulta.">
+<meta property="og:url" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/contacto.html">
+<meta property="og:image" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/assets/img/logo.png">
+<meta property="og:image:alt" content="Escudo con espada y la cinta «La sana doctrina no morirá»">
 <meta property="og:locale" content="es_ES">
-<meta name="twitter:card" content="summary_large_image">
 
-<link rel="stylesheet" href="assets/css/estilo.css">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contacto — La Sana Doctrina No Morirá">
+<meta name="twitter:description" content="Contacto: escríbenos para sumar tu iglesia al movimiento, proponer una sede para el próximo congreso o hacer una consulta.">
+<meta name="twitter:image" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/assets/img/logo.png">
+
+<link rel="stylesheet" href="assets/css/estilo.css?v=2">
 <link rel="icon" href="assets/img/favicon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/sello.png?v=2">
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -37,15 +43,29 @@
     </a>
 
     <nav class="nav" id="menu-principal" aria-label="Navegación principal">
-      <a href="index.html">Inicio</a>
-      <a href="que-es.html">¿Qué es?</a>
-      <a href="apostasia.html">Apostasía</a>
-      <a href="mision.html">Misión</a>
-      <a href="iglesias.html">Iglesias</a>
-      <a href="remanente.html">Remanente</a>
-      <a href="pastores.html">Pastores</a>
-      <a href="congreso.html">Congreso</a>
-      <a href="contacto.html" class="activo" aria-current="page">Contacto</a>
+      <ul class="nav__lista">
+        <li class="nav__item"><a href="index.html" class="nav__enlace">Inicio</a></li>
+        <li class="nav__item nav__grupo" data-grupo>
+          <button type="button" class="nav__disparador" aria-expanded="false"
+                  aria-controls="submenu-proyecto" aria-haspopup="true">
+            El proyecto
+            <svg class="nav__flecha" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
+              <path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor"
+                    stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="nav__submenu" id="submenu-proyecto">
+            <li><a href="que-es.html">¿Qué es?</a></li>
+            <li><a href="apostasia.html">Apostasía</a></li>
+            <li><a href="mision.html">Misión</a></li>
+          </ul>
+        </li>
+        <li class="nav__item"><a href="iglesias.html" class="nav__enlace">Iglesias</a></li>
+        <li class="nav__item"><a href="remanente.html" class="nav__enlace">Remanente</a></li>
+        <li class="nav__item"><a href="pastores.html" class="nav__enlace">Pastores</a></li>
+        <li class="nav__item"><a href="congreso.html" class="nav__enlace">Congreso</a></li>
+        <li class="nav__item"><a href="contacto.html" class="nav__enlace activo" aria-current="page">Contacto</a></li>
+      </ul>
     </nav>
 
     <div class="acciones">
@@ -82,12 +102,14 @@
       <p class="portada__antetitulo">Escríbenos</p>
       <h1>Contacto</h1>
       <p class="portada__entrada">Si tu iglesia quiere sumarse al movimiento, proponer una sede para el próximo congreso o hacer una consulta, este es el camino.</p>
+      <div class="plomada plomada--clara"></div>
     </div>
   </section>
 
   <section class="seccion" id="contacto">
     <div class="contenedor">
       <div class="duo revelar">
+        <!-- FASE DE DISEÑO: el envío se conecta más adelante -->
         <form class="formulario" data-formulario-contacto
               data-destino="ig07644@gmail.com" data-asunto="Contacto">
           <div class="dosxdos">
@@ -137,10 +159,11 @@
         </form>
 
         <div>
+          <!-- FASE DE DISEÑO: datos provisionales -->
           <div class="tarjeta">
             <span class="tarjeta__indice">Contacto directo</span>
-            <h3>Pastor Junior Castillo</h3>
-            <div class="dato" style="margin-top:18px">
+            <h3 class="tarjeta__titulo">Pastor Junior Castillo</h3>
+            <div class="dato">
               <p class="dato__etiqueta">Teléfono</p>
               <p class="dato__valor"><a href="tel:+18622416144">(862) 241-6144</a></p>
             </div>
@@ -150,9 +173,9 @@
             </div>
           </div>
 
-          <div class="tarjeta" style="margin-top:20px">
+          <div class="tarjeta tarjeta--seguida">
             <span class="tarjeta__indice">Sedes</span>
-            <h3>Lleva el congreso a tu ciudad</h3>
+            <h3 class="tarjeta__titulo">Lleva el congreso a tu ciudad</h3>
             <p>
               El congreso se celebra cada año en un lugar distinto. Si tu iglesia
               desea recibirlo, escríbenos y conversamos sobre los requisitos y las
@@ -171,7 +194,7 @@
     <div class="pie__rejilla">
       <div>
         <h4>La Sana Doctrina No Morirá</h4>
-        <p style="font-size:.92rem">
+        <p class="pie__lema">
           Un llamado a permanecer firmes en la verdad. No es una organización, sino
           un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!
         </p>
@@ -188,16 +211,19 @@
           <li><a href="remanente.html">Remanente</a></li>
           <li><a href="pastores.html">Pastores</a></li>
           <li><a href="congreso.html">Congreso</a></li>
+          <li><a href="contacto.html" class="pie__actual" aria-current="page">Contacto</a></li>
         </ul>
       </div>
 
       <div>
         <h4>Contacto</h4>
+        <!-- FASE DE DISEÑO: datos provisionales, se revisan en la fase de contenido -->
         <ul class="pie__lista">
           <li>Pastor Junior Castillo</li>
           <li><a href="tel:+18622416144">(862) 241-6144</a></li>
           <li><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></li>
-          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">ipdfv.com</a></li>
+          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira"
+                 rel="noopener noreferrer">ipdfv.com</a></li>
         </ul>
       </div>
     </div>
@@ -209,6 +235,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=2"></script>
 </body>
 </html>

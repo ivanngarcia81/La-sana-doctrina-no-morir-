@@ -4,21 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La Sana Doctrina No Morirá</title>
-<meta name="description" content="Un llamado a permanecer firmes en la verdad. Proyecto que une a las iglesias conservadoras comprometidas con la verdad bíblica frente a la apostasía.">
-<meta name="theme-color" content="#101216">
+<meta name="description" content="Un llamado a permanecer firmes en la verdad: proyecto que une a las iglesias conservadoras comprometidas con la verdad bíblica frente a la apostasía.">
+<meta name="theme-color" content="#0d1f38">
+<link rel="canonical" href="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/">
 
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="La Sana Doctrina No Morirá">
 <meta property="og:title" content="La Sana Doctrina No Morirá">
-<meta property="og:description" content="Un llamado a permanecer firmes en la verdad. Proyecto que une a las iglesias conservadoras comprometidas con la verdad bíblica frente a la apostasía.">
-<!-- Cuando el sitio tenga dominio propio, cambia esta ruta por la dirección
-     completa (https://tudominio.com/assets/img/logo.png) para que el logo
-     aparezca al compartir el enlace en WhatsApp, Facebook, etc. -->
-<meta property="og:image" content="assets/img/logo.png?v=2">
+<meta property="og:description" content="Un llamado a permanecer firmes en la verdad: proyecto que une a las iglesias conservadoras comprometidas con la verdad bíblica frente a la apostasía.">
+<meta property="og:url" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/">
+<meta property="og:image" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/assets/img/logo.png">
+<meta property="og:image:alt" content="Escudo con espada y la cinta «La sana doctrina no morirá»">
 <meta property="og:locale" content="es_ES">
-<meta name="twitter:card" content="summary_large_image">
 
-<link rel="stylesheet" href="assets/css/estilo.css">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Sana Doctrina No Morirá">
+<meta name="twitter:description" content="Un llamado a permanecer firmes en la verdad: proyecto que une a las iglesias conservadoras comprometidas con la verdad bíblica frente a la apostasía.">
+<meta name="twitter:image" content="https://ivanngarcia81.github.io/La-sana-doctrina-no-morir-/assets/img/logo.png">
+
+<link rel="stylesheet" href="assets/css/estilo.css?v=2">
 <link rel="icon" href="assets/img/favicon.png?v=2" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/sello.png?v=2">
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -37,15 +43,29 @@
     </a>
 
     <nav class="nav" id="menu-principal" aria-label="Navegación principal">
-      <a href="index.html" class="activo" aria-current="page">Inicio</a>
-      <a href="que-es.html">¿Qué es?</a>
-      <a href="apostasia.html">Apostasía</a>
-      <a href="mision.html">Misión</a>
-      <a href="iglesias.html">Iglesias</a>
-      <a href="remanente.html">Remanente</a>
-      <a href="pastores.html">Pastores</a>
-      <a href="congreso.html">Congreso</a>
-      <a href="contacto.html">Contacto</a>
+      <ul class="nav__lista">
+        <li class="nav__item"><a href="index.html" class="nav__enlace activo" aria-current="page">Inicio</a></li>
+        <li class="nav__item nav__grupo" data-grupo>
+          <button type="button" class="nav__disparador" aria-expanded="false"
+                  aria-controls="submenu-proyecto" aria-haspopup="true">
+            El proyecto
+            <svg class="nav__flecha" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true">
+              <path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor"
+                    stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="nav__submenu" id="submenu-proyecto">
+            <li><a href="que-es.html">¿Qué es?</a></li>
+            <li><a href="apostasia.html">Apostasía</a></li>
+            <li><a href="mision.html">Misión</a></li>
+          </ul>
+        </li>
+        <li class="nav__item"><a href="iglesias.html" class="nav__enlace">Iglesias</a></li>
+        <li class="nav__item"><a href="remanente.html" class="nav__enlace">Remanente</a></li>
+        <li class="nav__item"><a href="pastores.html" class="nav__enlace">Pastores</a></li>
+        <li class="nav__item"><a href="congreso.html" class="nav__enlace">Congreso</a></li>
+        <li class="nav__item"><a href="contacto.html" class="nav__enlace">Contacto</a></li>
+      </ul>
     </nav>
 
     <div class="acciones">
@@ -77,17 +97,17 @@
 </header>
 
 <main id="contenido">
-  <section class="portada" id="inicio">
+  <section class="portada portada--inicio" id="inicio">
     <div class="contenedor">
       <!-- Logotipo oficial. Para cambiarlo basta con reemplazar los archivos
            assets/img/logo.webp y assets/img/logo.png. -->
       <picture class="portada__emblema">
         <source srcset="assets/img/logo.webp?v=2" type="image/webp">
-        <img src="assets/img/logo.png?v=2" width="654" height="680"
+        <img src="assets/img/logo.png?v=2" width="654" height="680" fetchpriority="high"
              alt="Emblema: escudo y espada con la cinta «La sana doctrina no morirá»">
       </picture>
       <p class="portada__antetitulo">La Sana Doctrina No Morirá</p>
-      <h1>Un Llamado a Permanecer Firmes en la Verdad</h1>
+      <h1>Un llamado a permanecer firmes en la verdad</h1>
       <p class="portada__cita">
         “Retén la forma de las sanas palabras que de mí oíste…”
         <cite>2 Timoteo 1:13</cite>
@@ -119,7 +139,7 @@
           en un frente común contra la creciente <strong>apostasía</strong>, la
           <strong>herejía</strong>, y las <strong>mentiras disfrazadas de evangelio</strong>.
         </p>
-        <p style="margin-top:26px">
+        <p class="seccion__pie">
           <a class="boton boton--linea" href="que-es.html">Seguir leyendo</a>
         </p>
       </div>
@@ -135,34 +155,34 @@
       </div>
 
       <div class="rejilla rejilla--3 revelar">
-        <a class="tarjeta" href="que-es.html">
+        <a class="tarjeta tarjeta--enlace" href="que-es.html">
           <span class="tarjeta__indice">Fundamento</span>
-          <h3>¿Qué es «La Sana Doctrina No Morirá»?</h3>
+          <h3 class="tarjeta__titulo">¿Qué es «La Sana Doctrina No Morirá»?</h3>
           <p>Un clamor espiritual para volver al fundamento de Cristo y su doctrina pura.</p>
         </a>
-        <a class="tarjeta" href="apostasia.html">
+        <a class="tarjeta tarjeta--enlace" href="apostasia.html">
           <span class="tarjeta__indice">El tiempo que vivimos</span>
-          <h3>Enfrentando la Apostasía</h3>
+          <h3 class="tarjeta__titulo">Enfrentando la apostasía</h3>
           <p>Mensajes que entretienen pero no santifican, promesas sin cruz, éxito sin obediencia.</p>
         </a>
-        <a class="tarjeta" href="mision.html">
+        <a class="tarjeta tarjeta--enlace" href="mision.html">
           <span class="tarjeta__indice">Compromisos</span>
-          <h3>Nuestra Misión</h3>
+          <h3 class="tarjeta__titulo">Nuestra misión</h3>
           <p>Unir, confrontar, denunciar y afirmar la verdad de las Escrituras.</p>
         </a>
-        <a class="tarjeta" href="iglesias.html">
+        <a class="tarjeta tarjeta--enlace" href="iglesias.html">
           <span class="tarjeta__indice">El distintivo</span>
-          <h3>Iglesias que Viven la Sana Doctrina</h3>
+          <h3 class="tarjeta__titulo">Iglesias que viven la sana doctrina</h3>
           <p>Viven en santidad, predican la Palabra sin alterarla y disciernen los tiempos.</p>
         </a>
-        <a class="tarjeta" href="pastores.html">
+        <a class="tarjeta tarjeta--enlace" href="pastores.html">
           <span class="tarjeta__indice">Testimonios</span>
-          <h3>Pastores Defensores</h3>
+          <h3 class="tarjeta__titulo">Pastores defensores</h3>
           <p>Siervos que se levantaron como firmes defensores de la sana doctrina.</p>
         </a>
-        <a class="tarjeta" href="congreso.html">
+        <a class="tarjeta tarjeta--enlace" href="congreso.html">
           <span class="tarjeta__indice">Cada año</span>
-          <h3>El Congreso</h3>
+          <h3 class="tarjeta__titulo">El congreso</h3>
           <p>Una vez al año, en una ciudad distinta, para que la enseñanza alcance más pueblos.</p>
         </a>
       </div>
@@ -183,14 +203,14 @@
   <section class="seccion seccion--centrada">
     <div class="contenedor contenedor--angosto">
       <div class="revelar">
-        <h2>¿Eres Parte del Remanente?</h2>
+        <h2>¿Eres parte del remanente?</h2>
         <div class="plomada"></div>
         <p class="texto-guia">
           Si tu iglesia defiende la sana doctrina, vive conforme a la Palabra y
           <strong>no transige con el error</strong>, te invitamos a
           <strong>unirte a este proyecto de unidad y restauración</strong>.
         </p>
-        <div class="botones" style="margin-top:28px">
+        <div class="botones seccion__pie">
           <a class="boton boton--principal" href="contacto.html">Quiero unirme</a>
           <a class="boton boton--linea" href="remanente.html">Leer el llamado</a>
         </div>
@@ -205,7 +225,7 @@
     <div class="pie__rejilla">
       <div>
         <h4>La Sana Doctrina No Morirá</h4>
-        <p style="font-size:.92rem">
+        <p class="pie__lema">
           Un llamado a permanecer firmes en la verdad. No es una organización, sino
           un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!
         </p>
@@ -214,6 +234,7 @@
       <div>
         <h4>Secciones</h4>
         <ul class="pie__lista">
+          <li><a href="index.html" class="pie__actual" aria-current="page">Inicio</a></li>
           <li><a href="que-es.html">¿Qué es?</a></li>
           <li><a href="apostasia.html">Apostasía</a></li>
           <li><a href="mision.html">Misión</a></li>
@@ -227,11 +248,13 @@
 
       <div>
         <h4>Contacto</h4>
+        <!-- FASE DE DISEÑO: datos provisionales, se revisan en la fase de contenido -->
         <ul class="pie__lista">
           <li>Pastor Junior Castillo</li>
           <li><a href="tel:+18622416144">(862) 241-6144</a></li>
           <li><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></li>
-          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">ipdfv.com</a></li>
+          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira"
+                 rel="noopener noreferrer">ipdfv.com</a></li>
         </ul>
       </div>
     </div>
@@ -243,6 +266,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=2"></script>
 </body>
 </html>
