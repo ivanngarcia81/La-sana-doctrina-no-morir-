@@ -345,6 +345,7 @@ body.sin-scroll { overflow: hidden; }
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(233,200,119,.4);
   border-radius: 999px; text-decoration: none;
+  color: var(--sobre-oscuro);
   transition: var(--transicion);
 }
 .aviso:hover { background: rgba(255,255,255,.12); border-color: var(--oro); }
@@ -568,7 +569,7 @@ body.sin-scroll { overflow: hidden; }
 }
 .cuenta__aviso {
   margin: 0 auto; max-width: 42ch; padding: 16px 20px;
-  background: rgba(233,200,119,.12); border: 1px solid rgba(233,200,119,.4);
+  background: rgba(7, 20, 38, .55); border: 1px solid rgba(233,200,119,.45);
   border-radius: var(--radio); color: var(--oro-claro); font-weight: 700;
 }
 .cuenta__aviso[hidden] { display: none; }
@@ -598,7 +599,7 @@ body.sin-scroll { overflow: hidden; }
   border-left: 4px solid var(--filete); border-radius: var(--radio);
   padding: 30px 28px; text-align: left;
 }
-.jornada__fecha {
+.jornada p.jornada__fecha {
   display: inline-block; margin-bottom: 14px; padding: 5px 12px;
   background: var(--negro); color: var(--oro-claro);
   font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
