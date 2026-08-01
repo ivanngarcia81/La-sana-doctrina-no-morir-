@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150" role="img" aria-label="Escudo y espada">
+  <defs>
+    <linearGradient id="s-acero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8d99a6"/>
+      <stop offset="50%" stop-color="#5d6875"/>
+      <stop offset="100%" stop-color="#3a434e"/>
+    </linearGradient>
+    <linearGradient id="s-filo" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c9d1d9"/>
+      <stop offset="50%" stop-color="#f2f5f8"/>
+      <stop offset="100%" stop-color="#9aa5b1"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 30 H108 V88 C108 120 86 141 60 152 C34 141 12 120 12 88 Z"
+        fill="url(#s-acero)" stroke="#2b333c" stroke-width="3"/>
+  <path d="M54 56 H66 V132 L60 144 L54 132 Z" fill="url(#s-filo)" stroke="#7d8894" stroke-width="1.2"/>
+  <path d="M26 56 C38 49 82 49 94 56 C82 62 38 62 26 56 Z" fill="url(#s-filo)" stroke="#7d8894" stroke-width="1.2"/>
+  <rect x="54" y="22" width="12" height="34" rx="3" fill="#8d0d14" stroke="#4d060c" stroke-width="1.2"/>
+  <circle cx="60" cy="18" r="7.5" fill="url(#s-acero)" stroke="#2b333c" stroke-width="1.6"/>
+</svg>

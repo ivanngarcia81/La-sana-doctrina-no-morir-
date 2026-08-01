@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" role="img"
+     aria-labelledby="tituloEmblema">
+  <title id="tituloEmblema">Emblema: escudo y espada con la cinta «La sana doctrina no morirá»</title>
+
+  <defs>
+    <linearGradient id="acero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#8d99a6"/>
+      <stop offset="45%" stop-color="#5d6875"/>
+      <stop offset="100%" stop-color="#3a434e"/>
+    </linearGradient>
+    <linearGradient id="filo" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#c9d1d9"/>
+      <stop offset="50%" stop-color="#f2f5f8"/>
+      <stop offset="100%" stop-color="#9aa5b1"/>
+    </linearGradient>
+    <linearGradient id="cinta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#e9c877"/>
+      <stop offset="55%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#a5811a"/>
+    </linearGradient>
+    <linearGradient id="empunadura" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#a01018"/>
+      <stop offset="100%" stop-color="#6d0810"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Escudo -->
+  <path d="M42 34 H158 V96 C158 132 132 156 100 170 C68 156 42 132 42 96 Z"
+        fill="url(#acero)" stroke="#2b333c" stroke-width="3"/>
+  <path d="M50 41 H150 V96 C150 127 127 149 100 161 C73 149 50 127 50 96 Z"
+        fill="none" stroke="#9aa5b1" stroke-width="1.6" opacity=".55"/>
+
+  <!-- Remaches -->
+  <g fill="#c3ccd5" opacity=".85">
+    <circle cx="57" cy="49" r="2.6"/><circle cx="143" cy="49" r="2.6"/>
+    <circle cx="57" cy="76" r="2.6"/><circle cx="143" cy="76" r="2.6"/>
+    <circle cx="57" cy="103" r="2.6"/><circle cx="143" cy="103" r="2.6"/>
+    <circle cx="66" cy="128" r="2.6"/><circle cx="134" cy="128" r="2.6"/>
+    <circle cx="100" cy="155" r="2.6"/>
+  </g>
+
+  <!-- Espada -->
+  <g>
+    <!-- hoja -->
+    <path d="M94 62 H106 V148 L100 162 L94 148 Z" fill="url(#filo)" stroke="#7d8894" stroke-width="1.2"/>
+    <path d="M100 62 V160" stroke="#8f9aa6" stroke-width="1" opacity=".8"/>
+    <!-- guarda -->
+    <path d="M62 62 C74 54 126 54 138 62 C126 68 74 68 62 62 Z"
+          fill="url(#filo)" stroke="#7d8894" stroke-width="1.2"/>
+    <!-- empuñadura -->
+    <rect x="94" y="24" width="12" height="38" rx="3" fill="url(#empunadura)" stroke="#4d060c" stroke-width="1.2"/>
+    <!-- pomo -->
+    <circle cx="100" cy="20" r="8" fill="url(#acero)" stroke="#2b333c" stroke-width="1.6"/>
+  </g>
+
+  <!-- Cinta -->
+  <g>
+    <path d="M6 108 L34 100 V128 L6 136 Z" fill="#8d6a12"/>
+    <path d="M194 108 L166 100 V128 L194 136 Z" fill="#8d6a12"/>
+    <path d="M28 100 C74 90 126 90 172 100 V126 C126 116 74 116 28 126 Z"
+          fill="url(#cinta)" stroke="#8d6a12" stroke-width="1.6"/>
+    <text x="100" y="117" text-anchor="middle"
+          textLength="140" lengthAdjust="spacingAndGlyphs"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="11" font-weight="700" fill="#3a2a05">LA SANA DOCTRINA NO MORIRÁ</text>
+  </g>
+</svg>

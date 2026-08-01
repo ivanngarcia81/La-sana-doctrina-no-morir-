@@ -3,262 +3,458 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>La sana doctrina no morirá</title>
-<meta name="description" content="La sana doctrina no morirá — un espacio dedicado a la enseñanza, defensa y proclamación de la sana doctrina conforme a las Sagradas Escrituras.">
-<meta name="author" content="La sana doctrina no morirá">
-<meta name="theme-color" content="#0e1726">
+<title>La Sana Doctrina No Morirá</title>
+<meta name="description" content="Un llamado a permanecer firmes en la verdad. Proyecto que une a las iglesias conservadoras comprometidas con la verdad bíblica en un frente común contra la apostasía, la herejía y las mentiras disfrazadas de evangelio.">
+<meta name="theme-color" content="#101216">
 
-<!-- Redes sociales -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="La sana doctrina no morirá">
-<meta property="og:description" content="Enseñanza, defensa y proclamación de la sana doctrina conforme a las Sagradas Escrituras.">
+<meta property="og:title" content="La Sana Doctrina No Morirá">
+<meta property="og:description" content="Un llamado a permanecer firmes en la verdad. No es una organización, sino un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!">
+<meta property="og:image" content="assets/img/emblema.svg">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="stylesheet" href="assets/css/estilo.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230e1726'/><text x='16' y='23' font-size='20' text-anchor='middle' fill='%23b8892f' font-family='Georgia,serif'>✝</text></svg>">
+<link rel="icon" href="assets/img/sello.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 
 <header class="encabezado">
   <div class="contenedor encabezado__fila">
-    <a class="marca" href="index.html">
-      <span class="marca__sello" aria-hidden="true">✝</span>
+    <a class="marca" href="#inicio">
+      <img src="assets/img/sello.svg" alt="" width="30" height="38">
       <span class="marca__texto">
-        <span class="marca__titulo">La sana doctrina</span>
-        <span class="marca__lema">no morirá</span>
+        <span class="marca__titulo">La Sana Doctrina</span>
+        <span class="marca__lema">No Morirá</span>
       </span>
     </a>
 
     <nav class="nav" id="menu-principal" aria-label="Navegación principal">
-      <a href="index.html" aria-current="page">Inicio</a>
-      <a href="index.html#fundamentos">Fundamentos</a>
-      <a href="ensenanzas.html">Enseñanzas</a>
-      <a href="acerca.html">Acerca</a>
-      <a href="contacto.html">Contacto</a>
+      <a href="#que-es">¿Qué es?</a>
+      <a href="#apostasia">Apostasía</a>
+      <a href="#mision">Misión</a>
+      <a href="#iglesias">Iglesias</a>
+      <a href="#remanente">Remanente</a>
+      <a href="#pastores">Pastores</a>
+      <a href="#congreso">Congreso</a>
+      <a href="#contacto">Contacto</a>
     </nav>
 
     <div class="acciones">
-      <button class="boton-tema" type="button" aria-label="Cambiar tema">☾</button>
+      <button class="boton-tema" type="button" aria-label="Cambiar tema">
+        <svg class="icono icono--luna" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"
+                fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linejoin="round"/>
+        </svg>
+        <svg class="icono icono--sol" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
       <button class="boton-menu" type="button" aria-label="Abrir menú"
-              aria-expanded="false" aria-controls="menu-principal">☰</button>
+              aria-expanded="false" aria-controls="menu-principal">
+        <svg class="icono icono--barras" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"
+                stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+        <svg class="icono icono--equis" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M5.5 5.5l13 13M18.5 5.5l-13 13"
+                stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
 
 <main id="contenido">
 
-  <!-- ===================== PORTADA ===================== -->
-  <section class="portada">
+  <!-- ================= PORTADA ================= -->
+  <section class="portada" id="inicio">
     <div class="contenedor">
-      <p class="portada__antetitulo">Enseñanza bíblica · Defensa de la fe</p>
-      <h1>La sana doctrina no morirá</h1>
-      <p class="portada__entrada">
-        Un espacio dedicado a enseñar, defender y proclamar la doctrina que los
-        apóstoles recibieron y transmitieron. Mientras haya una Biblia abierta y
-        un corazón dispuesto, la sana doctrina seguirá viva.
-      </p>
-
-      <blockquote class="portada__cita">
-        «Retén la forma de las sanas palabras que de mí oíste, en la fe y amor
-        que es en Cristo Jesús.»
+      <img class="portada__emblema" src="assets/img/emblema.svg"
+           alt="Emblema: escudo y espada con la cinta «La sana doctrina no morirá»"
+           width="230" height="219">
+      <p class="portada__antetitulo">La Sana Doctrina No Morirá</p>
+      <h1>Un Llamado a Permanecer Firmes en la Verdad</h1>
+      <p class="portada__cita">
+        “Retén la forma de las sanas palabras que de mí oíste…”
         <cite>2 Timoteo 1:13</cite>
-      </blockquote>
-
+      </p>
       <div class="botones">
-        <a class="boton boton--principal" href="ensenanzas.html">Ver las enseñanzas</a>
-        <a class="boton boton--fantasma" href="#proposito">Conocer el propósito</a>
+        <a class="boton boton--principal" href="#remanente">¿Eres parte del remanente?</a>
+        <a class="boton boton--fantasma" href="#que-es">Conoce el proyecto</a>
       </div>
     </div>
   </section>
 
-  <!-- ===================== PROPÓSITO ===================== -->
-  <section class="seccion" id="proposito">
+  <!-- ================= ¿QUÉ ES? ================= -->
+  <section class="seccion seccion--centrada" id="que-es">
+    <div class="contenedor contenedor--angosto">
+      <div class="revelar">
+        <h2>¿Qué es “La Sana Doctrina No Morirá”?</h2>
+        <div class="plomada"></div>
+
+        <p class="texto-guia">
+          <strong>“La Sana Doctrina No Morirá”</strong> es un proyecto nacido en el
+          corazón de Dios para este tiempo final. Es una visión que une a las
+          <strong>iglesias conservadoras</strong> comprometidas con la verdad bíblica,
+          en un frente común contra la creciente <strong>apostasía</strong>, la
+          <strong>herejía</strong>, y las <strong>mentiras disfrazadas de evangelio</strong>.
+        </p>
+
+        <p class="texto-guia">
+          En un mundo donde la verdad está siendo diluida con levadura doctrinal,
+          este movimiento levanta bandera de <strong>fidelidad a la Palabra</strong>.
+          No es una organización, sino un clamor espiritual:
+          <strong>¡volver al fundamento de Cristo y su doctrina pura!</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APOSTASÍA ================= -->
+  <section class="seccion seccion--alterna" id="apostasia">
     <div class="contenedor">
       <div class="duo revelar">
         <div>
-          <p class="seccion__eyebrow">Nuestro propósito</p>
-          <h2>Porque vendrá tiempo cuando no sufrirán la sana doctrina</h2>
-          <p>
-            El apóstol Pablo advirtió a Timoteo que llegaría un tiempo en que muchos
-            no soportarían la sana doctrina, sino que, teniendo comezón de oír, se
-            amontonarían maestros conforme a sus propias concupiscencias. Ese tiempo
-            no es una profecía lejana: es el terreno en el que hoy caminamos.
+          <p class="seccion__eyebrow">El tiempo que vivimos</p>
+          <h2>Enfrentando la Apostasía</h2>
+          <div class="plomada"></div>
+          <p><strong>Vivimos tiempos profetizados por el apóstol Pablo:</strong></p>
+          <p style="font-family:var(--serif);font-style:italic;font-size:1.12rem">
+            “Porque vendrá tiempo cuando no sufrirán la sana doctrina…”
+            <span style="display:block;font-style:normal;font-family:var(--sans);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acento);margin-top:8px;font-weight:700">2 Timoteo 4:3</span>
           </p>
           <p>
-            Este sitio nace con una convicción sencilla: la Palabra de Dios permanece
-            para siempre. Las modas cambian, los púlpitos se llenan de novedades, pero
-            la doctrina que salva sigue siendo la misma que fue una vez dada a los santos.
-          </p>
-          <p>
-            Aquí encontrarás estudios, exposiciones y recursos escritos con un solo fin:
-            que el creyente sepa <em>qué</em> cree y <em>por qué</em> lo cree.
+            Hoy muchos buscan mensajes que entretienen pero no santifican, promesas
+            sin cruz, éxito sin obediencia. Frente a esta realidad,
+            <strong>“La Sana Doctrina No Morirá”</strong> es un
+            <strong>grito de alerta</strong>, una <strong>convocatoria a la fidelidad</strong>.
           </p>
         </div>
 
         <div>
-          <h3>Lo que hacemos</h3>
-          <ul class="lista-limpia">
-            <li>Exponer las Escrituras versículo por versículo, sin atajos.</li>
-            <li>Contrastar toda enseñanza con el texto bíblico, no con la opinión popular.</li>
-            <li>Formar creyentes capaces de discernir entre lo verdadero y lo falso.</li>
-            <li>Preservar por escrito la enseñanza para las generaciones que vienen.</li>
-            <li>Responder con mansedumbre, pero sin ceder en lo esencial.</li>
-          </ul>
+          <div class="tarjeta">
+            <span class="tarjeta__indice">Lo que se predica hoy</span>
+            <h3>Mensajes que entretienen pero no santifican</h3>
+            <p>Promesas sin cruz. Éxito sin obediencia. Emoción sin transformación.</p>
+          </div>
+          <div class="tarjeta" style="margin-top:20px">
+            <span class="tarjeta__indice">Nuestra respuesta</span>
+            <h3>Un grito de alerta y una convocatoria a la fidelidad</h3>
+            <p>Volver al fundamento de Cristo y a su doctrina pura, sin negociarla.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== FUNDAMENTOS ===================== -->
-  <section class="seccion seccion--alterna" id="fundamentos">
+  <!-- ================= MISIÓN ================= -->
+  <section class="seccion seccion--centrada" id="mision">
     <div class="contenedor">
       <div class="seccion__encabezado revelar">
-        <p class="seccion__eyebrow">Fundamentos</p>
-        <h2>Los pilares que sostienen esta enseñanza</h2>
+        <p class="seccion__eyebrow">Nuestra Misión</p>
+        <h2>Cuatro compromisos que nos definen</h2>
+        <div class="plomada"></div>
+      </div>
+
+      <div class="rejilla rejilla--2 revelar">
+        <article class="tarjeta">
+          <span class="tarjeta__indice">Compromiso I</span>
+          <h3>Unir a las iglesias de sana doctrina</h3>
+          <p>Bajo un mismo sentir: defender la verdad y rechazar la falsedad.</p>
+        </article>
+
+        <article class="tarjeta">
+          <span class="tarjeta__indice">Compromiso II</span>
+          <h3>Confrontar las falsas enseñanzas</h3>
+          <p>
+            Profetas mentirosos y predicadores corruptos que distorsionan el
+            Evangelio por ganancia deshonesta.
+          </p>
+        </article>
+
+        <article class="tarjeta">
+          <span class="tarjeta__indice">Compromiso III</span>
+          <h3>Denunciar la levadura doctrinal</h3>
+          <p>
+            La que contamina el mensaje puro de Cristo: prosperidad sin
+            arrepentimiento, emociones sin transformación, religiosidad sin santidad.
+          </p>
+        </article>
+
+        <article class="tarjeta">
+          <span class="tarjeta__indice">Compromiso IV</span>
+          <h3>Afirmar la verdad de las Escrituras</h3>
+          <p>Como norma suprema de fe y conducta.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IGLESIAS ================= -->
+  <section class="seccion seccion--alterna seccion--centrada" id="iglesias">
+    <div class="contenedor contenedor--angosto">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">El distintivo</p>
+        <h2>Iglesias que Viven la Sana Doctrina</h2>
+        <div class="plomada"></div>
+        <p>Las iglesias que se identifican con este llamado:</p>
+      </div>
+
+      <ul class="lista-marcada revelar">
+        <li><strong>Viven en santidad</strong>: no por tradición, sino por convicción.</li>
+        <li><strong>Predican la Palabra sin alterarla</strong>: sin añadir ni quitar.</li>
+        <li><strong>Disciernen los tiempos</strong>: no se dejan seducir por modas espirituales ni espectáculos religiosos.</li>
+        <li><strong>Examinan todo a la luz de la Biblia</strong> y no por popularidad o apariencias.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= REMANENTE ================= -->
+  <section class="seccion seccion--centrada" id="remanente">
+    <div class="contenedor contenedor--angosto">
+      <div class="revelar">
+        <h2>¿Eres Parte del Remanente?</h2>
+        <div class="plomada"></div>
+        <p class="texto-guia">
+          Si tu iglesia defiende la sana doctrina, vive conforme a la Palabra y
+          <strong>no transige con el error</strong>, te invitamos a
+          <strong>unirte a este proyecto de unidad y restauración</strong>.
+          La batalla por la verdad sigue vigente, y
+          <strong>la sana doctrina no morirá</strong> porque ha sido plantada por
+          Dios mismo.
+        </p>
+        <div class="botones" style="margin-top:28px">
+          <a class="boton boton--principal" href="#contacto">Quiero unirme</a>
+          <a class="boton boton--linea" href="#suscribete">Recibir información</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MOVIMIENTO ================= -->
+  <section class="seccion seccion--alterna seccion--centrada" id="movimiento">
+    <div class="contenedor contenedor--angosto">
+      <div class="revelar">
+        <h2>Un Movimiento de Dios</h2>
+        <div class="plomada"></div>
+
+        <div class="lemas">
+          <p class="lema">No es un nombre, es un <span>propósito</span>.</p>
+          <p class="lema">No es un grupo más, es un <span>remanente fiel</span>.</p>
+        </div>
+
+        <p class="texto-guia">
+          Dios está levantando una generación que no se arrodilla ante Baal, que no
+          vende su mensaje por fama o ganancias, que anhela la pureza del Evangelio
+          y no se avergüenza de proclamar la verdad, aunque sea impopular.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PASTORES ================= -->
+  <section class="seccion seccion--centrada" id="pastores">
+    <div class="contenedor">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">Testimonios del congreso</p>
+        <h2>Pastores Defensores De La Sana Doctrina</h2>
+        <div class="plomada"></div>
         <p>
-          No son opiniones ni tradiciones humanas: son las columnas que la Escritura
-          misma levanta y sobre las que descansa todo lo que aquí se enseña.
+          En el reciente Congreso “La Sana Doctrina No Morirá”, fuimos honrados con
+          la participación de pastores comprometidos con la verdad inmutable del
+          Evangelio. Estos siervos de Dios no solo asistieron al evento, sino que se
+          levantaron como firmes defensores de la sana doctrina en medio de un tiempo
+          donde muchos se desvían del consejo bíblico.
         </p>
       </div>
 
+      <!--
+        VIDEOS — Para publicar los videos reales, sustituye cada bloque
+        <div class="video__marco"> … </div> por uno de estos dos:
+
+          a) Archivo propio:
+             <video controls preload="metadata" poster="assets/img/portada-1.jpg">
+               <source src="assets/video/pastor-1.mp4" type="video/mp4">
+             </video>
+
+          b) YouTube:
+             <div class="video__marco"><iframe style="width:100%;height:100%;border:0"
+               src="https://www.youtube.com/embed/ID" title="Testimonio"
+               allowfullscreen loading="lazy"></iframe></div>
+      -->
       <div class="rejilla rejilla--3 revelar">
-        <article class="tarjeta">
-          <span class="tarjeta__numero">I</span>
-          <h3>La autoridad de la Escritura</h3>
-          <p>
-            Toda la Escritura es inspirada por Dios y útil para enseñar, redargüir,
-            corregir e instruir en justicia. Es la regla final de fe y conducta.
-          </p>
-          <span class="tarjeta__ref">2 Timoteo 3:16-17</span>
-        </article>
-
-        <article class="tarjeta">
-          <span class="tarjeta__numero">II</span>
-          <h3>Cristo, el centro</h3>
-          <p>
-            Toda doctrina sana conduce a Cristo. Él es el camino, la verdad y la vida;
-            nadie viene al Padre sino por Él.
-          </p>
-          <span class="tarjeta__ref">Juan 14:6</span>
-        </article>
-
-        <article class="tarjeta">
-          <span class="tarjeta__numero">III</span>
-          <h3>La salvación por gracia</h3>
-          <p>
-            Somos salvos por gracia, por medio de la fe; no por obras, para que nadie
-            se gloríe. La obediencia es fruto, no precio.
-          </p>
-          <span class="tarjeta__ref">Efesios 2:8-9</span>
-        </article>
-
-        <article class="tarjeta">
-          <span class="tarjeta__numero">IV</span>
-          <h3>La santidad de vida</h3>
-          <p>
-            La sana doctrina siempre produce una vida sana. Sin santidad nadie verá
-            al Señor; lo que se cree se vive.
-          </p>
-          <span class="tarjeta__ref">Hebreos 12:14</span>
-        </article>
-
-        <article class="tarjeta">
-          <span class="tarjeta__numero">V</span>
-          <h3>El discernimiento</h3>
-          <p>
-            Probad los espíritus si son de Dios, porque muchos falsos profetas han
-            salido por el mundo. Creer todo no es fe: es ingenuidad.
-          </p>
-          <span class="tarjeta__ref">1 Juan 4:1</span>
-        </article>
-
-        <article class="tarjeta">
-          <span class="tarjeta__numero">VI</span>
-          <h3>La permanencia de la Palabra</h3>
-          <p>
-            La hierba se seca y la flor se marchita, mas la palabra de nuestro Dios
-            permanece para siempre. Por eso la sana doctrina no morirá.
-          </p>
-          <span class="tarjeta__ref">Isaías 40:8</span>
-        </article>
+        <figure class="video" style="margin:0">
+          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+          <figcaption class="video__pie"><strong>Testimonio 1</strong><span>01:35</span></figcaption>
+        </figure>
+        <figure class="video" style="margin:0">
+          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+          <figcaption class="video__pie"><strong>Testimonio 2</strong><span>01:06</span></figcaption>
+        </figure>
+        <figure class="video" style="margin:0">
+          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+          <figcaption class="video__pie"><strong>Testimonio 3</strong><span>01:33</span></figcaption>
+        </figure>
+        <figure class="video" style="margin:0">
+          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+          <figcaption class="video__pie"><strong>Testimonio 4</strong><span>01:45</span></figcaption>
+        </figure>
+        <figure class="video" style="margin:0">
+          <div class="video__marco"><span class="video__play" aria-hidden="true"></span></div>
+          <figcaption class="video__pie"><strong>Testimonio 5</strong><span>01:17</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- ===================== ENSEÑANZAS DESTACADAS ===================== -->
-  <section class="seccion" id="destacadas">
+  <!-- ================= FRANJA ================= -->
+  <section class="franja">
+    <div class="contenedor">
+      <blockquote>
+        “Porque vendrá tiempo cuando no sufrirán la sana doctrina; antes, teniendo
+        comezón de oír, se amontonarán maestros conforme a sus propias
+        concupiscencias.”
+        <cite>2 Timoteo 4:3</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ================= CONGRESO ================= -->
+  <section class="seccion seccion--centrada" id="congreso">
     <div class="contenedor">
       <div class="seccion__encabezado revelar">
-        <p class="seccion__eyebrow">Enseñanzas</p>
-        <h2>Estudios destacados</h2>
-        <p>Material escrito para leer con la Biblia abierta al lado.</p>
+        <p class="seccion__eyebrow">Próximo Congreso</p>
+        <h2>Cartagena, Colombia · Julio 2026</h2>
+        <div class="plomada"></div>
       </div>
 
       <div class="rejilla rejilla--3 revelar">
-        <a class="tarjeta" href="ensenanzas.html#que-es">
-          <p class="tarjeta__meta">Fundamento</p>
-          <h3>¿Qué es la sana doctrina?</h3>
-          <p>Definición bíblica del término, su uso en las epístolas pastorales y por qué el adjetivo «sana» no es decorativo.</p>
-        </a>
-
-        <a class="tarjeta" href="ensenanzas.html#senales">
-          <p class="tarjeta__meta">Discernimiento</p>
-          <h3>Cómo reconocer una doctrina falsa</h3>
-          <p>Siete señales que la Escritura señala para identificar la enseñanza que corrompe, aunque venga bien vestida.</p>
-        </a>
-
-        <a class="tarjeta" href="ensenanzas.html#permanencia">
-          <p class="tarjeta__meta">Esperanza</p>
-          <h3>Por qué la sana doctrina no morirá</h3>
-          <p>La promesa de Dios sobre su Palabra y el remanente que en cada generación la ha guardado.</p>
-        </a>
-      </div>
-
-      <p style="margin-top:32px">
-        <a class="boton boton--linea" href="ensenanzas.html">Ver todas las enseñanzas</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- ===================== VERSÍCULO ===================== -->
-  <section class="seccion seccion--alterna">
-    <div class="contenedor">
-      <div class="versiculo revelar">
-        <blockquote>
-          «Porque vendrá tiempo cuando no sufrirán la sana doctrina; antes, teniendo
-          comezón de oír, se amontonarán maestros conforme a sus propias
-          concupiscencias, y apartarán de la verdad el oído.»
-          <cite>2 Timoteo 4:3-4</cite>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== LLAMADO ===================== -->
-  <section class="seccion" id="participa">
-    <div class="contenedor">
-      <div class="duo revelar">
-        <div>
-          <p class="seccion__eyebrow">Participa</p>
-          <h2>Sostén la enseñanza, compártela, vívela</h2>
+        <article class="jornada">
+          <p class="jornada__fecha">Viernes 17 julio 2026</p>
+          <h3>La Sana Doctrina No Morirá · Apertura en Cartagena, Colombia</h3>
           <p>
-            Este sitio no vive de audiencias, sino de convicciones. Si estas enseñanzas
-            te han sido de bendición, hay tres maneras concretas de sumarte.
+            Con gozo en el Señor, damos inicio al Congreso “La Sana Doctrina No
+            Morirá”, un espacio dedicado a exaltar la verdad de la Palabra de Dios y
+            afirmar nuestra fe en tiempos de confusión doctrinal. Hoy nos
+            congregamos con un solo propósito: defender, vivir y proclamar la sana
+            doctrina que ha sido transmitida por los apóstoles y permanece viva por
+            el Espíritu Santo. ¡Bienvenidos todos!
           </p>
-          <div class="botones">
-            <a class="boton boton--oscuro" href="contacto.html">Escríbenos</a>
-            <a class="boton boton--linea" href="acerca.html">Conoce el ministerio</a>
+        </article>
+
+        <article class="jornada">
+          <p class="jornada__fecha">Sábado 18 julio 2026</p>
+          <h3>La Sana Doctrina No Morirá · Segundo día</h3>
+          <p>
+            Damos la bienvenida al segundo día de nuestro Congreso “La Sana Doctrina
+            No Morirá”, agradeciendo al Señor por lo que ya ha comenzado a hacer en
+            medio de nosotros. Hoy continuamos fortaleciendo nuestras convicciones
+            bíblicas, recibiendo enseñanza sólida y edificándonos unos a otros en el
+            amor y la verdad de Cristo. Que cada palabra y cada momento de este día
+            glorifique a Dios y afirme nuestro compromiso con Su doctrina eterna.
+          </p>
+        </article>
+
+        <article class="jornada">
+          <p class="jornada__fecha">Tercer día</p>
+          <h3>La Sana Doctrina No Morirá · Tercer día</h3>
+          <p>
+            En este tercer día del congreso, nos reunimos con un mismo propósito:
+            afirmar la verdad de la Palabra de Dios y permanecer firmes en la sana
+            doctrina. Será un tiempo de enseñanza, predicación y edificación
+            espiritual, donde la iglesia será llamada a no callar ante la apostasía,
+            sino a defender con fidelidad el evangelio de Jesucristo.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SUSCRIPCIÓN ================= -->
+  <section class="seccion seccion--alterna seccion--centrada" id="suscribete">
+    <div class="contenedor contenedor--angosto">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">Mantente conectado</p>
+        <h2>Suscríbete para más información</h2>
+        <div class="plomada"></div>
+        <p>Recibe las fechas del congreso y los anuncios del movimiento.</p>
+      </div>
+
+      <form class="formulario revelar" data-formulario-contacto
+            data-destino="ig07644@gmail.com" data-asunto="Suscripción">
+        <div class="dosxdos">
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" required autocomplete="given-name">
+          </div>
+          <div class="campo">
+            <label for="apellido">Apellido</label>
+            <input id="apellido" name="apellido" type="text" autocomplete="family-name">
           </div>
         </div>
 
+        <div class="campo">
+          <label for="correo">Correo electrónico</label>
+          <input id="correo" name="correo" type="email" required autocomplete="email">
+        </div>
+
         <div>
-          <ul class="lista-limpia">
-            <li><strong>Comparte</strong> los estudios con quien necesita fundamento.</li>
-            <li><strong>Estudia</strong> con la Biblia en la mano y verifica todo, como los de Berea.</li>
-            <li><strong>Ora</strong> por los que enseñan, para que la palabra corra y sea glorificada.</li>
+          <button class="boton boton--principal" type="submit">Suscribirme</button>
+        </div>
+        <p class="ayuda">Al enviar se abrirá tu programa de correo con los datos ya escritos.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= CONTACTO ================= -->
+  <section class="seccion" id="contacto">
+    <div class="contenedor">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">Visítanos</p>
+        <h2>Localización, horarios y contacto</h2>
+        <div class="plomada"></div>
+      </div>
+
+      <div class="rejilla rejilla--3 revelar">
+        <div class="tarjeta">
+          <span class="tarjeta__indice">Localización</span>
+          <h3>Dirección</h3>
+          <p style="margin-bottom:14px">
+            114 Hudson Street<br>
+            Newark, NJ 07103
+          </p>
+          <p>
+            <a href="https://maps.google.com/?q=114+Hudson+Street+Newark+NJ+07103"
+               rel="noopener">Ver en el mapa</a>
+          </p>
+        </div>
+
+        <div class="tarjeta">
+          <span class="tarjeta__indice">Horarios</span>
+          <h3>Servicios</h3>
+          <ul class="horario">
+            <li><span>Martes, jueves y viernes</span><span>7:30 pm</span></li>
+            <li><span>Domingo · Escuela Bíblica</span><span>10:30 am</span></li>
+            <li><span>Domingo · Culto Evangelístico</span><span>12:30 pm</span></li>
           </ul>
+        </div>
+
+        <div class="tarjeta">
+          <span class="tarjeta__indice">Contacto</span>
+          <h3>Pastor Junior Castillo</h3>
+          <div class="dato" style="margin-top:16px">
+            <p class="dato__etiqueta">Teléfono</p>
+            <p class="dato__valor"><a href="tel:+18622416144">(862) 241-6144</a></p>
+          </div>
+          <div class="dato">
+            <p class="dato__etiqueta">Correo</p>
+            <p class="dato__valor"><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></p>
+          </div>
         </div>
       </div>
     </div>
@@ -270,36 +466,38 @@
   <div class="contenedor">
     <div class="pie__rejilla">
       <div>
-        <h4>La sana doctrina no morirá</h4>
+        <h4>La Sana Doctrina No Morirá</h4>
         <p style="font-size:.92rem">
-          Enseñanza, defensa y proclamación de la doctrina apostólica conforme a
-          las Sagradas Escrituras.
+          Un llamado a permanecer firmes en la verdad. No es una organización, sino
+          un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!
         </p>
       </div>
 
       <div>
-        <h4>Navegación</h4>
+        <h4>Secciones</h4>
         <ul class="pie__lista">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="index.html#fundamentos">Fundamentos</a></li>
-          <li><a href="ensenanzas.html">Enseñanzas</a></li>
-          <li><a href="acerca.html">Acerca</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="#que-es">¿Qué es?</a></li>
+          <li><a href="#apostasia">Enfrentando la Apostasía</a></li>
+          <li><a href="#mision">Nuestra Misión</a></li>
+          <li><a href="#iglesias">Iglesias que viven la sana doctrina</a></li>
+          <li><a href="#congreso">Próximo Congreso</a></li>
         </ul>
       </div>
 
       <div>
-        <h4>Enlaces</h4>
+        <h4>Contacto</h4>
         <ul class="pie__lista">
-          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">Página original en ipdfv.com</a></li>
-          <li><a href="contacto.html">Peticiones de oración</a></li>
+          <li>114 Hudson Street, Newark, NJ 07103</li>
+          <li><a href="tel:+18622416144">(862) 241-6144</a></li>
+          <li><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></li>
+          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">ipdfv.com</a></li>
         </ul>
       </div>
     </div>
 
     <div class="pie__final">
-      <span>© <span data-anio>2026</span> La sana doctrina no morirá. Todos los derechos reservados.</span>
-      <span>«La palabra de nuestro Dios permanece para siempre.» — Isaías 40:8</span>
+      <span>© <span data-anio>2026</span> La Sana Doctrina No Morirá. Todos los derechos reservados.</span>
+      <span>“Retén la forma de las sanas palabras que de mí oíste…” — 2 Timoteo 1:13</span>
     </div>
   </div>
 </footer>

@@ -1,5 +1,5 @@
 /* ============================================================
-   La sana doctrina no morirá — comportamiento del sitio
+   La Sana Doctrina No Morirá — comportamiento del sitio
    Sin librerías externas.
    ============================================================ */
 (function () {
@@ -9,19 +9,20 @@
   var botonMenu = document.querySelector('.boton-menu');
   var nav = document.querySelector('.nav');
 
+  function pintarMenu(abierto) {
+    nav.classList.toggle('abierto', abierto);
+    botonMenu.classList.toggle('es-abierto', abierto);
+    botonMenu.setAttribute('aria-expanded', String(abierto));
+    botonMenu.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+  }
+
   if (botonMenu && nav) {
     botonMenu.addEventListener('click', function () {
-      var abierto = nav.classList.toggle('abierto');
-      botonMenu.setAttribute('aria-expanded', String(abierto));
-      botonMenu.textContent = abierto ? '✕' : '☰';
+      pintarMenu(!nav.classList.contains('abierto'));
     });
 
     nav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') {
-        nav.classList.remove('abierto');
-        botonMenu.setAttribute('aria-expanded', 'false');
-        botonMenu.textContent = '☰';
-      }
+      if (e.target.tagName === 'A') pintarMenu(false);
     });
   }
 
@@ -38,7 +39,7 @@
     if (botonTema) {
       var oscuroActivo = tema === 'oscuro' ||
         (!tema && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      botonTema.textContent = oscuroActivo ? '☀' : '☾';
+      botonTema.classList.toggle('es-oscuro', oscuroActivo);
       botonTema.setAttribute('aria-label',
         oscuroActivo ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
     }
@@ -51,8 +52,9 @@
   if (botonTema) {
     botonTema.addEventListener('click', function () {
       var actual = raiz.getAttribute('data-tema');
-      var prefiereOscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (!actual) actual = prefiereOscuro ? 'oscuro' : 'claro';
+      if (!actual) {
+        actual = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro';
+      }
       var nuevo = actual === 'oscuro' ? 'claro' : 'oscuro';
       aplicarTema(nuevo);
       try { localStorage.setItem('lsd-tema', nuevo); } catch (e) { /* sin almacenamiento */ }
@@ -69,39 +71,61 @@
           observador.unobserve(entrada.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     revelables.forEach(function (el) { observador.observe(el); });
   } else {
     revelables.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* ---------- Resaltar la sección visible en el menú ---------- */
+  var enlaces = Array.prototype.slice.call(
+    document.querySelectorAll('.nav a[href^="#"]')
+  );
+  var secciones = enlaces
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && secciones.length) {
+    var espia = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (!entrada.isIntersecting) return;
+        enlaces.forEach(function (a) {
+          a.classList.toggle('activo',
+            a.getAttribute('href') === '#' + entrada.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    secciones.forEach(function (s) { espia.observe(s); });
   }
 
   /* ---------- Año actual en el pie ---------- */
   var anio = document.querySelector('[data-anio]');
   if (anio) anio.textContent = String(new Date().getFullYear());
 
-  /* ---------- Formulario de contacto (abre el correo) ---------- */
-  var formulario = document.querySelector('[data-formulario-contacto]');
-  if (formulario) {
+  /* ---------- Formularios (abren el programa de correo) ---------- */
+  var formularios = document.querySelectorAll('[data-formulario-contacto]');
+
+  Array.prototype.forEach.call(formularios, function (formulario) {
     formulario.addEventListener('submit', function (e) {
       e.preventDefault();
-      var destino = formulario.getAttribute('data-destino') || '';
-      var datos = new FormData(formulario);
-      var nombre = (datos.get('nombre') || '').toString().trim();
-      var correo = (datos.get('correo') || '').toString().trim();
-      var motivo = (datos.get('motivo') || '').toString().trim();
-      var mensaje = (datos.get('mensaje') || '').toString().trim();
 
-      var asunto = '[La sana doctrina no morirá] ' + (motivo || 'Mensaje del sitio');
-      var cuerpo =
-        'Nombre: ' + nombre + '\n' +
-        'Correo: ' + correo + '\n' +
-        'Motivo: ' + motivo + '\n\n' +
-        mensaje;
+      var destino = formulario.getAttribute('data-destino') || '';
+      var etiqueta = formulario.getAttribute('data-asunto') || 'Mensaje del sitio';
+      var datos = new FormData(formulario);
+      var lineas = [];
+
+      datos.forEach(function (valor, clave) {
+        var texto = String(valor).trim();
+        if (!texto) return;
+        lineas.push(clave.charAt(0).toUpperCase() + clave.slice(1) + ': ' + texto);
+      });
+
+      var asunto = '[La Sana Doctrina No Morirá] ' + etiqueta;
+      var cuerpo = lineas.join('\n');
 
       window.location.href = 'mailto:' + destino +
         '?subject=' + encodeURIComponent(asunto) +
         '&body=' + encodeURIComponent(cuerpo);
     });
-  }
+  });
 })();
