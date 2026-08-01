@@ -23,7 +23,7 @@ remanente.html            ¿Eres Parte del Remanente? + suscripción
 pastores.html             Pastores Defensores (videos del congreso)
 congreso.html             Próximo congreso, cuenta regresiva y programa
 contacto.html             Formulario y contacto directo
-assets/css/estilo.css     Estilos (paleta grafito y oro + tema claro/oscuro)
+assets/css/estilo.css     Estilos (paleta azul marino y oro + tema claro/oscuro)
 assets/js/main.js         Menú móvil, tema, animaciones, formularios
 assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
 assets/img/logo.png       Respaldo del logotipo para navegadores antiguos
@@ -174,23 +174,50 @@ nueve páginas de golpe.
 
 ```css
 :root {
-  --negro:   #14161a;   /* cabeceras oscuras y pie de página */
-  --oro:     #a8842c;   /* barras, filetes y detalles */
-  --oro-osc: #7c5d17;   /* botones al pasar el ratón */
-  --oro-claro: #d9bb6a; /* textos dorados sobre fondo oscuro */
-  --hueso:   #f6f5f2;   /* fondo claro */
-  --acento:  #8f6d1f;   /* enlaces y botones */
-  --brillo:  rgba(168, 132, 44, .30);  /* resplandor de las cabeceras */
+  --negro:      #0d1f38;   /* azul marino: cabeceras oscuras y pie */
+  --negro-osc:  #071426;   /* base de los degradados oscuros */
+  --oro:        #c9a227;   /* rótulos pequeños y detalles dorados */
+  --oro-claro:  #e4c669;   /* dorado sobre fondo oscuro */
+  --hueso:      #f5f3ee;   /* fondo claro */
+  --acento:     #1a4f95;   /* enlaces y botones */
+  --acento-osc: #123a70;   /* al pasar el ratón */
+  --filete:     var(--acento);          /* líneas de tarjetas y separadores */
+  --brillo:     rgba(30, 90, 168, .34); /* resplandor de las cabeceras */
 }
 ```
 
 Debajo hay dos bloques más —`prefers-color-scheme: dark` y `[data-tema="oscuro"]`—
 con los mismos roles para el tema oscuro; conviene ajustarlos a la vez.
 
-Al elegir un acento nuevo, comprueba que el texto se siga leyendo: el color de
-`--acento` debe contrastar al menos 4,5 a 1 con el fondo claro. Si el acento es claro
-(un dorado, por ejemplo), pon `--acento-texto: #14161a` para que las letras de los
-botones sean oscuras en vez de blancas.
+Al elegir un acento nuevo, comprueba que el texto se siga leyendo: `--acento` debe
+contrastar al menos 4,5 a 1 con el fondo claro. Si el acento es claro (un dorado, por
+ejemplo), pon `--acento-texto: #14161a` para que las letras de los botones sean
+oscuras en vez de blancas.
+
+### Otras paletas listas para pegar
+
+Sustituye los valores del bloque anterior por los de la que prefieras.
+
+**Vino y crema**
+```css
+--negro: #1a1214;  --negro-osc: #0d0709;  --oro: #b8912f;  --oro-claro: #dcbb6a;
+--hueso: #f7f2ea;  --acento: #7d1128;  --acento-osc: #560b1c;
+--brillo: rgba(125, 17, 40, .38);
+```
+
+**Verde profundo y bronce**
+```css
+--negro: #0f1f19;  --negro-osc: #06120d;  --oro: #a8763a;  --oro-claro: #cf9d5f;
+--hueso: #f4f2ec;  --acento: #19513e;  --acento-osc: #124232;
+--brillo: rgba(29, 92, 70, .36);
+```
+
+**Grafito y oro** (el acento es claro, así que hay que cambiar también `--acento-texto`)
+```css
+--negro: #14161a;  --negro-osc: #08090b;  --oro: #a8842c;  --oro-claro: #d9bb6a;
+--hueso: #f6f5f2;  --acento: #8f6d1f;  --acento-osc: #7c5d17;
+--filete: var(--oro);  --brillo: rgba(168, 132, 44, .30);
+```
 
 ## Notas técnicas
 

@@ -1,7 +1,7 @@
 /* ============================================================
    La Sana Doctrina No Morirá — hoja de estilos
    Sitio estático, sin dependencias externas.
-   Paleta: grafito, acero y oro (tomada del emblema).
+   Paleta: azul marino, acero y oro.
 
    PARA CAMBIAR LOS COLORES DE TODO EL SITIO basta con editar los valores
    del bloque :root que viene a continuación; se aplican a las nueve páginas.
@@ -9,14 +9,14 @@
 
 :root {
   /* Colores base */
-  --negro:        #14161a;   /* cabeceras oscuras, pie de página */
-  --negro-2:      #22262c;
-  --acero:        #5d6875;   /* gris del escudo */
+  --negro:        #0d1f38;   /* azul marino: cabeceras oscuras y pie de página */
+  --negro-2:      #173352;
+  --negro-osc:    #071426;   /* base de los degradados oscuros */
+  --acero:        #566274;   /* gris del escudo */
   --acero-claro:  #8d99a6;
-  --oro:          #a8842c;   /* barras, filetes y detalles */
-  --oro-osc:      #7c5d17;   /* botones al pasar el ratón */
-  --oro-claro:    #d9bb6a;   /* textos dorados sobre fondo oscuro */
-  --hueso:        #f6f5f2;   /* fondo claro */
+  --oro:          #c9a227;   /* detalles dorados y rótulos pequeños */
+  --oro-claro:    #e4c669;   /* dorado sobre fondo oscuro */
+  --hueso:        #f5f3ee;   /* fondo claro */
   --blanco:       #ffffff;
 
   /* Roles */
@@ -24,14 +24,16 @@
   --superficie:   var(--blanco);
   --texto:        #1c1f25;
   --texto-suave:  #565e6b;
-  --borde:        #e2e0da;
+  --borde:        #e1ddd3;
   --titulo:       var(--negro);
-  --acento:       #8f6d1f;   /* enlaces y botones: oro oscurecido para que se lea bien */
+  --acento:       #1a4f95;   /* enlaces y botones */
+  --acento-osc:   #123a70;   /* al pasar el ratón */
+  --filete:       var(--acento);  /* líneas superiores de tarjetas y separadores */
   /* Color del texto que va encima del acento (botones, franja de salto).
      Con acentos oscuros va blanco; con acentos claros, casi negro. */
   --acento-texto: #ffffff;
   /* Resplandor de color detrás de las cabeceras oscuras */
-  --brillo:       rgba(168, 132, 44, .30);
+  --brillo:       rgba(30, 90, 168, .34);
 
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
            "Times New Roman", serif;
@@ -46,34 +48,37 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fondo:      #101216;
-    --superficie: #191c21;
-    --texto:      #e4e3df;
-    --texto-suave:#a3a29c;
-    --borde:      #2e3138;
-    --titulo:     #f4f2ec;
-    --acento:     #d9bb6a;
-    --acento-texto: #14161a;
+    --fondo:      #0e1621;
+    --superficie: #16202c;
+    --texto:      #e2e6ec;
+    --texto-suave:#9aa5b4;
+    --borde:      #27313f;
+    --titulo:     #f2f4f7;
+    --acento:     #86b4ea;
+    --acento-osc: #aacdf4;
+    --acento-texto: #0d1f38;
   }
 }
 :root[data-tema="oscuro"] {
-  --fondo:      #101216;
-  --superficie: #191c21;
-  --texto:      #e4e3df;
-  --texto-suave:#a3a29c;
-  --borde:      #2e3138;
-  --titulo:     #f4f2ec;
-  --acento:     #d9bb6a;
-  --acento-texto: #14161a;
+  --fondo:      #0e1621;
+  --superficie: #16202c;
+  --texto:      #e2e6ec;
+  --texto-suave:#9aa5b4;
+  --borde:      #27313f;
+  --titulo:     #f2f4f7;
+  --acento:     #86b4ea;
+  --acento-osc: #aacdf4;
+  --acento-texto: #0d1f38;
 }
 :root[data-tema="claro"] {
   --fondo:      var(--hueso);
   --superficie: var(--blanco);
   --texto:      #1c1f25;
   --texto-suave:#565e6b;
-  --borde:      #e2e0da;
+  --borde:      #e1ddd3;
   --titulo:     var(--negro);
-  --acento:     #8f6d1f;
+  --acento:     #1a4f95;
+  --acento-osc: #123a70;
   --acento-texto: #ffffff;
 }
 
@@ -94,8 +99,8 @@ img, svg { max-width: 100%; }
 img { height: auto; display: block; }
 
 a { color: var(--acento); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--oro-osc); }
-@media (prefers-color-scheme: dark) { a:hover { color: #eed79c; } }
+a:hover { color: var(--acento-osc); }
+
 
 h1, h2, h3, h4 {
   color: var(--titulo);
@@ -193,7 +198,7 @@ strong { font-weight: 700; color: var(--titulo); }
   position: relative; overflow: hidden;
   background:
     radial-gradient(900px 480px at 50% 0%, var(--brillo), transparent 65%),
-    linear-gradient(180deg, #14181e 0%, #0c0e12 100%);
+    linear-gradient(180deg, var(--negro) 0%, var(--negro-osc) 100%);
   color: #eceef1;
   padding: clamp(56px, 10vw, 96px) 0 clamp(56px, 9vw, 96px);
   text-align: center;
@@ -255,7 +260,7 @@ strong { font-weight: 700; color: var(--titulo); }
   font-family: inherit; transition: var(--transicion);
 }
 .boton--principal { background: var(--acento); color: var(--acento-texto); }
-.boton--principal:hover { background: var(--oro-osc); color: var(--acento-texto); }
+.boton--principal:hover { background: var(--acento-osc); color: var(--acento-texto); }
 .boton--fantasma { border-color: rgba(255,255,255,.3); color: #eceef1; }
 .boton--fantasma:hover { border-color: var(--oro); color: var(--oro-claro); }
 .boton--linea { border-color: var(--borde); color: var(--texto); background: transparent; }
@@ -265,7 +270,7 @@ strong { font-weight: 700; color: var(--titulo); }
 .franja {
   background: var(--negro); color: #d7dbe1; text-align: center;
   padding: clamp(34px, 6vw, 60px) 0;
-  border-top: 3px solid var(--oro);
+  border-top: 3px solid var(--filete);
 }
 .franja blockquote {
   margin: 0 auto; max-width: 58ch; font-family: var(--serif); font-style: italic;
@@ -291,7 +296,7 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 .seccion__encabezado p:last-child { color: var(--texto-suave); margin-bottom: 0; }
 
-.plomada { width: 54px; height: 3px; background: var(--oro); margin: 0 0 26px; }
+.plomada { width: 54px; height: 3px; background: var(--filete); margin: 0 0 26px; }
 .seccion--centrada .plomada { margin-inline: auto; }
 
 .texto-guia { font-size: clamp(1.02rem, 2vw, 1.13rem); max-width: 66ch; }
@@ -304,7 +309,7 @@ strong { font-weight: 700; color: var(--titulo); }
 /* Tarjetas de misión / distintivos */
 .tarjeta {
   background: var(--fondo); border: 1px solid var(--borde);
-  border-top: 3px solid var(--oro);
+  border-top: 3px solid var(--filete);
   border-radius: var(--radio); padding: 28px 26px;
   transition: var(--transicion); text-align: left;
 }
@@ -326,7 +331,7 @@ strong { font-weight: 700; color: var(--titulo); }
 .lista-marcada li:last-child { border-bottom: 0; }
 .lista-marcada li::before {
   content: ""; position: absolute; left: 4px; top: 20px;
-  width: 12px; height: 14px; background: var(--oro);
+  width: 12px; height: 14px; background: var(--filete);
   clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
 }
 
@@ -373,7 +378,7 @@ strong { font-weight: 700; color: var(--titulo); }
   position: relative; overflow: hidden;
   background:
     radial-gradient(700px 340px at 50% 0%, var(--brillo), transparent 70%),
-    linear-gradient(180deg, #171b21 0%, #0d1014 100%);
+    linear-gradient(180deg, var(--negro) 0%, var(--negro-osc) 100%);
   border: 1px solid rgba(233,200,119,.28);
   border-radius: var(--radio);
   padding: clamp(34px, 6vw, 60px) clamp(22px, 5vw, 52px);
@@ -444,7 +449,7 @@ strong { font-weight: 700; color: var(--titulo); }
 /* Congreso — jornadas */
 .jornada {
   background: var(--fondo); border: 1px solid var(--borde);
-  border-left: 4px solid var(--oro); border-radius: var(--radio);
+  border-left: 4px solid var(--filete); border-radius: var(--radio);
   padding: 30px 28px; text-align: left;
 }
 .jornada__fecha {
