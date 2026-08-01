@@ -23,8 +23,8 @@ remanente.html            ¿Eres Parte del Remanente? + suscripción
 pastores.html             Pastores Defensores (videos del congreso)
 congreso.html             Próximo congreso, cuenta regresiva y programa
 contacto.html             Formulario y contacto directo
-assets/css/estilo.css     Estilos (paleta azul marino y oro + tema claro/oscuro)
-assets/js/main.js         Menú móvil, tema, animaciones, formularios
+assets/css/estilo.css     Estilos (paleta azul marino y oro; el tema lo pone el sistema)
+assets/js/main.js         Menú, barra de progreso, animaciones, formularios
 assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
 assets/img/logo.png       Respaldo del logotipo para navegadores antiguos
 assets/img/logo-original.png  Copia maestra del logotipo, 1024 × 1024
@@ -196,8 +196,12 @@ nueve páginas de golpe.
 }
 ```
 
-Debajo hay dos bloques más —`prefers-color-scheme: dark` y `[data-tema="oscuro"]`—
-con los mismos roles para el tema oscuro; conviene ajustarlos a la vez.
+Debajo hay un bloque `@media (prefers-color-scheme: dark)` con los mismos roles para
+el modo oscuro; conviene ajustarlo a la vez.
+
+**El sitio no tiene interruptor de tema**: sigue automáticamente el ajuste de
+apariencia del sistema operativo del visitante, y cambia en el momento si este lo
+cambia, sin recargar la página.
 
 Al elegir un acento nuevo, comprueba que el texto se siga leyendo: `--acento` debe
 contrastar al menos 4,5 a 1 con el fondo claro. Si el acento es claro (un dorado, por
@@ -233,7 +237,7 @@ Sustituye los valores del bloque anterior por los de la que prefieras.
 
 - Sin dependencias externas: no carga fuentes, scripts ni CSS de terceros.
 - Responsivo, con menú móvil y navegación por teclado.
-- Tema claro/oscuro automático, con botón para forzar la preferencia.
+- Tema claro u oscuro automático según el sistema del visitante, sin interruptor.
 - El menú resalta la página en la que estás.
 - Respeta `prefers-reduced-motion`.
 - Los formularios abren el programa de correo del visitante (no requieren servidor).

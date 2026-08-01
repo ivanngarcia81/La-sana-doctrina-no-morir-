@@ -5,6 +5,9 @@
 
    PARA CAMBIAR LOS COLORES DE TODO EL SITIO basta con editar los valores
    del bloque :root que viene a continuación; se aplican a las nueve páginas.
+
+   El tema claro u oscuro lo decide el sistema operativo del visitante
+   mediante prefers-color-scheme. No hay interruptor manual.
    ============================================================ */
 
 :root {
@@ -73,31 +76,9 @@
     --sombra-fija: 0 2px 14px rgba(0, 0, 0, .45);
   }
 }
-:root[data-tema="oscuro"] {
-  --fondo:      #0e1621;
-  --superficie: #16202c;
-  --texto:      #e2e6ec;
-  --texto-suave:#9aa5b4;
-  --borde:      #27313f;
-  --titulo:     #f2f4f7;
-  --acento:     #86b4ea;
-  --acento-osc: #aacdf4;
-  --acento-texto: #0d1f38;
-  --oro-texto:  #e4c669;
-  --sombra-fija: 0 2px 14px rgba(0, 0, 0, .45);
-}
-:root[data-tema="claro"] {
-  --fondo:      var(--hueso);
-  --superficie: var(--blanco);
-  --texto:      #1c1f25;
-  --texto-suave:#565e6b;
-  --borde:      #e1ddd3;
-  --titulo:     var(--negro);
-  --acento:     #1a4f95;
-  --acento-osc: #123a70;
-  --acento-texto: #ffffff;
-  --oro-texto:  #7a5f16;
-}
+/* Indica al navegador que la página admite ambos modos, para que pinte
+   controles, barras de desplazamiento y autorrelleno en consecuencia. */
+:root { color-scheme: light dark; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
@@ -252,26 +233,27 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 
 .acciones { display: flex; align-items: center; gap: 8px; position: relative; z-index: 2; }
-.boton-tema, .boton-menu {
+.boton-menu {
   background: var(--superficie); border: 1px solid var(--borde); color: var(--texto);
   border-radius: var(--radio); width: 40px; height: 40px;
   display: grid; place-items: center; cursor: pointer; font-size: 1rem;
   transition: var(--transicion);
 }
-.boton-tema:hover, .boton-menu:hover { border-color: var(--acento); color: var(--acento); }
-.boton-tema:focus-visible, .boton-menu:focus-visible {
+.boton-menu:hover { border-color: var(--acento); color: var(--acento); }
+.boton-menu:focus-visible {
   outline: 2px solid var(--acento); outline-offset: 2px;
 }
 .boton-menu { display: none; }
 
-/* Iconos SVG de los botones: se muestra uno u otro según el estado */
+/* Iconos del botón de menú: se muestra uno u otro según el estado */
 .icono { display: block; }
-.boton-tema .icono--sol,
 .boton-menu .icono--equis { display: none; }
-.boton-tema.es-oscuro .icono--luna,
 .boton-menu.es-abierto .icono--barras { display: none; }
-.boton-tema.es-oscuro .icono--sol,
 .boton-menu.es-abierto .icono--equis { display: block; }
+
+/* A partir de 1101px solo queda el botón de menú, que está oculto,
+   así que el bloque entero se retira del flujo. */
+@media (min-width: 1101px) { .acciones { display: none; } }
 
 @media (max-width: 1100px) {
   .boton-menu { display: grid; }

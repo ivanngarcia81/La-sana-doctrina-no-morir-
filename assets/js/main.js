@@ -156,41 +156,6 @@
     window.addEventListener('resize', alDesplazar, { passive: true });
   }
 
-  /* ---------- Tema claro / oscuro ---------- */
-  var botonTema = document.querySelector('.boton-tema');
-  var raiz = document.documentElement;
-
-  function aplicarTema(tema) {
-    if (tema === 'claro' || tema === 'oscuro') {
-      raiz.setAttribute('data-tema', tema);
-    } else {
-      raiz.removeAttribute('data-tema');
-    }
-    if (botonTema) {
-      var oscuroActivo = tema === 'oscuro' ||
-        (!tema && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      botonTema.classList.toggle('es-oscuro', oscuroActivo);
-      botonTema.setAttribute('aria-label',
-        oscuroActivo ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
-    }
-  }
-
-  var guardado = null;
-  try { guardado = localStorage.getItem('lsd-tema'); } catch (e) { /* sin almacenamiento */ }
-  aplicarTema(guardado);
-
-  if (botonTema) {
-    botonTema.addEventListener('click', function () {
-      var actual = raiz.getAttribute('data-tema');
-      if (!actual) {
-        actual = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro';
-      }
-      var nuevo = actual === 'oscuro' ? 'claro' : 'oscuro';
-      aplicarTema(nuevo);
-      try { localStorage.setItem('lsd-tema', nuevo); } catch (e) { /* sin almacenamiento */ }
-    });
-  }
-
   /* ---------- Revelar secciones al desplazarse ---------- */
   var revelables = document.querySelectorAll('.revelar');
   if ('IntersectionObserver' in window && revelables.length) {
