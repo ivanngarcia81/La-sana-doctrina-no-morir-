@@ -28,8 +28,10 @@ assets/js/main.js         Menú móvil, tema, animaciones, formularios
 assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
 assets/img/logo.png       Respaldo del logotipo para navegadores antiguos
 assets/img/logo-original.png  Copia maestra del logotipo, 1024 × 1024
-assets/img/sello.svg      Escudo compacto para el encabezado y el favicon
-assets/img/emblema.svg    Versión vectorial del emblema completo
+assets/img/sello.webp     Emblema pequeño del encabezado (respaldo: sello.png)
+assets/img/favicon.png    Icono de la pestaña del navegador
+assets/img/emblema.svg    Versión vectorial del emblema, útil para imprimir
+assets/img/sello.svg      Versión vectorial del escudo, sin la cinta
 assets/video/             Carpeta para los videos de los pastores
 ```
 
@@ -143,26 +145,34 @@ Las instrucciones también están como comentario dentro del propio `pastores.ht
 | `assets/img/logo.webp` | El que ve la mayoría de visitantes (93 KB) |
 | `assets/img/logo.png` | Respaldo para navegadores antiguos (455 KB) |
 | `assets/img/logo-original.png` | Copia maestra tal como se recibió, 1024 × 1024 |
-| `assets/img/sello.svg` | Escudo pequeño del encabezado y del icono de la pestaña |
-| `assets/img/emblema.svg` | Versión vectorial completa, útil para imprimir a gran tamaño |
+| `assets/img/sello.webp` | Emblema pequeño del encabezado, 48 px de alto (respaldo: `sello.png`) |
+| `assets/img/favicon.png` | Icono de la pestaña del navegador, 64 × 64 |
+| `assets/img/emblema.svg` | Versión vectorial del emblema, útil para imprimir a gran tamaño |
+| `assets/img/sello.svg` | Versión vectorial del escudo sin la cinta |
 
-Para cambiar el logotipo basta con reemplazar `logo.webp` y `logo.png`. El navegador
-elige solo el formato: si acepta WebP carga el ligero, y si no, el PNG.
-
-El escudo del encabezado se deja en SVG a propósito: a 42 píxeles de alto el logotipo
-completo con la cinta no se leería, y el sello solo (escudo y espada) se distingue
-mucho mejor.
+Los cuatro primeros salen del mismo original, así que todos muestran el logotipo
+verdadero. El navegador elige solo el formato: si acepta WebP carga el ligero, y si
+no, el PNG.
 
 Si más adelante regeneras las versiones web desde el original:
 
 ```bash
 python3 -c "
 from PIL import Image
-im = Image.open('assets/img/logo-original.png')
-im = im.crop(im.getchannel('A').getbbox())   # quita el margen transparente
-im.thumbnail((680, 680), Image.LANCZOS)
-im.save('assets/img/logo.webp', quality=90, method=6)
-im.save('assets/img/logo.png', optimize=True)
+src = Image.open('assets/img/logo-original.png')
+rec = src.crop(src.getchannel('A').getbbox())   # quita el margen transparente
+
+grande = rec.copy(); grande.thumbnail((680, 680), Image.LANCZOS)
+grande.save('assets/img/logo.webp', quality=90, method=6)
+grande.save('assets/img/logo.png', optimize=True)
+
+sello = rec.copy(); sello.thumbnail((160, 160), Image.LANCZOS)
+sello.save('assets/img/sello.webp', quality=92, method=6)
+sello.save('assets/img/sello.png', optimize=True)
+
+w, h = rec.size; lado = int(w*0.72)
+fav = rec.crop(((w-lado)//2, int(h*0.10), (w-lado)//2+lado, int(h*0.10)+lado))
+fav.resize((64, 64), Image.LANCZOS).save('assets/img/favicon.png', optimize=True)
 "
 ```
 

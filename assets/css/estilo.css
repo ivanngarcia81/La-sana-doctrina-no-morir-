@@ -145,7 +145,8 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 
 .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
-.marca img { height: 42px; width: auto; flex: none; }
+.marca__sello { display: block; flex: none; }
+.marca__sello img { height: 48px; width: auto; display: block; }
 .marca__texto { display: flex; flex-direction: column; line-height: 1.1; }
 .marca__titulo { font-size: 1rem; font-weight: 800; color: var(--titulo); letter-spacing: -.01em; }
 .marca__lema {
