@@ -28,15 +28,58 @@
     fin: ''
   };
 
-  /* ---------- Menú móvil ---------- */
+  /* ---------- Menú principal ----------
+     Un solo comportamiento para escritorio y móvil:
+       · el botón hamburguesa abre y cierra el panel a pantalla completa
+       · los grupos con submenú se abren con clic, Enter o Espacio
+       · Escape cierra el submenú abierto y devuelve el foco al disparador
+       · un clic fuera cierra lo que estuviera abierto                     */
   var botonMenu = document.querySelector('.boton-menu');
   var nav = document.querySelector('.nav');
+  var grupos = Array.prototype.slice.call(document.querySelectorAll('[data-grupo]'));
+
+  function pintarGrupo(grupo, abierto) {
+    var disparador = grupo.querySelector('.nav__disparador');
+    grupo.classList.toggle('abierto', abierto);
+    if (disparador) disparador.setAttribute('aria-expanded', String(abierto));
+  }
+
+  function cerrarGrupos(excepto) {
+    grupos.forEach(function (g) { if (g !== excepto) pintarGrupo(g, false); });
+  }
+
+  grupos.forEach(function (grupo) {
+    var disparador = grupo.querySelector('.nav__disparador');
+    if (!disparador) return;
+
+    disparador.addEventListener('click', function () {
+      var abierto = !grupo.classList.contains('abierto');
+      cerrarGrupos(grupo);
+      pintarGrupo(grupo, abierto);
+    });
+
+    /* En escritorio también se abre al pasar el puntero */
+    if (window.matchMedia('(hover: hover) and (min-width: 1101px)').matches) {
+      grupo.addEventListener('mouseenter', function () {
+        cerrarGrupos(grupo); pintarGrupo(grupo, true);
+      });
+      grupo.addEventListener('mouseleave', function () { pintarGrupo(grupo, false); });
+    }
+
+    /* El foco sale del grupo con Tab: se cierra solo */
+    grupo.addEventListener('focusout', function (e) {
+      if (!grupo.contains(e.relatedTarget)) pintarGrupo(grupo, false);
+    });
+  });
 
   function pintarMenu(abierto) {
+    if (!nav || !botonMenu) return;
     nav.classList.toggle('abierto', abierto);
     botonMenu.classList.toggle('es-abierto', abierto);
     botonMenu.setAttribute('aria-expanded', String(abierto));
     botonMenu.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+    document.body.classList.toggle('sin-scroll', abierto);
+    if (!abierto) cerrarGrupos(null);
   }
 
   if (botonMenu && nav) {
@@ -45,9 +88,33 @@
     });
 
     nav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') pintarMenu(false);
+      if (e.target.closest('a')) pintarMenu(false);
     });
   }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var grupoAbierto = grupos.filter(function (g) { return g.classList.contains('abierto'); })[0];
+    if (grupoAbierto) {
+      pintarGrupo(grupoAbierto, false);
+      var d = grupoAbierto.querySelector('.nav__disparador');
+      if (d) d.focus();
+      return;
+    }
+    if (nav && nav.classList.contains('abierto')) {
+      pintarMenu(false);
+      if (botonMenu) botonMenu.focus();
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('[data-grupo]')) cerrarGrupos(null);
+  });
+
+  /* Al pasar a escritorio se descarta el estado del panel móvil */
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', function (ev) {
+    if (ev.matches) pintarMenu(false);
+  });
 
   /* ---------- Sombra del encabezado al desplazarse ---------- */
   var encabezado = document.querySelector('.encabezado');
