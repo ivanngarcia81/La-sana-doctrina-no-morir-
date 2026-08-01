@@ -9,8 +9,20 @@ datos ni instalación de dependencias.
 
 ## Estructura
 
+Cada apartado del menú es **una página independiente**, con su propia dirección web
+(por ejemplo `mision.html`), lo que permite compartir el enlace de una sección
+concreta y ayuda a que Google la encuentre.
+
 ```
-index.html                Página única con todas las secciones
+index.html                Portada: logotipo, presentación y accesos a todo el sitio
+que-es.html               ¿Qué es? + Un Movimiento de Dios
+apostasia.html            Enfrentando la Apostasía
+mision.html               Nuestra Misión: los cuatro compromisos
+iglesias.html             Iglesias que Viven la Sana Doctrina
+remanente.html            ¿Eres Parte del Remanente? + suscripción
+pastores.html             Pastores Defensores (videos del congreso)
+congreso.html             Próximo congreso, cuenta regresiva y programa
+contacto.html             Formulario y contacto directo
 assets/css/estilo.css     Estilos (paleta del emblema + tema claro/oscuro)
 assets/js/main.js         Menú móvil, tema, animaciones, formularios
 assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
@@ -21,21 +33,12 @@ assets/img/emblema.svg    Versión vectorial del emblema completo
 assets/video/             Carpeta para los videos de los pastores
 ```
 
-## Secciones de la página
+### Si hay que cambiar el menú o el pie de página
 
-| Sección | Ancla |
-|---|---|
-| Portada — «Un Llamado a Permanecer Firmes en la Verdad» | `#inicio` |
-| ¿Qué es «La Sana Doctrina No Morirá»? | `#que-es` |
-| Enfrentando la Apostasía | `#apostasia` |
-| Nuestra Misión (4 compromisos) | `#mision` |
-| Iglesias que Viven la Sana Doctrina | `#iglesias` |
-| ¿Eres Parte del Remanente? | `#remanente` |
-| Un Movimiento de Dios | `#movimiento` |
-| Pastores Defensores De La Sana Doctrina (videos) | `#pastores` |
-| Próximo Congreso (anual, sede rotativa) | `#congreso` |
-| Suscríbete para más información | `#suscribete` |
-| Contacto (formulario y datos del pastor) | `#contacto` |
+El encabezado (con el menú) y el pie se repiten en las nueve páginas, porque un sitio
+estático no tiene forma de compartirlos. Si se agrega o se quita una sección, hay que
+hacer el cambio en los nueve archivos `.html`. Lo demás —textos, imágenes, colores—
+se edita en su propia página sin tocar las otras.
 
 ## Cómo verlo en tu computadora
 
@@ -57,43 +60,43 @@ El archivo `.nojekyll` ya está incluido para que GitHub publique los archivos t
 
 ## Cómo anunciar el congreso de cada año
 
-El congreso se celebra una vez al año y en una ciudad distinta, así que la sección
-`#congreso` está hecha para actualizarse **en un solo lugar**. Busca en `index.html`
-el bloque marcado con el comentario `PRÓXIMO CONGRESO` y rellena sus cinco atributos:
+El congreso se celebra una vez al año y en una ciudad distinta, así que se actualiza
+**en un solo lugar**: al principio de `assets/js/main.js` está el bloque `CONGRESO`.
 
-```html
-<article class="proximo revelar" data-proximo
-         data-edicion="Edición 2027"
-         data-sede="Ciudad de Panamá, Panamá"
-         data-fechas="16, 17 y 18 de julio de 2027"
-         data-inicio="2027-07-16T09:00:00-05:00"
-         data-fin="2027-07-18T23:59:00-05:00">
+```js
+var CONGRESO = {
+  edicion: 'Edición 2027',
+  sede:    'Ciudad de Panamá, Panamá',
+  fechas:  '16, 17 y 18 de julio de 2027',
+  inicio:  '2027-07-16T09:00:00-05:00',
+  fin:     '2027-07-18T23:59:00-05:00'
+};
 ```
 
-- `data-inicio` y `data-fin` van en formato ISO con la zona horaria de la sede
+- `inicio` y `fin` van en formato ISO con la zona horaria de la sede
   (`-05:00` para Colombia y Panamá, `-04:00` para Nueva York en verano).
-- Con eso se actualizan solos: el título de la sección, la cuenta regresiva y el
-  aviso que aparece en la portada. No hay que tocar nada más.
+- Con eso se actualizan solos: la tarjeta de `congreso.html`, la cuenta regresiva y
+  el aviso de la portada. No hay que tocar nada más.
 
 La página se comporta sola en los tres casos:
 
 | Situación | Qué muestra |
 |---|---|
-| Atributos vacíos | «Sede por anunciar» + «Estamos preparando la próxima edición» |
+| Datos vacíos | «Sede por anunciar» + «Estamos preparando la próxima edición» |
 | Falta para el congreso | Cuenta regresiva en días, horas, minutos y segundos |
 | Congreso en curso | «¡El congreso está en curso! Bienvenidos todos» |
 | Ya terminó | «Esta edición ya se celebró. Pronto anunciaremos la sede del próximo» |
 
-Debajo de esa tarjeta va el programa por jornadas de la última edición. Cuando se
-anuncie una nueva, reemplaza los tres textos de las jornadas y cambia el título
-`Última edición · …`.
+Debajo de esa tarjeta, en `congreso.html`, va el programa por jornadas de la última
+edición. Cuando se anuncie una nueva, reemplaza los tres textos de las jornadas y
+cambia el título `Última edición · …`.
 
 Para publicar el historial de congresos ya celebrados hay una plantilla lista como
-comentario al final de la misma sección (`EDICIONES ANTERIORES`).
+comentario al final de esa misma página (`EDICIONES ANTERIORES`).
 
 ## Cómo poner los videos reales
 
-En la sección `#pastores` de `index.html` hay cinco bloques con un marco de video
+En `pastores.html` hay cinco bloques con un marco de video
 provisional (con las duraciones de la página original: 01:35, 01:06, 01:33, 01:45 y
 01:17). Para publicar los videos verdaderos, sustituye el `<div class="video__marco">`
 de cada bloque por una de estas dos opciones:
@@ -116,18 +119,18 @@ de cada bloque por una de estas dos opciones:
 </div>
 ```
 
-Las instrucciones también están como comentario dentro del propio `index.html`.
+Las instrucciones también están como comentario dentro del propio `pastores.html`.
 
 ## Qué falta por confirmar
 
 - **Sede y fechas del próximo congreso**: el de Cartagena (17–19 de julio de 2026)
   ya se celebró, así que la tarjeta está en modo «por anunciar». En cuanto se
-  definan, se rellenan los cinco atributos explicados arriba.
+  definan, se rellenan los cinco datos del bloque CONGRESO explicado arriba.
 - **Fecha del tercer día de Cartagena**: en la captura no aparecía. Como el congreso
   empezó el viernes 17, se puso «domingo 19 julio 2026»; conviene confirmarlo.
 - **Correo de contacto**: se usa `ig07644@gmail.com` en los dos formularios y en la
-  tarjeta de contacto. Si el correo oficial es otro, cámbialo en `index.html`
-  (atributos `data-destino` y los enlaces `mailto:`).
+  tarjeta de contacto. Si el correo oficial es otro, cámbialo en `contacto.html` y en
+  `remanente.html` (atributos `data-destino` y los enlaces `mailto:`).
 - **Vista previa al compartir**: `og:image` apunta a una ruta relativa. Cuando el
   sitio tenga dominio propio conviene poner la dirección completa
   (`https://tudominio.com/assets/img/logo.png`) para que el logo salga al pegar el
@@ -168,7 +171,7 @@ im.save('assets/img/logo.png', optimize=True)
 - Sin dependencias externas: no carga fuentes, scripts ni CSS de terceros.
 - Responsivo, con menú móvil y navegación por teclado.
 - Tema claro/oscuro automático, con botón para forzar la preferencia.
-- El menú resalta la sección que se está leyendo.
+- El menú resalta la página en la que estás.
 - Respeta `prefers-reduced-motion`.
 - Los formularios abren el programa de correo del visitante (no requieren servidor).
   Si prefieres recibir los envíos en una bandeja sin abrir el correo, se puede

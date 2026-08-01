@@ -5,6 +5,29 @@
 (function () {
   'use strict';
 
+  /* ============================================================
+     PRÓXIMO CONGRESO — ESTE ES EL ÚNICO BLOQUE QUE HAY QUE
+     ACTUALIZAR CADA AÑO. Se usa en la página del congreso y en
+     el aviso de la portada.
+
+       edicion  Nombre de la edición, p. ej. 'Edición 2027'
+       sede     Ciudad y país,        p. ej. 'Ciudad de Panamá, Panamá'
+       fechas   Texto de las fechas,  p. ej. '16, 17 y 18 de julio de 2027'
+       inicio   Inicio en formato ISO con zona horaria,
+                p. ej. '2027-07-16T09:00:00-05:00'
+       fin      Cierre en el mismo formato
+
+     Si se dejan vacíos, la página muestra sola el aviso
+     "sede y fecha por anunciar".
+     ============================================================ */
+  var CONGRESO = {
+    edicion: '',
+    sede: '',
+    fechas: '',
+    inicio: '',
+    fin: ''
+  };
+
   /* ---------- Menú móvil ---------- */
   var botonMenu = document.querySelector('.boton-menu');
   var nav = document.querySelector('.nav');
@@ -77,64 +100,39 @@
     revelables.forEach(function (el) { el.classList.add('visible'); });
   }
 
-  /* ---------- Resaltar la sección visible en el menú ---------- */
-  var enlaces = Array.prototype.slice.call(
-    document.querySelectorAll('.nav a[href^="#"]')
-  );
-  var secciones = enlaces
-    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
-    .filter(Boolean);
-
-  if ('IntersectionObserver' in window && secciones.length) {
-    var espia = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (entrada) {
-        if (!entrada.isIntersecting) return;
-        enlaces.forEach(function (a) {
-          a.classList.toggle('activo',
-            a.getAttribute('href') === '#' + entrada.target.id);
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    secciones.forEach(function (s) { espia.observe(s); });
-  }
-
-  /* ---------- Próximo congreso: datos, aviso y cuenta regresiva ----------
-     Toda la información sale de los atributos data-* del bloque
-     <article data-proximo> que está en index.html. Si están vacíos o la
-     fecha ya pasó, la página muestra sola el aviso correspondiente.        */
+  /* ---------- Próximo congreso: aviso y cuenta regresiva ----------
+     Los datos salen del bloque CONGRESO de arriba. El aviso funciona en
+     cualquier página que lo incluya; la cuenta regresiva, en la página
+     del congreso.                                                        */
   var proximo = document.querySelector('[data-proximo]');
+  var avisoMarca = document.querySelector('[data-aviso-marca]');
+  var avisoTexto = document.querySelector('[data-aviso-texto]');
 
-  if (proximo) {
-    var dato = function (nombre) {
-      return (proximo.getAttribute('data-' + nombre) || '').trim();
-    };
-    var pon = function (selector, texto) {
-      var el = proximo.querySelector(selector);
-      if (el && texto) el.textContent = texto;
-    };
-
-    var edicion = dato('edicion');
-    var sede    = dato('sede');
-    var fechas  = dato('fechas');
-    var inicio  = new Date(dato('inicio')).getTime();
-    var fin     = new Date(dato('fin')).getTime();
+  if (proximo || avisoMarca) {
+    var sede   = (CONGRESO.sede || '').trim();
+    var fechas = (CONGRESO.fechas || '').trim();
+    var inicio = new Date(CONGRESO.inicio).getTime();
+    var fin    = new Date(CONGRESO.fin).getTime();
     if (isNaN(fin)) fin = inicio;
 
-    pon('[data-proximo-edicion]', edicion);
-    pon('[data-proximo-sede]', sede);
-    pon('[data-proximo-fechas]', fechas);
-
-    var cuenta = proximo.querySelector('.cuenta');
-    var mensaje = proximo.querySelector('[data-cuenta-mensaje]');
-    var avisoMarca = document.querySelector('[data-aviso-marca]');
-    var avisoTexto = document.querySelector('[data-aviso-texto]');
-
+    var cuenta = proximo && proximo.querySelector('.cuenta');
+    var mensaje = proximo && proximo.querySelector('[data-cuenta-mensaje]');
     var casillas = {
       dias: cuenta && cuenta.querySelector('[data-dias]'),
       horas: cuenta && cuenta.querySelector('[data-horas]'),
       minutos: cuenta && cuenta.querySelector('[data-minutos]'),
       segundos: cuenta && cuenta.querySelector('[data-segundos]')
     };
+
+    /* Sede, fechas y nombre de la edición en la tarjeta */
+    if (proximo) {
+      [['[data-proximo-edicion]', CONGRESO.edicion],
+       ['[data-proximo-sede]', sede],
+       ['[data-proximo-fechas]', fechas]].forEach(function (par) {
+        var el = proximo.querySelector(par[0]);
+        if (el && par[1]) el.textContent = par[1];
+      });
+    }
 
     function dosCifras(n) { return n < 10 ? '0' + n : String(n); }
 

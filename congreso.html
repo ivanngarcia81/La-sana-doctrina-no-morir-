@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Congreso — La Sana Doctrina No Morirá</title>
+<meta name="description" content="El Congreso «La Sana Doctrina No Morirá» se celebra cada año en una ciudad distinta. Consulta la próxima sede y las fechas.">
+<meta name="theme-color" content="#101216">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="El Congreso — La Sana Doctrina No Morirá">
+<meta property="og:description" content="El Congreso «La Sana Doctrina No Morirá» se celebra cada año en una ciudad distinta. Consulta la próxima sede y las fechas.">
+<!-- Cuando el sitio tenga dominio propio, cambia esta ruta por la dirección
+     completa (https://tudominio.com/assets/img/logo.png) para que el logo
+     aparezca al compartir el enlace en WhatsApp, Facebook, etc. -->
+<meta property="og:image" content="assets/img/logo.png">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="icon" href="assets/img/sello.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="encabezado">
+  <div class="contenedor encabezado__fila">
+    <a class="marca" href="index.html">
+      <img src="assets/img/sello.svg" alt="" width="23" height="42">
+      <span class="marca__texto">
+        <span class="marca__titulo">La Sana Doctrina</span>
+        <span class="marca__lema">No Morirá</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="menu-principal" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="que-es.html">¿Qué es?</a>
+      <a href="apostasia.html">Apostasía</a>
+      <a href="mision.html">Misión</a>
+      <a href="iglesias.html">Iglesias</a>
+      <a href="remanente.html">Remanente</a>
+      <a href="pastores.html">Pastores</a>
+      <a href="congreso.html" class="activo" aria-current="page">Congreso</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <div class="acciones">
+      <button class="boton-tema" type="button" aria-label="Cambiar tema">
+        <svg class="icono icono--luna" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"
+                fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linejoin="round"/>
+        </svg>
+        <svg class="icono icono--sol" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="boton-menu" type="button" aria-label="Abrir menú"
+              aria-expanded="false" aria-controls="menu-principal">
+        <svg class="icono icono--barras" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17"
+                stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+        <svg class="icono icono--equis" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M5.5 5.5l13 13M18.5 5.5l-13 13"
+                stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="portada portada--interior">
+    <div class="contenedor">
+      <p class="portada__antetitulo">Cada año, en una ciudad distinta</p>
+      <h1>El Congreso</h1>
+      <p class="portada__entrada">El Congreso “La Sana Doctrina No Morirá” se celebra una vez al año y cada edición se realiza en un lugar diferente, para que la enseñanza alcance a más iglesias y más pueblos.</p>
+    </div>
+  </section>
+
+  <section class="seccion seccion--centrada" id="congreso">
+    <div class="contenedor">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">Próxima cita</p>
+        <h2>Próximo Congreso</h2>
+        <div class="plomada"></div>
+      </div>
+
+      <!-- La sede y las fechas se editan en assets/js/main.js, en el bloque
+           CONGRESO que está al principio del archivo. -->
+      <article class="proximo revelar" data-proximo>
+        <p class="proximo__edicion" data-proximo-edicion>Próxima edición</p>
+        <h3 class="proximo__sede" data-proximo-sede>Sede por anunciar</h3>
+        <p class="proximo__fechas" data-proximo-fechas>Fechas por anunciar</p>
+
+        <div class="cuenta" aria-live="polite" hidden>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-dias>—</span><span class="cuenta__rotulo">Días</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-horas>—</span><span class="cuenta__rotulo">Horas</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-minutos>—</span><span class="cuenta__rotulo">Minutos</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-segundos>—</span><span class="cuenta__rotulo">Segundos</span></div>
+        </div>
+        <p class="cuenta__aviso" data-cuenta-mensaje hidden></p>
+
+        <div class="botones" style="margin-top:30px">
+          <a class="boton boton--principal" href="contacto.html">Quiero asistir</a>
+          <a class="boton boton--fantasma" href="remanente.html#suscribete">Avísenme la fecha</a>
+        </div>
+      </article>
+
+      <h3 class="programa__titulo revelar">
+        Última edición · Cartagena, Colombia — julio de 2026
+      </h3>
+
+      <div class="rejilla rejilla--3 revelar">
+        <article class="jornada">
+          <p class="jornada__fecha">Viernes 17 julio 2026</p>
+          <h3>La Sana Doctrina No Morirá · Apertura en Cartagena, Colombia</h3>
+          <p>
+            Con gozo en el Señor, damos inicio al Congreso “La Sana Doctrina No
+            Morirá”, un espacio dedicado a exaltar la verdad de la Palabra de Dios y
+            afirmar nuestra fe en tiempos de confusión doctrinal. Hoy nos
+            congregamos con un solo propósito: defender, vivir y proclamar la sana
+            doctrina que ha sido transmitida por los apóstoles y permanece viva por
+            el Espíritu Santo. ¡Bienvenidos todos!
+          </p>
+        </article>
+
+        <article class="jornada">
+          <p class="jornada__fecha">Sábado 18 julio 2026</p>
+          <h3>La Sana Doctrina No Morirá · Segundo día</h3>
+          <p>
+            Damos la bienvenida al segundo día de nuestro Congreso “La Sana Doctrina
+            No Morirá”, agradeciendo al Señor por lo que ya ha comenzado a hacer en
+            medio de nosotros. Hoy continuamos fortaleciendo nuestras convicciones
+            bíblicas, recibiendo enseñanza sólida y edificándonos unos a otros en el
+            amor y la verdad de Cristo. Que cada palabra y cada momento de este día
+            glorifique a Dios y afirme nuestro compromiso con Su doctrina eterna.
+          </p>
+        </article>
+
+        <article class="jornada">
+          <p class="jornada__fecha">Domingo 19 julio 2026</p>
+          <h3>La Sana Doctrina No Morirá · Tercer día</h3>
+          <p>
+            En este tercer día del congreso, nos reunimos con un mismo propósito:
+            afirmar la verdad de la Palabra de Dios y permanecer firmes en la sana
+            doctrina. Será un tiempo de enseñanza, predicación y edificación
+            espiritual, donde la iglesia será llamada a no callar ante la apostasía,
+            sino a defender con fidelidad el evangelio de Jesucristo.
+          </p>
+        </article>
+      </div>
+
+      <!--
+        EDICIONES ANTERIORES
+        Cuando quieras publicar los congresos ya celebrados, copia este bloque
+        justo debajo y ve agregando un <li> por cada edición:
+
+        <div class="ediciones revelar">
+          <h3 class="programa__titulo">Ediciones anteriores</h3>
+          <ul class="ediciones__lista">
+            <li><span class="ediciones__anio">2025</span> <span>Ciudad, País</span></li>
+            <li><span class="ediciones__anio">2024</span> <span>Ciudad, País</span></li>
+          </ul>
+        </div>
+      -->
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie__rejilla">
+      <div>
+        <h4>La Sana Doctrina No Morirá</h4>
+        <p style="font-size:.92rem">
+          Un llamado a permanecer firmes en la verdad. No es una organización, sino
+          un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!
+        </p>
+      </div>
+
+      <div>
+        <h4>Secciones</h4>
+        <ul class="pie__lista">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="que-es.html">¿Qué es?</a></li>
+          <li><a href="apostasia.html">Apostasía</a></li>
+          <li><a href="mision.html">Misión</a></li>
+          <li><a href="iglesias.html">Iglesias</a></li>
+          <li><a href="remanente.html">Remanente</a></li>
+          <li><a href="pastores.html">Pastores</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contacto</h4>
+        <ul class="pie__lista">
+          <li>Pastor Junior Castillo</li>
+          <li><a href="tel:+18622416144">(862) 241-6144</a></li>
+          <li><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></li>
+          <li><a href="https://www.ipdfv.com/la-sana-doctrina-no-morira" rel="noopener">ipdfv.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pie__final">
+      <span>© <span data-anio>2026</span> La Sana Doctrina No Morirá. Todos los derechos reservados.</span>
+      <span>“Retén la forma de las sanas palabras que de mí oíste…” — 2 Timoteo 1:13</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
