@@ -23,7 +23,7 @@
 <header class="encabezado">
   <div class="contenedor encabezado__fila">
     <a class="marca" href="#inicio">
-      <img src="assets/img/sello.svg" alt="" width="30" height="38">
+      <img src="assets/img/sello.svg" alt="" width="23" height="42">
       <span class="marca__texto">
         <span class="marca__titulo">La Sana Doctrina</span>
         <span class="marca__lema">No Morirá</span>
@@ -74,9 +74,12 @@
   <!-- ================= PORTADA ================= -->
   <section class="portada" id="inicio">
     <div class="contenedor">
-      <img class="portada__emblema" src="assets/img/emblema.svg"
+      <!-- Si subes el logo original como assets/img/logo.png (o .webp/.jpg),
+           la página lo detecta sola y lo usa en lugar del emblema en vectores.
+           No hace falta cambiar nada más. -->
+      <img class="portada__emblema" data-emblema src="assets/img/emblema.svg"
            alt="Emblema: escudo y espada con la cinta «La sana doctrina no morirá»"
-           width="230" height="219">
+           width="300" height="300">
       <p class="portada__antetitulo">La Sana Doctrina No Morirá</p>
       <h1>Un Llamado a Permanecer Firmes en la Verdad</h1>
       <p class="portada__cita">

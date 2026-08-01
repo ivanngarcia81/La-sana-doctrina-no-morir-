@@ -1,20 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150" role="img" aria-label="Escudo y espada">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="258 52 508 924" role="img"
+     aria-label="Escudo con espada">
   <defs>
-    <linearGradient id="s-acero" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#8d99a6"/>
-      <stop offset="50%" stop-color="#5d6875"/>
-      <stop offset="100%" stop-color="#3a434e"/>
+    <linearGradient id="s-cara" x1="0.15" y1="0" x2="0.9" y2="1">
+      <stop offset="0%"   stop-color="#a8b1ba"/>
+      <stop offset="38%"  stop-color="#8d959e"/>
+      <stop offset="100%" stop-color="#69727c"/>
     </linearGradient>
-    <linearGradient id="s-filo" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#c9d1d9"/>
-      <stop offset="50%" stop-color="#f2f5f8"/>
-      <stop offset="100%" stop-color="#9aa5b1"/>
+    <linearGradient id="s-rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#d3d9de"/>
+      <stop offset="45%"  stop-color="#9ba3ac"/>
+      <stop offset="100%" stop-color="#767e88"/>
     </linearGradient>
+    <linearGradient id="s-hoja" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#7f8791"/>
+      <stop offset="34%"  stop-color="#e8edf1"/>
+      <stop offset="52%"  stop-color="#ffffff"/>
+      <stop offset="70%"  stop-color="#c2c9d1"/>
+      <stop offset="100%" stop-color="#767e88"/>
+    </linearGradient>
+    <linearGradient id="s-guarda" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#e2e7eb"/>
+      <stop offset="55%"  stop-color="#aab2bb"/>
+      <stop offset="100%" stop-color="#7d858f"/>
+    </linearGradient>
+    <linearGradient id="s-puno" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#5e2b26"/>
+      <stop offset="35%"  stop-color="#9c4a3c"/>
+      <stop offset="70%"  stop-color="#7d382e"/>
+      <stop offset="100%" stop-color="#4d221d"/>
+    </linearGradient>
+    <clipPath id="s-recorte">
+      <path d="M292 246 C292 226 512 214 512 214 C512 214 732 226 732 246
+               C732 486 672 668 512 800 C352 668 292 486 292 246 Z"/>
+    </clipPath>
   </defs>
-  <path d="M12 30 H108 V88 C108 120 86 141 60 152 C34 141 12 120 12 88 Z"
-        fill="url(#s-acero)" stroke="#2b333c" stroke-width="3"/>
-  <path d="M54 56 H66 V132 L60 144 L54 132 Z" fill="url(#s-filo)" stroke="#7d8894" stroke-width="1.2"/>
-  <path d="M26 56 C38 49 82 49 94 56 C82 62 38 62 26 56 Z" fill="url(#s-filo)" stroke="#7d8894" stroke-width="1.2"/>
-  <rect x="54" y="22" width="12" height="34" rx="3" fill="#8d0d14" stroke="#4d060c" stroke-width="1.2"/>
-  <circle cx="60" cy="18" r="7.5" fill="url(#s-acero)" stroke="#2b333c" stroke-width="1.6"/>
+
+  <path d="M270 236 C270 212 512 198 512 198 C512 198 754 212 754 236
+           C754 492 690 684 512 822 C334 684 270 492 270 236 Z"
+        fill="url(#s-rim)" stroke="#5a636d" stroke-width="8"/>
+  <path d="M292 246 C292 226 512 214 512 214 C512 214 732 226 732 246
+           C732 486 672 668 512 800 C352 668 292 486 292 246 Z"
+        fill="url(#s-cara)" stroke="#666f79" stroke-width="5"/>
+
+  <g clip-path="url(#s-recorte)" fill="#c7ced5">
+    <circle cx="340" cy="292" r="12"/><circle cx="684" cy="292" r="12"/>
+    <circle cx="326" cy="420" r="12"/><circle cx="698" cy="420" r="12"/>
+    <circle cx="360" cy="580" r="12"/><circle cx="664" cy="580" r="12"/>
+    <circle cx="420" cy="690" r="12"/><circle cx="604" cy="690" r="12"/>
+  </g>
+
+  <path d="M484 316 H540 V812 L512 962 L484 812 Z"
+        fill="url(#s-hoja)" stroke="#6d757f" stroke-width="6"/>
+  <path d="M362 282 C418 324 462 336 512 336 C562 336 606 324 662 282
+           C668 292 668 304 660 314 C606 356 562 368 512 368
+           C462 368 418 356 364 314 C356 304 356 292 362 282 Z"
+        fill="url(#s-guarda)" stroke="#6d757f" stroke-width="6"
+        stroke-linejoin="round"/>
+  <rect x="478" y="316" width="68" height="46" rx="9"
+        fill="url(#s-guarda)" stroke="#6d757f" stroke-width="5"/>
+  <rect x="490" y="126" width="44" height="192" rx="12"
+        fill="url(#s-puno)" stroke="#4a201b" stroke-width="5"/>
+  <circle cx="512" cy="98" r="38" fill="url(#s-rim)" stroke="#5a636d" stroke-width="6"/>
 </svg>

@@ -1,67 +1,186 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img"
      aria-labelledby="tituloEmblema">
-  <title id="tituloEmblema">Emblema: escudo y espada con la cinta «La sana doctrina no morirá»</title>
+  <title id="tituloEmblema">Escudo con espada y la cinta «La sana doctrina no morirá»</title>
 
   <defs>
-    <linearGradient id="acero" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"  stop-color="#8d99a6"/>
-      <stop offset="45%" stop-color="#5d6875"/>
-      <stop offset="100%" stop-color="#3a434e"/>
+    <!-- Acero del escudo -->
+    <linearGradient id="e-cara" x1="0.15" y1="0" x2="0.9" y2="1">
+      <stop offset="0%"   stop-color="#a8b1ba"/>
+      <stop offset="38%"  stop-color="#8d959e"/>
+      <stop offset="100%" stop-color="#69727c"/>
     </linearGradient>
-    <linearGradient id="filo" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"  stop-color="#c9d1d9"/>
-      <stop offset="50%" stop-color="#f2f5f8"/>
-      <stop offset="100%" stop-color="#9aa5b1"/>
+    <linearGradient id="e-rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#d3d9de"/>
+      <stop offset="45%"  stop-color="#9ba3ac"/>
+      <stop offset="100%" stop-color="#767e88"/>
     </linearGradient>
-    <linearGradient id="cinta" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"  stop-color="#e9c877"/>
-      <stop offset="55%" stop-color="#c9a227"/>
-      <stop offset="100%" stop-color="#a5811a"/>
+    <!-- Hoja de la espada -->
+    <linearGradient id="e-hoja" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#7f8791"/>
+      <stop offset="34%"  stop-color="#e8edf1"/>
+      <stop offset="52%"  stop-color="#ffffff"/>
+      <stop offset="70%"  stop-color="#c2c9d1"/>
+      <stop offset="100%" stop-color="#767e88"/>
     </linearGradient>
-    <linearGradient id="empunadura" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"  stop-color="#a01018"/>
-      <stop offset="100%" stop-color="#6d0810"/>
+    <linearGradient id="e-guarda" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#e2e7eb"/>
+      <stop offset="55%"  stop-color="#aab2bb"/>
+      <stop offset="100%" stop-color="#7d858f"/>
     </linearGradient>
+    <!-- Empuñadura de cuero -->
+    <linearGradient id="e-puno" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#5e2b26"/>
+      <stop offset="35%"  stop-color="#9c4a3c"/>
+      <stop offset="70%"  stop-color="#7d382e"/>
+      <stop offset="100%" stop-color="#4d221d"/>
+    </linearGradient>
+    <!-- Cinta dorada -->
+    <linearGradient id="e-cinta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f0d189"/>
+      <stop offset="42%"  stop-color="#d4a548"/>
+      <stop offset="100%" stop-color="#b07f28"/>
+    </linearGradient>
+    <linearGradient id="e-cola" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#9c6f30"/>
+      <stop offset="100%" stop-color="#6f4a1e"/>
+    </linearGradient>
+    <!-- Filigrana de bronce -->
+    <linearGradient id="e-filigrana" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#e0b465"/>
+      <stop offset="55%"  stop-color="#b07f34"/>
+      <stop offset="100%" stop-color="#7d5622"/>
+    </linearGradient>
+
+    <!-- Recorte para que remaches y bandas no se salgan del escudo -->
+    <clipPath id="e-recorte">
+      <path d="M292 246 C292 226 512 214 512 214 C512 214 732 226 732 246
+               C732 486 672 668 512 800 C352 668 292 486 292 246 Z"/>
+    </clipPath>
+
+    <path id="e-curva" d="M186 470 C346 424 678 424 838 470"/>
   </defs>
 
-  <!-- Escudo -->
-  <path d="M42 34 H158 V96 C158 132 132 156 100 170 C68 156 42 132 42 96 Z"
-        fill="url(#acero)" stroke="#2b333c" stroke-width="3"/>
-  <path d="M50 41 H150 V96 C150 127 127 149 100 161 C73 149 50 127 50 96 Z"
-        fill="none" stroke="#9aa5b1" stroke-width="1.6" opacity=".55"/>
-
-  <!-- Remaches -->
-  <g fill="#c3ccd5" opacity=".85">
-    <circle cx="57" cy="49" r="2.6"/><circle cx="143" cy="49" r="2.6"/>
-    <circle cx="57" cy="76" r="2.6"/><circle cx="143" cy="76" r="2.6"/>
-    <circle cx="57" cy="103" r="2.6"/><circle cx="143" cy="103" r="2.6"/>
-    <circle cx="66" cy="128" r="2.6"/><circle cx="134" cy="128" r="2.6"/>
-    <circle cx="100" cy="155" r="2.6"/>
+  <!-- ============ FILIGRANA (detrás del escudo) ============ -->
+  <g fill="none" stroke="url(#e-filigrana)" stroke-linecap="round">
+    <!-- Lado izquierdo -->
+    <g>
+      <path d="M300 352 C246 336 196 348 182 386 C170 418 200 444 224 428 C243 415 238 388 218 388"
+            stroke-width="17"/>
+      <path d="M296 402 C232 404 186 448 190 506 C193 550 236 570 260 544 C280 522 262 494 240 504"
+            stroke-width="19"/>
+      <path d="M288 540 C226 556 186 610 198 664 C208 708 254 718 274 690 C290 666 268 642 248 654"
+            stroke-width="18"/>
+      <path d="M276 468 C240 460 208 470 198 494" stroke-width="11"/>
+      <path d="M262 612 C232 610 208 626 202 650" stroke-width="11"/>
+      <path d="M258 340 C240 316 214 310 200 324" stroke-width="10"/>
+    </g>
+    <!-- Lado derecho (reflejo) -->
+    <g transform="translate(1024,0) scale(-1,1)">
+      <path d="M300 352 C246 336 196 348 182 386 C170 418 200 444 224 428 C243 415 238 388 218 388"
+            stroke-width="17"/>
+      <path d="M296 402 C232 404 186 448 190 506 C193 550 236 570 260 544 C280 522 262 494 240 504"
+            stroke-width="19"/>
+      <path d="M288 540 C226 556 186 610 198 664 C208 708 254 718 274 690 C290 666 268 642 248 654"
+            stroke-width="18"/>
+      <path d="M276 468 C240 460 208 470 198 494" stroke-width="11"/>
+      <path d="M262 612 C232 610 208 626 202 650" stroke-width="11"/>
+      <path d="M258 340 C240 316 214 310 200 324" stroke-width="10"/>
+    </g>
   </g>
 
-  <!-- Espada -->
-  <g>
-    <!-- hoja -->
-    <path d="M94 62 H106 V148 L100 162 L94 148 Z" fill="url(#filo)" stroke="#7d8894" stroke-width="1.2"/>
-    <path d="M100 62 V160" stroke="#8f9aa6" stroke-width="1" opacity=".8"/>
-    <!-- guarda -->
-    <path d="M62 62 C74 54 126 54 138 62 C126 68 74 68 62 62 Z"
-          fill="url(#filo)" stroke="#7d8894" stroke-width="1.2"/>
-    <!-- empuñadura -->
-    <rect x="94" y="24" width="12" height="38" rx="3" fill="url(#empunadura)" stroke="#4d060c" stroke-width="1.2"/>
-    <!-- pomo -->
-    <circle cx="100" cy="20" r="8" fill="url(#acero)" stroke="#2b333c" stroke-width="1.6"/>
+  <!-- ============ ESCUDO ============ -->
+  <!-- Borde exterior -->
+  <path d="M270 236 C270 212 512 198 512 198 C512 198 754 212 754 236
+           C754 492 690 684 512 822 C334 684 270 492 270 236 Z"
+        fill="url(#e-rim)" stroke="#5a636d" stroke-width="6"/>
+  <!-- Cara interior -->
+  <path d="M292 246 C292 226 512 214 512 214 C512 214 732 226 732 246
+           C732 486 672 668 512 800 C352 668 292 486 292 246 Z"
+        fill="url(#e-cara)" stroke="#666f79" stroke-width="4"/>
+
+  <g clip-path="url(#e-recorte)">
+    <!-- Bandas horizontales -->
+    <g stroke="#767f89" stroke-width="3.5" opacity=".75">
+      <path d="M292 556 H732"/>
+      <path d="M292 646 H732"/>
+      <path d="M292 730 H732"/>
+    </g>
+    <!-- Remaches -->
+    <g>
+      <g fill="#c7ced5">
+        <circle cx="336" cy="286" r="9"/><circle cx="410" cy="266" r="9"/>
+        <circle cx="484" cy="258" r="9"/><circle cx="614" cy="266" r="9"/>
+        <circle cx="688" cy="286" r="9"/>
+        <circle cx="322" cy="368" r="9"/><circle cx="702" cy="368" r="9"/>
+        <circle cx="330" cy="452" r="9"/><circle cx="694" cy="452" r="9"/>
+        <circle cx="352" cy="600" r="9"/><circle cx="430" cy="612" r="9"/>
+        <circle cx="594" cy="612" r="9"/><circle cx="672" cy="600" r="9"/>
+        <circle cx="392" cy="686" r="9"/><circle cx="632" cy="686" r="9"/>
+        <circle cx="452" cy="750" r="9"/><circle cx="572" cy="750" r="9"/>
+      </g>
+      <g fill="#6b7480" opacity=".7">
+        <circle cx="338" cy="289" r="4"/><circle cx="412" cy="269" r="4"/>
+        <circle cx="486" cy="261" r="4"/><circle cx="616" cy="269" r="4"/>
+        <circle cx="690" cy="289" r="4"/>
+        <circle cx="324" cy="371" r="4"/><circle cx="704" cy="371" r="4"/>
+        <circle cx="332" cy="455" r="4"/><circle cx="696" cy="455" r="4"/>
+        <circle cx="354" cy="603" r="4"/><circle cx="432" cy="615" r="4"/>
+        <circle cx="596" cy="615" r="4"/><circle cx="674" cy="603" r="4"/>
+        <circle cx="394" cy="689" r="4"/><circle cx="634" cy="689" r="4"/>
+        <circle cx="454" cy="753" r="4"/><circle cx="574" cy="753" r="4"/>
+      </g>
+    </g>
   </g>
 
-  <!-- Cinta -->
+  <!-- ============ ESPADA ============ -->
   <g>
-    <path d="M6 108 L34 100 V128 L6 136 Z" fill="#8d6a12"/>
-    <path d="M194 108 L166 100 V128 L194 136 Z" fill="#8d6a12"/>
-    <path d="M28 100 C74 90 126 90 172 100 V126 C126 116 74 116 28 126 Z"
-          fill="url(#cinta)" stroke="#8d6a12" stroke-width="1.6"/>
-    <text x="100" y="117" text-anchor="middle"
-          textLength="140" lengthAdjust="spacingAndGlyphs"
-          font-family="Georgia, 'Times New Roman', serif"
-          font-size="11" font-weight="700" fill="#3a2a05">LA SANA DOCTRINA NO MORIRÁ</text>
+    <!-- Hoja -->
+    <path d="M484 316 H540 V812 L512 962 L484 812 Z"
+          fill="url(#e-hoja)" stroke="#6d757f" stroke-width="4"/>
+    <path d="M512 322 V944" stroke="#8b939c" stroke-width="3" opacity=".6"/>
+    <!-- Guarda -->
+    <path d="M362 282 C418 324 462 336 512 336 C562 336 606 324 662 282
+             C668 292 668 304 660 314 C606 356 562 368 512 368
+             C462 368 418 356 364 314 C356 304 356 292 362 282 Z"
+          fill="url(#e-guarda)" stroke="#6d757f" stroke-width="4.5"
+          stroke-linejoin="round"/>
+    <!-- Refuerzo central de la guarda -->
+    <rect x="478" y="316" width="68" height="46" rx="9"
+          fill="url(#e-guarda)" stroke="#6d757f" stroke-width="4"/>
+    <!-- Empuñadura -->
+    <rect x="490" y="126" width="44" height="192" rx="12"
+          fill="url(#e-puno)" stroke="#4a201b" stroke-width="4"/>
+    <g stroke="#59261f" stroke-width="4" opacity=".85">
+      <path d="M492 156 H532"/><path d="M492 186 H532"/><path d="M492 216 H532"/>
+      <path d="M492 246 H532"/><path d="M492 276 H532"/>
+    </g>
+    <!-- Pomo -->
+    <circle cx="512" cy="98" r="38" fill="url(#e-rim)" stroke="#5a636d" stroke-width="5"/>
+    <g fill="none" stroke="#7a828c" stroke-width="4" opacity=".8">
+      <circle cx="512" cy="98" r="22"/>
+      <path d="M494 82 C506 96 518 96 530 82"/>
+      <path d="M494 114 C506 100 518 100 530 114"/>
+    </g>
+  </g>
+
+  <!-- ============ CINTA ============ -->
+  <g transform="rotate(1.6 512 452)">
+    <!-- Colas -->
+    <path d="M150 392 L64 366 L96 460 L58 540 L162 512 Z"
+          fill="url(#e-cola)" stroke="#5f4018" stroke-width="4"/>
+    <path d="M874 392 L960 366 L928 460 L966 540 L862 512 Z"
+          fill="url(#e-cola)" stroke="#5f4018" stroke-width="4"/>
+    <!-- Banda principal -->
+    <path d="M150 392 C320 356 704 356 874 392 L886 512 C704 474 320 474 162 512 Z"
+          fill="url(#e-cinta)" stroke="#8d6a26" stroke-width="5"/>
+    <!-- Pliegues -->
+    <path d="M150 392 L162 512 L196 506 L184 396 Z" fill="#a3782f" opacity=".55"/>
+    <path d="M874 392 L886 512 L852 506 L864 396 Z" fill="#a3782f" opacity=".55"/>
+
+    <text font-family="Georgia, 'Times New Roman', serif" font-size="66" font-weight="700"
+          fill="#241a06" text-anchor="middle">
+      <textPath href="#e-curva" startOffset="50%"
+                textLength="640" lengthAdjust="spacingAndGlyphs">LA SANA DOCTRINA NO MORIRÁ</textPath>
+    </text>
   </g>
 </svg>

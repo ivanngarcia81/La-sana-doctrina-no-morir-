@@ -130,7 +130,7 @@ strong { font-weight: 700; color: var(--titulo); }
 }
 
 .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
-.marca img { width: 30px; height: 38px; }
+.marca img { height: 42px; width: auto; flex: none; }
 .marca__texto { display: flex; flex-direction: column; line-height: 1.1; }
 .marca__titulo { font-size: 1rem; font-weight: 800; color: var(--titulo); letter-spacing: -.01em; }
 .marca__lema {
@@ -188,7 +188,10 @@ strong { font-weight: 700; color: var(--titulo); }
   padding: clamp(56px, 10vw, 96px) 0 clamp(56px, 9vw, 96px);
   text-align: center;
 }
-.portada__emblema { width: clamp(150px, 34vw, 230px); margin: 0 auto 30px; }
+.portada__emblema {
+  width: clamp(190px, 40vw, 300px); height: auto; margin: 0 auto 26px;
+  filter: drop-shadow(0 14px 28px rgba(0,0,0,.5));
+}
 .portada__antetitulo {
   font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
   color: var(--oro); margin-bottom: 18px; font-weight: 700;

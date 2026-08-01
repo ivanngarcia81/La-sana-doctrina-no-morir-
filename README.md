@@ -125,9 +125,40 @@ Las instrucciones también están como comentario dentro del propio `index.html`
 - **Correo de contacto**: se usa `ig07644@gmail.com` en los dos formularios y en la
   tarjeta de contacto. Si el correo oficial es otro, cámbialo en `index.html`
   (atributos `data-destino` y los enlaces `mailto:`).
-- **Emblema**: `assets/img/emblema.svg` es una recreación en SVG del escudo con la
-  espada y la cinta. Si tienes el archivo original en alta resolución (PNG o SVG),
-  reemplázalo y quedará idéntico al de la iglesia.
+- **Emblema**: `assets/img/emblema.svg` es una recreación en vectores del escudo con
+  la espada, la cinta y la filigrana. Se ve nítido en cualquier tamaño y pesa muy
+  poco, pero no reproduce el acabado tridimensional del original. Ver abajo cómo
+  poner el archivo verdadero.
+
+## Cómo poner el logo original
+
+El logotipo aparece en tres sitios y todos apuntan a los mismos dos archivos:
+
+| Archivo | Dónde se usa |
+|---|---|
+| `assets/img/emblema.svg` | Emblema grande de la portada y vista previa al compartir |
+| `assets/img/sello.svg` | Escudo pequeño del encabezado y del icono de la pestaña |
+
+**La forma fácil (sin tocar código):** copia el archivo del logotipo dentro de
+`assets/img/` con el nombre **`logo.png`** (también sirve `logo.webp` o `logo.jpg`),
+de preferencia con fondo transparente. La página lo detecta sola al cargar y lo usa
+en la portada en lugar del emblema dibujado. Si el archivo no está, sigue usando el
+SVG y no se rompe nada.
+
+Se puede subir directamente desde GitHub en el navegador: entra a la carpeta
+`assets/img`, pulsa **Add file → Upload files**, arrastra el archivo y confirma.
+
+Si además quieres que el logo salga en la vista previa al compartir el enlace y en el
+icono de la pestaña, cambia estas dos líneas dentro de `<head>` en `index.html`:
+
+```html
+<meta property="og:image" content="assets/img/logo.png">
+<link rel="icon" href="assets/img/logo.png" type="image/png">
+```
+
+El escudo pequeño del encabezado se deja en SVG a propósito: a 42 píxeles de alto el
+logotipo completo no se leería, y el sello (escudo y espada, sin cinta) se distingue
+mucho mejor.
 
 ## Notas técnicas
 
