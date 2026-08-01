@@ -13,8 +13,11 @@ datos ni instalación de dependencias.
 index.html                Página única con todas las secciones
 assets/css/estilo.css     Estilos (paleta del emblema + tema claro/oscuro)
 assets/js/main.js         Menú móvil, tema, animaciones, formularios
-assets/img/emblema.svg    Emblema completo (escudo, espada y cinta)
-assets/img/sello.svg      Versión compacta para el encabezado y el favicon
+assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
+assets/img/logo.png       Respaldo del logotipo para navegadores antiguos
+assets/img/logo-original.png  Copia maestra del logotipo, 1024 × 1024
+assets/img/sello.svg      Escudo compacto para el encabezado y el favicon
+assets/img/emblema.svg    Versión vectorial del emblema completo
 assets/video/             Carpeta para los videos de los pastores
 ```
 
@@ -125,40 +128,40 @@ Las instrucciones también están como comentario dentro del propio `index.html`
 - **Correo de contacto**: se usa `ig07644@gmail.com` en los dos formularios y en la
   tarjeta de contacto. Si el correo oficial es otro, cámbialo en `index.html`
   (atributos `data-destino` y los enlaces `mailto:`).
-- **Emblema**: `assets/img/emblema.svg` es una recreación en vectores del escudo con
-  la espada, la cinta y la filigrana. Se ve nítido en cualquier tamaño y pesa muy
-  poco, pero no reproduce el acabado tridimensional del original. Ver abajo cómo
-  poner el archivo verdadero.
+- **Vista previa al compartir**: `og:image` apunta a una ruta relativa. Cuando el
+  sitio tenga dominio propio conviene poner la dirección completa
+  (`https://tudominio.com/assets/img/logo.png`) para que el logo salga al pegar el
+  enlace en WhatsApp o Facebook.
 
-## Cómo poner el logo original
+## El logotipo
 
-El logotipo aparece en tres sitios y todos apuntan a los mismos dos archivos:
-
-| Archivo | Dónde se usa |
+| Archivo | Para qué sirve |
 |---|---|
-| `assets/img/emblema.svg` | Emblema grande de la portada y vista previa al compartir |
+| `assets/img/logo.webp` | El que ve la mayoría de visitantes (93 KB) |
+| `assets/img/logo.png` | Respaldo para navegadores antiguos (455 KB) |
+| `assets/img/logo-original.png` | Copia maestra tal como se recibió, 1024 × 1024 |
 | `assets/img/sello.svg` | Escudo pequeño del encabezado y del icono de la pestaña |
+| `assets/img/emblema.svg` | Versión vectorial completa, útil para imprimir a gran tamaño |
 
-**La forma fácil (sin tocar código):** copia el archivo del logotipo dentro de
-`assets/img/` con el nombre **`logo.png`** (también sirve `logo.webp` o `logo.jpg`),
-de preferencia con fondo transparente. La página lo detecta sola al cargar y lo usa
-en la portada en lugar del emblema dibujado. Si el archivo no está, sigue usando el
-SVG y no se rompe nada.
+Para cambiar el logotipo basta con reemplazar `logo.webp` y `logo.png`. El navegador
+elige solo el formato: si acepta WebP carga el ligero, y si no, el PNG.
 
-Se puede subir directamente desde GitHub en el navegador: entra a la carpeta
-`assets/img`, pulsa **Add file → Upload files**, arrastra el archivo y confirma.
-
-Si además quieres que el logo salga en la vista previa al compartir el enlace y en el
-icono de la pestaña, cambia estas dos líneas dentro de `<head>` en `index.html`:
-
-```html
-<meta property="og:image" content="assets/img/logo.png">
-<link rel="icon" href="assets/img/logo.png" type="image/png">
-```
-
-El escudo pequeño del encabezado se deja en SVG a propósito: a 42 píxeles de alto el
-logotipo completo no se leería, y el sello (escudo y espada, sin cinta) se distingue
+El escudo del encabezado se deja en SVG a propósito: a 42 píxeles de alto el logotipo
+completo con la cinta no se leería, y el sello solo (escudo y espada) se distingue
 mucho mejor.
+
+Si más adelante regeneras las versiones web desde el original:
+
+```bash
+python3 -c "
+from PIL import Image
+im = Image.open('assets/img/logo-original.png')
+im = im.crop(im.getchannel('A').getbbox())   # quita el margen transparente
+im.thumbnail((680, 680), Image.LANCZOS)
+im.save('assets/img/logo.webp', quality=90, method=6)
+im.save('assets/img/logo.png', optimize=True)
+"
+```
 
 ## Notas técnicas
 

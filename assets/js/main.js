@@ -98,24 +98,6 @@
     secciones.forEach(function (s) { espia.observe(s); });
   }
 
-  /* ---------- Logo original, si está disponible ----------
-     Basta con copiar el archivo del logotipo a assets/img/ con el nombre
-     logo.png (o logo.webp / logo.jpg). Si existe, sustituye al emblema
-     dibujado en vectores; si no existe, no pasa nada.                      */
-  var emblema = document.querySelector('[data-emblema]');
-
-  if (emblema) {
-    var candidatos = ['assets/img/logo.png', 'assets/img/logo.webp', 'assets/img/logo.jpg'];
-
-    (function probar(i) {
-      if (i >= candidatos.length) return;
-      var prueba = new Image();
-      prueba.onload = function () { emblema.src = candidatos[i]; };
-      prueba.onerror = function () { probar(i + 1); };
-      prueba.src = candidatos[i];
-    })(0);
-  }
-
   /* ---------- Próximo congreso: datos, aviso y cuenta regresiva ----------
      Toda la información sale de los atributos data-* del bloque
      <article data-proximo> que está en index.html. Si están vacíos o la

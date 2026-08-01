@@ -10,7 +10,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="La Sana Doctrina No Morirá">
 <meta property="og:description" content="Un llamado a permanecer firmes en la verdad. No es una organización, sino un clamor espiritual: ¡volver al fundamento de Cristo y su doctrina pura!">
-<meta property="og:image" content="assets/img/emblema.svg">
+<!-- Cuando el sitio tenga dominio propio, cambia esta ruta por la dirección
+     completa (https://tudominio.com/assets/img/logo.png) para que el logo
+     aparezca al compartir el enlace en WhatsApp, Facebook, etc. -->
+<meta property="og:image" content="assets/img/logo.png">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -74,12 +77,13 @@
   <!-- ================= PORTADA ================= -->
   <section class="portada" id="inicio">
     <div class="contenedor">
-      <!-- Si subes el logo original como assets/img/logo.png (o .webp/.jpg),
-           la página lo detecta sola y lo usa en lugar del emblema en vectores.
-           No hace falta cambiar nada más. -->
-      <img class="portada__emblema" data-emblema src="assets/img/emblema.svg"
-           alt="Emblema: escudo y espada con la cinta «La sana doctrina no morirá»"
-           width="300" height="300">
+      <!-- Logotipo oficial. Para cambiarlo basta con reemplazar los archivos
+           assets/img/logo.webp y assets/img/logo.png. -->
+      <picture class="portada__emblema">
+        <source srcset="assets/img/logo.webp" type="image/webp">
+        <img src="assets/img/logo.png" width="654" height="680"
+             alt="Emblema: escudo y espada con la cinta «La sana doctrina no morirá»">
+      </picture>
       <p class="portada__antetitulo">La Sana Doctrina No Morirá</p>
       <h1>Un Llamado a Permanecer Firmes en la Verdad</h1>
       <p class="portada__cita">

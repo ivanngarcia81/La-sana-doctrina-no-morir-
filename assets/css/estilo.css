@@ -189,9 +189,10 @@ strong { font-weight: 700; color: var(--titulo); }
   text-align: center;
 }
 .portada__emblema {
-  width: clamp(190px, 40vw, 300px); height: auto; margin: 0 auto 26px;
-  filter: drop-shadow(0 14px 28px rgba(0,0,0,.5));
+  display: block; width: clamp(200px, 42vw, 320px); margin: 0 auto 26px;
+  filter: drop-shadow(0 16px 30px rgba(0,0,0,.55));
 }
+.portada__emblema img { display: block; width: 100%; height: auto; }
 .portada__antetitulo {
   font-size: .72rem; letter-spacing: .28em; text-transform: uppercase;
   color: var(--oro); margin-bottom: 18px; font-weight: 700;
