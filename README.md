@@ -62,8 +62,9 @@ El archivo `.nojekyll` ya está incluido para que GitHub publique los archivos t
 
 ## Cómo anunciar el congreso de cada año
 
-El congreso se celebra una vez al año y en una ciudad distinta, así que se actualiza
-**en un solo lugar**: al principio de `assets/js/main.js` está el bloque `CONGRESO`.
+El congreso se celebra una vez al año y en una ciudad distinta. **Los dos únicos
+bloques que se actualizan cada año** están al principio de `assets/js/main.js`:
+`CONGRESO` (la próxima edición) y `EDICIONES` (las ya celebradas).
 
 ```js
 var CONGRESO = {
@@ -89,12 +90,25 @@ La página se comporta sola en los tres casos:
 | Congreso en curso | «¡El congreso está en curso! Bienvenidos todos» |
 | Ya terminó | «Esta edición ya se celebró. Pronto anunciaremos la sede del próximo» |
 
-Debajo de esa tarjeta, en `congreso.html`, va el programa por jornadas de la última
-edición. Cuando se anuncie una nueva, reemplaza los tres textos de las jornadas y
-cambia el título `Última edición · …`.
+El programa por jornadas que aparece debajo de esa tarjeta **no está escrito en el
+HTML**: lo genera `main.js` a partir del array `EDICIONES`, para no tener los mismos
+datos en dos sitios.
 
-Para publicar el historial de congresos ya celebrados hay una plantilla lista como
-comentario al final de esa misma página (`EDICIONES ANTERIORES`).
+```js
+var EDICIONES = [
+  {
+    edicion: 'Edición 2026',
+    sede: 'Cartagena, Colombia',
+    fechas: 'julio de 2026',
+    jornadas: [
+      { fecha: 'Viernes 17 julio 2026', titulo: '…', texto: '…' }
+    ]
+  }
+];
+```
+
+La edición más reciente va primero y se titula sola «Última edición». Para publicar
+otro congreso pasado basta con añadir un objeto más al array.
 
 ## Cómo poner los videos reales
 
@@ -142,8 +156,8 @@ Las instrucciones también están como comentario dentro del propio `pastores.ht
 
 | Archivo | Para qué sirve |
 |---|---|
-| `assets/img/logo.webp` | El que ve la mayoría de visitantes (93 KB) |
-| `assets/img/logo.png` | Respaldo para navegadores antiguos (455 KB) |
+| `assets/img/logo.webp` | El que ve la mayoría de visitantes (102 KB) |
+| `assets/img/logo.png` | Respaldo para navegadores antiguos (86 KB, paleta de 256 colores) |
 | `assets/img/logo-original.png` | Copia maestra tal como se recibió, 1024 × 1024 |
 | `assets/img/sello.webp` | Emblema pequeño del encabezado, 48 px de alto (respaldo: `sello.png`) |
 | `assets/img/favicon.png` | Icono de la pestaña del navegador, 64 × 64 |
@@ -162,9 +176,9 @@ from PIL import Image
 src = Image.open('assets/img/logo-original.png')
 rec = src.crop(src.getchannel('A').getbbox())   # quita el margen transparente
 
-grande = rec.copy(); grande.thumbnail((680, 680), Image.LANCZOS)
-grande.save('assets/img/logo.webp', quality=90, method=6)
-grande.save('assets/img/logo.png', optimize=True)
+grande = rec.copy(); grande.thumbnail((674, 674), Image.LANCZOS)
+grande.save('assets/img/logo.webp', quality=82, method=6)
+grande.quantize(colors=256, method=Image.FASTOCTREE).save('assets/img/logo.png', optimize=True)
 
 sello = rec.copy(); sello.thumbnail((160, 160), Image.LANCZOS)
 sello.save('assets/img/sello.webp', quality=92, method=6)
@@ -240,6 +254,11 @@ Sustituye los valores del bloque anterior por los de la que prefieras.
 - Tema claro u oscuro automático según el sistema del visitante, sin interruptor.
 - El menú resalta la página en la que estás.
 - Respeta `prefers-reduced-motion`.
+- El submenú «El proyecto» funciona sin JavaScript: su disparador es un enlace real
+  a `que-es.html` y el CSS lo despliega con el puntero o el foco mientras el JS no
+  se haya cargado.
+- La cuenta regresiva está oculta a los lectores de pantalla (anunciar los segundos
+  sería insoportable); en su lugar hay un resumen que solo cambia una vez al día.
 - Los formularios abren el programa de correo del visitante (no requieren servidor).
   Si prefieres recibir los envíos en una bandeja sin abrir el correo, se puede
   conectar un servicio como Formspree cambiando el `<form>`.

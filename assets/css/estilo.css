@@ -118,6 +118,15 @@ strong { font-weight: 700; color: var(--titulo); }
 .contenedor { width: 100%; max-width: var(--ancho); margin: 0 auto; padding: 0 24px; }
 .contenedor--angosto { max-width: 760px; }
 
+/* Texto que solo leen los lectores de pantalla */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; white-space: nowrap;
+  clip: rect(0 0 0 0); clip-path: inset(50%);
+}
+
 .saltar {
   position: absolute; left: -9999px; top: 0; z-index: 300;
   background: var(--acento); color: var(--acento-texto); padding: 10px 16px;
@@ -212,6 +221,13 @@ strong { font-weight: 700; color: var(--titulo); }
   display: none;
 }
 .nav__grupo.abierto .nav__submenu { display: block; }
+
+/* Sin JavaScript el disparador es un enlace normal a la primera página del
+   grupo, y el submenú se despliega al pasar el puntero o al recibir el
+   foco, para que Apostasía y Misión sigan siendo alcanzables. */
+.sin-js .nav__grupo:hover > .nav__submenu,
+.sin-js .nav__grupo:focus-within > .nav__submenu { display: block; }
+
 .nav__submenu a {
   display: block; padding: 10px 12px; border-radius: var(--radio);
   color: var(--texto); text-decoration: none; font-size: .92rem;
