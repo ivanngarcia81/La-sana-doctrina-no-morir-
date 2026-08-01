@@ -49,6 +49,17 @@
     });
   }
 
+  /* ---------- Sombra del encabezado al desplazarse ---------- */
+  var encabezado = document.querySelector('.encabezado');
+
+  if (encabezado) {
+    var marcarEncabezado = function () {
+      encabezado.classList.toggle('encabezado--fijo', window.scrollY > 8);
+    };
+    marcarEncabezado();
+    window.addEventListener('scroll', marcarEncabezado, { passive: true });
+  }
+
   /* ---------- Tema claro / oscuro ---------- */
   var botonTema = document.querySelector('.boton-tema');
   var raiz = document.documentElement;
