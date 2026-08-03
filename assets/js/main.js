@@ -56,9 +56,9 @@
      ------------------------------------------------------------ */
   var EDICIONES = [
     {
-      edicion: 'Edición 2026',
+      edicion: 'Tercera edición',
       sede: 'Cartagena, Colombia',
-      fechas: 'julio de 2026',
+      fechas: 'viernes 17, sábado 18 y domingo 19 de julio de 2026',
       jornadas: [
         {
           fecha: 'Viernes 17 julio 2026',
@@ -92,11 +92,20 @@
       ]
     },
     {
-      /* La primera edición, la que inauguró el congreso.
-         PENDIENTE: confirmar las fechas exactas. */
+      /* En 2026 el congreso se celebró dos veces: esta en mayo y la de
+         Cartagena en julio. Fin de semana de Memorial Day, que en 2026
+         cayó en lunes 25 de mayo. */
+      edicion: 'Segunda edición',
+      sede: 'Connecticut',
+      fechas: 'viernes 22, sábado 23 y domingo 24 de mayo de 2026',
+      jornadas: []
+    },
+    {
+      /* La primera edición, la que inauguró el congreso. Se celebró el fin
+         de semana de Memorial Day, que cayó en lunes 26 de mayo de 2025. */
       edicion: 'Primera edición',
       sede: 'Newark, Nueva Jersey',
-      fechas: '2025',
+      fechas: 'viernes 23, sábado 24 y domingo 25 de mayo de 2025',
       jornadas: []
     }
   ];
