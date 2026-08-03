@@ -44,12 +44,13 @@
      La más reciente va primero. Cada edición lleva:
 
        edicion   Nombre de la edición, p. ej. 'Edición 2026'
-       sede      Ciudad y país
+       sede      Ciudad y país. Puede quedar vacío si aún no se confirma.
        fechas    Texto del periodo, p. ej. 'julio de 2026'
        jornadas  Una entrada por día, cada una con:
                    fecha   Rótulo del día
                    titulo  Título de la jornada
                    texto   Descripción
+                 Puede omitirse: entonces solo se muestra el encabezado.
 
      Para publicar otra edición basta con añadir un objeto más.
      ------------------------------------------------------------ */
@@ -89,6 +90,14 @@
                  'sino a defender con fidelidad el evangelio de Jesucristo.'
         }
       ]
+    },
+    {
+      /* La primera edición, la que inauguró el congreso.
+         PENDIENTE: confirmar la ciudad y las fechas exactas. */
+      edicion: 'Primera edición',
+      sede: '',
+      fechas: '2025',
+      jornadas: []
     }
   ];
 
@@ -271,11 +280,17 @@
     var trozos = [];
 
     EDICIONES.forEach(function (ed, i) {
-      var rotulo = (i === 0 ? 'Última edición' : ed.edicion);
-      trozos.push('<h3 class="programa__titulo revelar">' +
-                  rotulo + ' · ' + ed.sede + ' — ' + ed.fechas + '</h3>');
+      /* El encabezado se arma con lo que haya: sede y fechas son opcionales */
+      var partes = [i === 0 ? 'Última edición' : ed.edicion];
+      if (ed.sede) partes.push(ed.sede);
+      if (ed.fechas) partes.push(ed.fechas);
+      trozos.push('<h3 class="programa__titulo revelar">' + partes.join(' · ') + '</h3>');
+
+      var jornadas = ed.jornadas || [];
+      if (!jornadas.length) return;
+
       trozos.push('<div class="rejilla rejilla--3 revelar">');
-      ed.jornadas.forEach(function (j) {
+      jornadas.forEach(function (j) {
         trozos.push('<article class="jornada">' +
                     '<p class="jornada__fecha">' + j.fecha + '</p>' +
                     '<h3 class="tarjeta__titulo">' + j.titulo + '</h3>' +
