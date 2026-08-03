@@ -120,7 +120,11 @@ JPG de respaldo, a 1600 px de ancho. Los originales de cámara, de 1,5 a 3,5 MB 
 uno, no se guardan en el repositorio: quedan en el historial de git, en el commit que
 los subió.
 
-Las catorce que hay ahora son **todas de la primera edición, la de 2025**.
+Las catorce que hay ahora se reparten por sede:
+
+- Las que tienen el emblema y los televisores al fondo son de **Newark, Nueva
+  Jersey**, la primera edición, la de 2025.
+- Las de predicación en el auditorio grande son de **Connecticut**.
 
 | Archivos | Dónde aparecen |
 |---|---|
@@ -181,9 +185,10 @@ Las instrucciones también están como comentario dentro del propio `pastores.ht
   definan, se rellenan los cinco datos del bloque CONGRESO explicado arriba.
 - **Fecha del tercer día de Cartagena**: en la captura no aparecía. Como el congreso
   empezó el viernes 17, se puso «domingo 19 julio 2026»; conviene confirmarlo.
-- **Ciudad y fechas de la primera edición (2025)**: la entrada existe en `EDICIONES`
-  pero con `sede` vacía, así que en la línea de tiempo solo aparece «Primera edición
-  · 2025».
+- **Fechas de la primera edición**: la sede ya consta (Newark, Nueva Jersey) pero no
+  los días exactos, así que la línea de tiempo muestra solo el año.
+- **Año de Connecticut**: la galería de `pastores.html` se rotula solo con la sede,
+  porque no está confirmado a qué edición corresponde.
 - **Fotos de Cartagena 2026**: pendientes de conseguir.
 - **Correo de contacto**: se usa `ig07644@gmail.com` en los dos formularios y en la
   tarjeta de contacto. Si el correo oficial es otro, cámbialo en `contacto.html` y en

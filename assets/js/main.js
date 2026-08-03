@@ -93,9 +93,9 @@
     },
     {
       /* La primera edición, la que inauguró el congreso.
-         PENDIENTE: confirmar la ciudad y las fechas exactas. */
+         PENDIENTE: confirmar las fechas exactas. */
       edicion: 'Primera edición',
-      sede: '',
+      sede: 'Newark, Nueva Jersey',
       fechas: '2025',
       jornadas: []
     }
