@@ -535,6 +535,33 @@ body.sin-scroll { overflow: hidden; }
 }
 .video__pie strong { color: var(--sobre-oscuro); font-weight: 600; }
 
+/* ------------------------------------------------------------
+   Fotografías
+   ------------------------------------------------------------ */
+.galeria {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+.foto {
+  margin: 0; overflow: hidden;
+  background: var(--superficie);
+  border: 1px solid var(--borde); border-radius: var(--radio);
+}
+.foto img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 16 / 10; object-fit: cover;
+}
+.foto__pie {
+  padding: 12px 16px; text-align: left;
+  font-size: .84rem; color: var(--texto-suave);
+  border-top: 1px solid var(--borde);
+}
+/* Una sola foto ancha, centrada */
+.foto--destacada {
+  max-width: 940px; margin: 0 auto clamp(34px, 5vw, 52px);
+}
+.foto--destacada img { aspect-ratio: 16 / 9; }
+
 /* Congreso — tarjeta del próximo evento */
 .proximo {
   position: relative; overflow: hidden;

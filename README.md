@@ -32,6 +32,7 @@ assets/img/sello.webp     Emblema pequeño del encabezado (respaldo: sello.png)
 assets/img/favicon.png    Icono de la pestaña del navegador
 assets/img/emblema.svg    Versión vectorial del emblema, útil para imprimir
 assets/img/sello.svg      Versión vectorial del escudo, sin la cinta
+assets/img/fotos/         Fotografías del congreso (WebP + respaldo JPG)
 assets/video/             Carpeta para los videos de los pastores
 ```
 
@@ -109,6 +110,32 @@ var EDICIONES = [
 
 La edición más reciente va primero y se titula sola «Última edición». Para publicar
 otro congreso pasado basta con añadir un objeto más al array.
+
+## Las fotografías del congreso
+
+Están en `assets/img/fotos/`, cada una en WebP (la que carga casi todo el mundo) y
+JPG de respaldo, a 1600 px de ancho. Los originales de cámara, de 1,5 a 3,5 MB cada
+uno, no se guardan en el repositorio: quedan en el historial de git, en el commit que
+los subió.
+
+| Archivo | Dónde aparece |
+|---|---|
+| `pastores-grupo` | Foto destacada de `pastores.html` |
+| `congreso-cartel`, `congreso-oracion`, `congreso-asamblea`, `congreso-grupo-1`, `congreso-grupo-2` | Galería de `congreso.html` |
+
+Para añadir más fotos, súbelas al repositorio y regenera las versiones web:
+
+```bash
+python3 -c "
+from PIL import Image, ImageOps
+im = ImageOps.exif_transpose(Image.open('FOTO.jpeg')).convert('RGB')
+im.thumbnail((1600, 1600), Image.LANCZOS)
+im.save('assets/img/fotos/NOMBRE.webp', quality=80, method=6)
+im.save('assets/img/fotos/NOMBRE.jpg', quality=78, optimize=True, progressive=True)
+"
+```
+
+`exif_transpose` es importante: endereza las fotos que la cámara guardó giradas.
 
 ## Cómo poner los videos reales
 
