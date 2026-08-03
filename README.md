@@ -118,10 +118,11 @@ JPG de respaldo, a 1600 px de ancho. Los originales de cámara, de 1,5 a 3,5 MB 
 uno, no se guardan en el repositorio: quedan en el historial de git, en el commit que
 los subió.
 
-| Archivo | Dónde aparece |
+| Archivos | Dónde aparecen |
 |---|---|
 | `pastores-grupo` | Foto destacada de `pastores.html` |
-| `congreso-cartel`, `congreso-oracion`, `congreso-asamblea`, `congreso-grupo-1`, `congreso-grupo-2` | Galería de `congreso.html` |
+| `predicacion-1` … `predicacion-8` | Galería «Momentos de predicación» de `pastores.html` |
+| `congreso-cartel`, `congreso-oracion`, `congreso-asamblea`, `congreso-grupo-1`, `congreso-grupo-2` | Galería «Imágenes del congreso» de `congreso.html` |
 
 Para añadir más fotos, súbelas al repositorio y regenera las versiones web:
 
