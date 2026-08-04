@@ -855,11 +855,19 @@ def ficha(c):
         alterna=True, ident='programa'))
 
     # ---------- galería ----------
+    fotos = c.get('galeria', [])
     imagenes = [foto(g['archivo'], g.get('alto', 900), g.get('alt', ''),
                      pie=g.get('pie', ''), ancho=g.get('ancho', 1600), base=b)
-                for g in c.get('galeria', [])]
+                for g in fotos]
+    # La rejilla normal recorta todo a un mismo formato, que es lo que se
+    # quiere cuando las fotos vienen igual. Si las hay verticales y
+    # horizontales mezcladas, se pasa a columnas: recortar una vertical a
+    # 16/10 le cortaría la cabeza a quien salga en ella.
+    verticales = any(g.get('alto', 0) > g.get('ancho', 0) for g in fotos)
+    horizontales = any(g.get('ancho', 0) >= g.get('alto', 0) for g in fotos)
+    clase = 'galeria galeria--natural' if verticales and horizontales else 'galeria'
     partes.append(seccion_congreso(
-        'Galería', '      <div class="galeria revelar">\n' + '\n'.join(imagenes)
+        'Galería', f'      <div class="{clase} revelar">\n' + '\n'.join(imagenes)
         + '\n      </div>' if imagenes else '', eyebrow='Imágenes', ident='galeria'))
 
     # ---------- logística ----------

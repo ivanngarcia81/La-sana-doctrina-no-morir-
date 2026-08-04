@@ -142,11 +142,16 @@ Las catorce que hay ahora se reparten por sede:
 | `pastor-retrato-*`, `pastor-predicando-*` | Galería de pastores de `pastores.html` |
 | `predicacion-1` … `predicacion-8` | Connecticut: en `pastores.html` y en `congresos/2026-connecticut/` |
 | `pastores-grupo`, `congreso-cartel`, `congreso-oracion`, `congreso-asamblea`, `congreso-grupo-1`, `congreso-grupo-2` | Newark: `congresos/2025-newark/` |
+| `cartagena-*` (14 fotos) | Cartagena: `congresos/2026-cartagena/` |
 
 Las galerías de cada congreso salen del campo `galeria` de
-`data/congresos.json`, no del HTML. Cuando lleguen las fotos de Cartagena 2026,
-se optimizan como las demás y se añaden a la lista `galeria` de ese congreso, con
-su ancho y alto reales.
+`data/congresos.json`, no del HTML. Para añadir fotos a una edición se
+optimizan como las demás y se agregan a su lista `galeria`, con el ancho y el
+alto reales.
+
+Si una edición mezcla fotos verticales y horizontales, la galería pasa sola a
+maquetación en columnas: recortar una vertical al formato común le cortaría la
+cabeza a quien salga en ella.
 
 Para añadir más fotos, súbelas al repositorio y regenera las versiones web:
 
@@ -198,15 +203,14 @@ rellene `data/congresos.json`.
 - **Sede y fechas del próximo congreso.** Los tres celebrados ya pasaron, así que
   la portada está en modo «por anunciar». Cuando se confirme, se añade un congreso
   nuevo al JSON y se borra la entrada `por-anunciar`.
-- **Fotos de Cartagena 2026** y su **afiche**. Sin afiche, al compartir el enlace
-  de un congreso por WhatsApp sale el logo del proyecto en vez del cartel.
+- **Afiches oficiales** de cada edición. Las tres tienen ya una fotografía de
+  portada, que es lo que sale al compartir el enlace; el afiche, cuando exista,
+  manda sobre ella.
 - **Nombres de los pastores.** Los pies de foto describen la escena sin nombrar a
   nadie. Con los nombres mejoran también los textos alternativos.
 - **Datos de cada congreso**: dirección, mapa, iglesia anfitriona, predicadores,
   horas del programa, logística y preguntas frecuentes. Todos los campos existen
   ya en el JSON, vacíos.
-- **Tiempo verbal del programa de Cartagena.** Los textos se escribieron antes del
-  congreso y siguen en futuro («Será un tiempo de enseñanza…»).
 - **Correo de contacto.** Se usa `ig07644@gmail.com`. Si el oficial es otro, se
   cambia en el bloque `CONTACTO` de `generar.py`, en un solo sitio.
 - **Envío de los formularios.** `FORMULARIO_DESTINO` está vacío: validan y avisan,
