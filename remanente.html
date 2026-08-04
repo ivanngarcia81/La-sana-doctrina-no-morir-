@@ -123,34 +123,65 @@
     <div class="contenedor contenedor--angosto">
       <div class="seccion__encabezado revelar">
         <p class="seccion__eyebrow">Mantente conectado</p>
-        <h2>Suscríbete para más información</h2>
+        <h2>Quiero unirme al remanente</h2>
         <div class="plomada"></div>
-        <p>Recibe las fechas del congreso y los anuncios del movimiento.</p>
+        <p>Si tu iglesia defiende la sana doctrina y no transige con el error,
+           escríbenos y conversamos.</p>
       </div>
 
-      <!-- FASE DE DISEÑO: el envío se conecta más adelante -->
-      <form class="formulario revelar" data-formulario-contacto
-            data-destino="ig07644@gmail.com" data-asunto="Suscripción">
-        <div class="dosxdos">
-          <div class="campo">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" required autocomplete="given-name">
+      <form class="formulario revelar" data-formulario
+            data-asunto="Unirse al remanente" novalidate>
+          <div class="dosxdos">
+            <div class="campo">
+              <label for="r-iglesia">Nombre de la iglesia</label>
+              <input id="r-iglesia" name="iglesia" type="text" required autocomplete="organization">
+              <p class="campo__error" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="r-pastor">Pastor</label>
+              <input id="r-pastor" name="pastor" type="text" required autocomplete="name">
+              <p class="campo__error" hidden></p>
+            </div>
           </div>
-          <div class="campo">
-            <label for="apellido">Apellido</label>
-            <input id="apellido" name="apellido" type="text" autocomplete="family-name">
+          <div class="dosxdos">
+            <div class="campo">
+              <label for="r-ciudad">Ciudad</label>
+              <input id="r-ciudad" name="ciudad" type="text" required>
+              <p class="campo__error" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="r-estado">Estado o provincia</label>
+              <input id="r-estado" name="estado" type="text">
+              <p class="campo__error" hidden></p>
+            </div>
           </div>
-        </div>
-
-        <div class="campo">
-          <label for="correo">Correo electrónico</label>
-          <input id="correo" name="correo" type="email" required autocomplete="email">
-        </div>
-
+          <div class="dosxdos">
+            <div class="campo">
+              <label for="r-pais">País</label>
+              <input id="r-pais" name="pais" type="text" required autocomplete="country-name">
+              <p class="campo__error" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="r-telefono">Teléfono</label>
+              <input id="r-telefono" name="telefono" type="tel" autocomplete="tel">
+              <p class="campo__error" hidden></p>
+            </div>
+          </div>
+            <div class="campo">
+              <label for="r-correo">Correo electrónico</label>
+              <input id="r-correo" name="correo" type="email" required autocomplete="email">
+              <p class="campo__error" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="r-mensaje">Mensaje</label>
+              <textarea id="r-mensaje" name="mensaje" required></textarea>
+              <p class="campo__error" hidden></p>
+            </div>
         <div>
-          <button class="boton boton--principal" type="submit">Suscribirme</button>
+          <button class="boton boton--principal" type="submit">Unirme al remanente</button>
         </div>
-        <p class="ayuda">Al enviar se abrirá tu programa de correo con los datos ya escritos.</p>
+        <p class="formulario__estado" role="status" aria-live="polite"
+           data-estado-envio hidden></p>
       </form>
     </div>
   </section>

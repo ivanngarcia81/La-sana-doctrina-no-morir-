@@ -12,6 +12,7 @@ No necesita instalar nada: solo Python 3.
 FASE DE DISEÑO: los formularios no envían a ningún servicio y los datos de
 contacto son provisionales.
 """
+import datetime
 import json
 import os
 
@@ -356,12 +357,592 @@ def foto(nombre, alto, alt, clase='', pie='', prioridad=False, ancho=1600, base=
       </figure>"""
 
 
+def campo(ident, nombre, etiqueta, tipo='text', requerido=False, auto='',
+          opciones=None, area=False):
+    """Un campo con su etiqueta y el hueco donde main.js escribe el error.
+       El hueco va en el HTML para que el mensaje no desplace el resto de
+       la página al aparecer."""
+    req = ' required' if requerido else ''
+    auto_attr = f' autocomplete="{auto}"' if auto else ''
+    if opciones is not None:
+        lista = '\n'.join(f'                <option>{o}</option>' for o in opciones)
+        control = f'<select id="{ident}" name="{nombre}"{req}>\n{lista}\n              </select>'
+    elif area:
+        control = f'<textarea id="{ident}" name="{nombre}"{req}></textarea>'
+    else:
+        control = f'<input id="{ident}" name="{nombre}" type="{tipo}"{req}{auto_attr}>'
+    return f"""            <div class="campo">
+              <label for="{ident}">{etiqueta}</label>
+              {control}
+              <p class="campo__error" hidden></p>
+            </div>"""
+
+
+def formulario(asunto, campos, boton, clase=''):
+    """Formulario con validación en el navegador y estado de envío.
+
+       FASE DE DISEÑO: FORMULARIO_DESTINO está vacío, así que no se envía a
+       ningún sitio. Al poner ahí la URL del servicio (Formspree, Netlify
+       Forms…) el formulario empieza a enviar sin tocar nada más."""
+    accion = (f' action="{FORMULARIO_DESTINO}" method="post"'
+              if FORMULARIO_DESTINO else '')
+    clases = ('formulario ' + clase).strip()
+    return f"""      <form class="{clases}" data-formulario{accion}
+            data-asunto="{asunto}" novalidate>
+{campos}
+        <div>
+          <button class="boton boton--principal" type="submit">{boton}</button>
+        </div>
+        <p class="formulario__estado" role="status" aria-live="polite"
+           data-estado-envio hidden></p>
+      </form>"""
+
+
 def tarjeta_enlace(href, indice, titulo, texto):
     return f"""        <a class="tarjeta tarjeta--enlace" href="{href}">
           <span class="tarjeta__indice">{indice}</span>
           <h3 class="tarjeta__titulo">{titulo}</h3>
           <p>{texto}</p>
         </a>"""
+
+
+# ==================================================================
+#  CONGRESOS — todo sale de data/congresos.json
+# ==================================================================
+with open(os.path.join(RAIZ, 'data', 'congresos.json'), encoding='utf-8') as f:
+    CONGRESOS = json.load(f)['congresos']
+
+HOY = datetime.date.today()
+
+MESES = ('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
+         'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre')
+DIAS = ('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo')
+
+ROTULO_ESTADO = {
+    'por_anunciar': 'Por anunciar',
+    'proximo':      'Próximo',
+    'en_curso':     'En curso',
+    'finalizado':   'Finalizado',
+}
+
+
+def _fecha(iso):
+    return datetime.date.fromisoformat(iso) if iso else None
+
+
+def estado_de(c):
+    """El estado NUNCA se escribe en el JSON: se deduce de las fechas.
+
+       El HTML se genera con el estado del día en que se ejecutó este
+       archivo, y main.js lo vuelve a calcular al abrir la página. Así un
+       congreso que ya pasó deja de anunciarse como próximo aunque nadie
+       haya vuelto a generar el sitio."""
+    ini = _fecha(c.get('fecha_inicio'))
+    if not ini:
+        return 'por_anunciar'
+    fin = _fecha(c.get('fecha_fin')) or ini
+    if HOY < ini:
+        return 'proximo'
+    if HOY <= fin:
+        return 'en_curso'
+    return 'finalizado'
+
+
+def fechas_largas(c):
+    """'viernes 17, sábado 18 y domingo 19 de julio de 2026'.
+       Para periodos de más de tres días pasa a 'del … al …'."""
+    ini = _fecha(c.get('fecha_inicio'))
+    if not ini:
+        return ''
+    fin = _fecha(c.get('fecha_fin')) or ini
+    dias = (fin - ini).days + 1
+    if dias <= 3 and (ini.month, ini.year) == (fin.month, fin.year):
+        nombres = []
+        for i in range(dias):
+            d = ini + datetime.timedelta(days=i)
+            nombres.append(f'{DIAS[d.weekday()]} {d.day}')
+        lista = nombres[0] if dias == 1 else ', '.join(nombres[:-1]) + ' y ' + nombres[-1]
+        return f'{lista} de {MESES[ini.month - 1]} de {ini.year}'
+    if ini.year != fin.year:
+        return (f'del {ini.day} de {MESES[ini.month - 1]} de {ini.year} '
+                f'al {fin.day} de {MESES[fin.month - 1]} de {fin.year}')
+    if ini.month != fin.month:
+        return (f'del {ini.day} de {MESES[ini.month - 1]} '
+                f'al {fin.day} de {MESES[fin.month - 1]} de {ini.year}')
+    return f'del {ini.day} al {fin.day} de {MESES[ini.month - 1]} de {ini.year}'
+
+
+def fechas_cortas(c):
+    """Versión compacta para las tarjetas del listado."""
+    ini = _fecha(c.get('fecha_inicio'))
+    if not ini:
+        return 'Fecha por anunciar'
+    fin = _fecha(c.get('fecha_fin')) or ini
+    if ini == fin:
+        return f'{ini.day} de {MESES[ini.month - 1]} de {ini.year}'
+    if (ini.month, ini.year) == (fin.month, fin.year):
+        return f'{ini.day}–{fin.day} de {MESES[ini.month - 1]} de {ini.year}'
+    if ini.year == fin.year:
+        return (f'{ini.day} de {MESES[ini.month - 1]} – '
+                f'{fin.day} de {MESES[fin.month - 1]} de {ini.year}')
+    return (f'{ini.day} de {MESES[ini.month - 1]} de {ini.year} – '
+            f'{fin.day} de {MESES[fin.month - 1]} de {fin.year}')
+
+
+def lugar(c):
+    """Ciudad y país, que es como se nombra una sede de viva voz."""
+    if c.get('ciudad') and c.get('pais'):
+        return f"{c['ciudad']}, {c['pais']}"
+    partes = [p for p in (c.get('ciudad'), c.get('estado'), c.get('pais')) if p]
+    return ', '.join(partes) or 'Sede por anunciar'
+
+
+def lugar_completo(c):
+    partes = [p for p in (c.get('ciudad'), c.get('estado'), c.get('pais')) if p]
+    return ', '.join(partes) or 'Sede por anunciar'
+
+
+def momentos(c):
+    """Inicio y fin para el archivo .ics y para Google Calendar.
+
+       Un congreso de varios días se agenda como evento de día completo:
+       es lo que corresponde y evita inventar una hora de cierre que no
+       tenemos. Un evento de día completo tampoco se desplaza al cambiar
+       de huso horario, que es la forma más segura de respetar la zona del
+       congreso. El fin es exclusivo, por eso se suma un día."""
+    ini = _fecha(c.get('fecha_inicio'))
+    if not ini:
+        return ('', '')
+    fin = _fecha(c.get('fecha_fin')) or ini
+    return (ini.isoformat(), (fin + datetime.timedelta(days=1)).isoformat())
+
+
+def _orden(c):
+    return c.get('fecha_inicio') or '9999-99-99'
+
+
+PROXIMOS = sorted(
+    [c for c in CONGRESOS if estado_de(c) in ('proximo', 'en_curso', 'por_anunciar')],
+    key=_orden)
+PASADOS = sorted([c for c in CONGRESOS if estado_de(c) == 'finalizado'],
+                 key=_orden, reverse=True)
+
+
+def datos_js():
+    """Los mismos datos, incrustados en la propia página.
+
+       Va en la página en vez de pedirse con fetch para que el contenido
+       exista en el HTML: los buscadores y la vista previa de WhatsApp no
+       ejecutan JavaScript. Este bloque solo alimenta lo que depende de la
+       hora actual (estado y cuenta regresiva)."""
+    ligeros = [{
+        'slug':    c['slug'],
+        'edicion': c.get('edicion', ''),
+        'nombre':  c.get('nombre', ''),
+        'lugar':   lugar(c),
+        'fechas':  fechas_cortas(c),
+        'inicio':  c.get('fecha_inicio', ''),
+        'fin':     c.get('fecha_fin', ''),
+    } for c in CONGRESOS]
+    crudo = json.dumps(ligeros, ensure_ascii=False)
+    # Un </script> dentro del texto cerraría la etiqueta antes de tiempo.
+    crudo = crudo.replace('</', r'<\/')
+    return f'<script type="application/json" id="datos-congresos">{crudo}</script>'
+
+
+def insignia(c):
+    est = estado_de(c)
+    return (f'<span class="estado estado--{est}" data-estado '
+            f'data-inicio="{c.get("fecha_inicio", "")}" '
+            f'data-fin="{c.get("fecha_fin", "")}">{ROTULO_ESTADO[est]}</span>')
+
+
+def afiche_img(c, base='', clase='', prioridad=False):
+    """El afiche promocional. Mientras no exista se muestra el sello del
+       proyecto, que encaja con el diseño y no deja un hueco gris."""
+    ruta = c.get('afiche', '')
+    if ruta:
+        carga = ('fetchpriority="high"' if prioridad
+                 else 'loading="lazy" decoding="async"')
+        return (f'<img class="afiche__imagen{clase}" src="{base}{ruta}{V}" '
+                f'alt="Afiche del {c.get("nombre", "congreso")} — '
+                f'{lugar(c)}" {carga}>')
+    return f"""<span class="afiche__vacio{clase}" role="img"
+              aria-label="Afiche pendiente de publicar">
+          <img src="{base}assets/img/sello.png{V}" alt="" width="159" height="160"
+               loading="lazy" decoding="async">
+        </span>"""
+
+
+def dato(etiqueta, valor):
+    """Un par etiqueta/valor que desaparece si no hay dato."""
+    if not valor:
+        return ''
+    return f"""            <div class="dato">
+              <p class="dato__etiqueta">{etiqueta}</p>
+              <p class="dato__valor">{valor}</p>
+            </div>"""
+
+
+def seccion_congreso(titulo, cuerpo, eyebrow='', alterna=False, ident=''):
+    """Sección que solo se dibuja si tiene contenido."""
+    if not cuerpo.strip():
+        return ''
+    clases = 'seccion seccion--alterna' if alterna else 'seccion'
+    id_attr = f' id="{ident}"' if ident else ''
+    rotulo = f'\n        <p class="seccion__eyebrow">{eyebrow}</p>' if eyebrow else ''
+    return f"""  <section class="{clases}"{id_attr}>
+    <div class="contenedor">
+      <div class="seccion__encabezado revelar">{rotulo}
+        <h2>{titulo}</h2>
+        <div class="plomada"></div>
+      </div>
+{cuerpo}
+    </div>
+  </section>
+"""
+
+
+def el_proximo():
+    """El congreso más cercano en el tiempo que todavía no ha terminado.
+       Devuelve None si no hay ninguno con fecha confirmada."""
+    con_fecha = [c for c in PROXIMOS if c.get('fecha_inicio')]
+    return con_fecha[0] if con_fecha else None
+
+
+def tarjeta_proximo(base=''):
+    """Cuenta regresiva. La sede y las fechas van escritas en el HTML: sin
+       JavaScript se sigue leyendo todo, solo falta el reloj. Cuando no hay
+       fecha confirmada, en vez de un contador en cero se muestra el aviso."""
+    c = el_proximo()
+    if not c:
+        return """      <article class="proximo revelar" data-proximo>
+        <p class="proximo__edicion">Próxima edición</p>
+        <h3 class="proximo__sede">Sede por anunciar</h3>
+        <p class="proximo__fechas">Fecha por anunciar</p>
+        <p class="cuenta__aviso">
+          Estamos preparando la próxima edición. En cuanto se confirmen la sede
+          y las fechas aparecerán aquí.
+        </p>
+        <div class="botones seccion__pie">
+          <a class="boton boton--principal" href="{b}contacto.html">Proponer una sede</a>
+        </div>
+      </article>""".replace('{b}', base)
+    return f"""      <article class="proximo revelar" data-proximo data-base="{base}"
+               data-slug="{c['slug']}"
+               data-inicio="{c['fecha_inicio']}" data-fin="{c.get('fecha_fin', '')}">
+        <p class="proximo__edicion">{c.get('edicion', 'Próxima edición')}</p>
+        <h3 class="proximo__sede">{lugar(c)}</h3>
+        <p class="proximo__fechas">{fechas_largas(c)}</p>
+
+        <!-- La cuenta se oculta a los lectores de pantalla: anunciar los
+             segundos sería insoportable. El resumen de abajo la sustituye.
+             Empieza oculta y la muestra el JS, para que sin JavaScript no
+             se quede un marcador de guiones. -->
+        <div class="cuenta" aria-hidden="true" hidden>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-dias>—</span><span class="cuenta__rotulo">Días</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-horas>—</span><span class="cuenta__rotulo">Horas</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-minutos>—</span><span class="cuenta__rotulo">Minutos</span></div>
+          <div class="cuenta__caja"><span class="cuenta__cifra" data-segundos>—</span><span class="cuenta__rotulo">Segundos</span></div>
+        </div>
+        <p class="cuenta__aviso" data-cuenta-mensaje hidden></p>
+        <p class="visualmente-oculto" aria-live="polite" data-cuenta-resumen></p>
+
+        <div class="botones seccion__pie">
+          <a class="boton boton--principal" href="{base}congresos/{c['slug']}/">Ver detalles</a>
+        </div>
+      </article>"""
+
+
+def aviso_portada(base=''):
+    """La cinta del encabezado de la portada."""
+    c = el_proximo()
+    if c:
+        marca, texto = 'Próximo congreso', f'{lugar(c)} · {fechas_cortas(c)}'
+    else:
+        marca, texto = 'Congreso anual', 'Próxima sede y fecha por anunciar'
+    return f"""      <a class="aviso" href="{base}congresos/" data-aviso>
+        <span class="aviso__marca" data-aviso-marca>{marca}</span>
+        <span class="aviso__texto" data-aviso-texto>{texto}</span>
+        <span class="aviso__flecha" aria-hidden="true">→</span>
+      </a>"""
+
+
+def bloque_proximos(base=''):
+    """Sección de la portada: cuenta regresiva y tarjetas de lo que viene."""
+    tarjetas = ''
+    if PROXIMOS:
+        tarjetas = ('\n      <div class="rejilla rejilla--3 revelar">\n'
+                    + '\n'.join(tarjeta_congreso(c, base) for c in PROXIMOS)
+                    + '\n      </div>')
+    return f"""  <section class="seccion seccion--centrada" id="proximo-congreso">
+    <div class="contenedor">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">Una ciudad distinta cada vez</p>
+        <h2>Próximo congreso</h2>
+        <div class="plomada"></div>
+      </div>
+
+{tarjeta_proximo(base)}{tarjetas}
+
+      <p class="seccion__pie">
+        <a class="boton boton--linea" href="{base}congresos/">Ver todas las ediciones</a>
+      </p>
+    </div>
+  </section>
+"""
+
+
+def ficha(c):
+    """La página de un congreso. Cada bloque aparece solo si tiene datos:
+       mientras el congreso se organiza, la página va creciendo sola a
+       medida que se rellena data/congresos.json."""
+    b = '../../'          # profundidad: congresos/<slug>/index.html
+    est = estado_de(c)
+    ini_ics, fin_ics = momentos(c)
+    titular = ' · '.join(p for p in (c.get('edicion'), lugar(c)) if p)
+
+    # ---------- portada ----------
+    tema = f'\n      <p class="portada__entrada">{c["tema"]}</p>' if c.get('tema') else ''
+    partes = [f"""  <section class="portada portada--interior portada--congreso">
+    <div class="contenedor">
+      <p class="portada__antetitulo">{c.get('edicion', 'Congreso')}</p>
+      {insignia(c)}
+      <h1>{lugar(c)}</h1>
+      <p class="portada__fechas">{fechas_largas(c) or 'Fecha por anunciar'}</p>{tema}
+      <div class="plomada plomada--clara"></div>
+    </div>
+  </section>
+"""]
+
+    # ---------- afiche y descripción ----------
+    descripcion = (f'<p class="texto-guia">{c["descripcion"]}</p>'
+                   if c.get('descripcion') else '')
+    partes.append(f"""  <section class="seccion" id="resumen">
+    <div class="contenedor">
+      <div class="afiche revelar">
+        <figure class="afiche__marco">
+          {afiche_img(c, b, prioridad=True)}
+        </figure>
+        <div class="afiche__texto">
+          <h2>{c.get('nombre', 'Congreso La Sana Doctrina No Morirá')}</h2>
+          {descripcion}
+          <p class="aviso-libre"><strong>Entrada libre.</strong> No se cobra
+             inscripción ni boleta: el congreso es de acceso gratuito.</p>
+          <div class="botones" data-acciones
+               data-nombre="{c.get('nombre', 'Congreso La Sana Doctrina No Morirá')} — {lugar(c)}"
+               data-inicio="{ini_ics}" data-fin="{fin_ics}"
+               data-lugar="{lugar_completo(c)}"
+               data-slug="{c['slug']}">
+            <!-- Los dos botones nacen ocultos y los enseña main.js: sin
+                 JavaScript no harían nada, así que es mejor que no estén. -->
+            <button class="boton boton--principal" type="button" data-calendario
+                    hidden>Agregar al calendario</button>
+            <button class="boton boton--fantasma" type="button" data-compartir
+                    hidden>Compartir</button>
+          </div>
+          <div class="compartir" id="compartir" data-compartir-lista hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+""")
+
+    # ---------- datos prácticos ----------
+    mapa = c.get('mapa', '')
+    enlace_mapa = (f'<a href="{mapa}" target="_blank" rel="noopener">Ver en el mapa</a>'
+                   if mapa else '')
+    hora = c.get('hora_inicio', '')
+    if hora and c.get('zona_horaria'):
+        hora = f'{hora} ({c["zona_horaria"].split("/")[-1].replace("_", " ")})'
+    modalidad = {'presencial': 'Presencial', 'virtual': 'Virtual',
+                 'hibrido': 'Presencial y en línea'}.get(c.get('modalidad', ''), '')
+    transmision = c.get('transmision', '')
+    if transmision:
+        transmision = (f'<a href="{transmision}" target="_blank" '
+                       f'rel="noopener">Ver la transmisión</a>')
+    practicos = ''.join([
+        dato('Fechas', fechas_largas(c)),
+        dato('Hora de inicio', hora),
+        dato('Lugar', lugar_completo(c)),
+        dato('Dirección', c.get('direccion', '')),
+        dato('Mapa', enlace_mapa),
+        dato('Modalidad', modalidad),
+        dato('Transmisión en vivo', transmision),
+        dato('Iglesia madre', c.get('iglesia_madre', '')),
+        dato('Iglesia anfitriona', c.get('iglesia_anfitriona', '')),
+    ])
+    partes.append(seccion_congreso(
+        'Datos del congreso', f'      <div class="tarjeta revelar">\n{practicos}\n      </div>'
+        if practicos else '', eyebrow='Dónde y cuándo', alterna=True, ident='datos'))
+
+    # ---------- predicadores ----------
+    tarjetas = []
+    for p in c.get('predicadores', []):
+        procedencia = ', '.join(x for x in (p.get('iglesia'), p.get('ciudad'),
+                                            p.get('pais')) if x)
+        retrato = (f'<img class="predicador__foto" src="{b}{p["foto"]}{V}" alt="" '
+                   f'loading="lazy" decoding="async">' if p.get('foto') else '')
+        bio = f'<p>{p["bio_corta"]}</p>' if p.get('bio_corta') else ''
+        tarjetas.append(f"""        <article class="tarjeta predicador">
+          {retrato}
+          <h3 class="tarjeta__titulo">{p.get('nombre', '')}</h3>
+          <p class="predicador__procedencia">{procedencia}</p>
+          {bio}
+        </article>""")
+    partes.append(seccion_congreso(
+        'Predicadores invitados',
+        '      <div class="rejilla rejilla--3 revelar">\n' + '\n'.join(tarjetas)
+        + '\n      </div>' if tarjetas else '', eyebrow='Quiénes ministran',
+        ident='predicadores'))
+
+    # ---------- programa ----------
+    jornadas = []
+    for d in c.get('programa', []):
+        rotulo = d.get('fecha', '')
+        f_d = _fecha(rotulo)
+        if f_d:
+            rotulo = f'{DIAS[f_d.weekday()]} {f_d.day} de {MESES[f_d.month - 1]}'
+        bloques = ''.join(
+            f"""            <li>
+              <span class="bloque__hora">{x.get('hora', '')}</span>
+              <span class="bloque__actividad">{x.get('actividad', '')}</span>
+              <span class="bloque__predicador">{x.get('predicador', '')}</span>
+            </li>""" for x in d.get('bloques', []))
+        lista = (f'\n          <ul class="bloques">\n{bloques}\n          </ul>'
+                 if bloques else '')
+        texto = f'\n          <p>{d["descripcion"]}</p>' if d.get('descripcion') else ''
+        jornadas.append(f"""        <article class="jornada revelar">
+          <p class="jornada__fecha">{rotulo}</p>
+          <h3>{d.get('titulo', '')}</h3>{texto}{lista}
+        </article>""")
+    partes.append(seccion_congreso(
+        'Programa', '      <div class="rejilla revelar">\n' + '\n'.join(jornadas)
+        + '\n      </div>' if jornadas else '', eyebrow='Día por día',
+        alterna=True, ident='programa'))
+
+    # ---------- galería ----------
+    imagenes = [foto(g['archivo'], g.get('alto', 900), g.get('alt', ''),
+                     pie=g.get('pie', ''), ancho=g.get('ancho', 1600), base=b)
+                for g in c.get('galeria', [])]
+    partes.append(seccion_congreso(
+        'Galería', '      <div class="galeria revelar">\n' + '\n'.join(imagenes)
+        + '\n      </div>' if imagenes else '', eyebrow='Imágenes', ident='galeria'))
+
+    # ---------- logística ----------
+    ETIQUETAS = [('estacionamiento', 'Estacionamiento'),
+                 ('hospedajes', 'Dónde alojarse'),
+                 ('aeropuertos', 'Aeropuertos cercanos'),
+                 ('transporte', 'Cómo llegar'),
+                 ('ninos', 'Familias y niños')]
+    log = c.get('logistica') or {}
+    fichas = [f"""        <article class="tarjeta revelar">
+          <span class="tarjeta__indice">{etiqueta}</span>
+          <p>{log[clave]}</p>
+        </article>""" for clave, etiqueta in ETIQUETAS if log.get(clave)]
+    partes.append(seccion_congreso(
+        'Antes de viajar', '      <div class="rejilla rejilla--3">\n'
+        + '\n'.join(fichas) + '\n      </div>' if fichas else '',
+        eyebrow='Logística', alterna=True, ident='logistica'))
+
+    # ---------- preguntas frecuentes ----------
+    preguntas = ''.join(f"""        <details class="pregunta revelar">
+          <summary>{q.get('pregunta', '')}</summary>
+          <p>{q.get('respuesta', '')}</p>
+        </details>""" for q in c.get('faq', []))
+    partes.append(seccion_congreso('Preguntas frecuentes', preguntas,
+                                   eyebrow='Dudas', ident='faq'))
+
+    # ---------- contacto ----------
+    ct = c.get('contacto') or {}
+    nombre_ct = ct.get('nombre') or CONTACTO['nombre']
+    tel_ct = ct.get('telefono') or CONTACTO['telefono']
+    wa_ct = ct.get('whatsapp') or CONTACTO['whatsapp']
+    correo_ct = ct.get('correo') or CONTACTO['correo']
+    solo_digitos = '+' + ''.join(x for x in tel_ct if x.isdigit())
+    partes.append(f"""  <section class="seccion seccion--alterna" id="contacto-congreso">
+    <div class="contenedor">
+      <div class="seccion__encabezado revelar">
+        <p class="seccion__eyebrow">Escríbenos</p>
+        <h2>Contacto</h2>
+        <div class="plomada"></div>
+      </div>
+      <div class="tarjeta revelar">
+        <h3 class="tarjeta__titulo">{nombre_ct}</h3>
+{dato('Teléfono', f'<a href="tel:{solo_digitos}">{tel_ct}</a>')}
+{dato('WhatsApp', f'<a href="https://wa.me/{wa_ct}" target="_blank" rel="noopener">{tel_ct}</a>')}
+{dato('Correo', f'<a href="mailto:{correo_ct}">{correo_ct}</a>')}
+      </div>
+      <p class="seccion__pie">
+        <a class="boton boton--linea" href="{b}congresos/">Ver todos los congresos</a>
+      </p>
+    </div>
+  </section>
+""")
+
+    # ---------- metadatos propios ----------
+    resumen = (c.get('descripcion')
+               or f'{c.get("edicion", "Congreso")} del Congreso La Sana Doctrina '
+                  f'No Morirá en {lugar(c)}.')
+    if c.get('fecha_inicio'):
+        resumen = f'{resumen} {fechas_largas(c).capitalize()}. Entrada libre.'
+    imagen = c.get('afiche') or 'assets/img/logo.png'
+    alt = (f'Afiche del congreso en {lugar(c)}' if c.get('afiche')
+           else 'Escudo con espada y la cinta «La sana doctrina no morirá»')
+    return {
+        'archivo': f'congresos/{c["slug"]}/index.html',
+        'titulo': titular or 'Congreso',
+        'descripcion': resumen,
+        'cuerpo': ''.join(partes),
+        'imagen': imagen,
+        'imagen_alt': alt,
+        # Un congreso por anunciar no tiene nada que indexar todavía.
+        'indexable': est != 'por_anunciar',
+    }
+
+
+def tarjeta_congreso(c, base=''):
+    """Tarjeta del listado y de la portada."""
+    return f"""        <a class="tarjeta tarjeta--enlace congreso-tarjeta"
+           href="{base}congresos/{c['slug']}/">
+          <span class="congreso-tarjeta__afiche">{afiche_img(c, base)}</span>
+          <span class="congreso-tarjeta__texto">
+            {insignia(c)}
+            <span class="tarjeta__indice">{c.get('edicion', '')}</span>
+            <h3 class="tarjeta__titulo">{lugar(c)}</h3>
+            <p class="congreso-tarjeta__fechas">{fechas_cortas(c)}</p>
+            <span class="congreso-tarjeta__mas">Ver detalles</span>
+          </span>
+        </a>"""
+
+
+def listado_congresos():
+    """congresos/index.html — próximos arriba, pasados abajo."""
+    b = '../'
+    if PROXIMOS:
+        proximos = ('      <div class="rejilla rejilla--3 revelar">\n'
+                    + '\n'.join(tarjeta_congreso(c, b) for c in PROXIMOS)
+                    + '\n      </div>')
+    else:
+        proximos = """      <p class="vacio revelar">
+        Estamos preparando la próxima edición. En cuanto se confirmen la sede
+        y las fechas aparecerán aquí.
+      </p>"""
+    if PASADOS:
+        pasados = ('      <div class="rejilla rejilla--3 revelar">\n'
+                   + '\n'.join(tarjeta_congreso(c, b) for c in PASADOS)
+                   + '\n      </div>')
+    else:
+        pasados = ''
+    return (cabecera('Una ciudad distinta cada vez', 'Congresos',
+                     'El Congreso “La Sana Doctrina No Morirá” cambia de sede en '
+                     'cada edición, para que la enseñanza alcance a más iglesias '
+                     'y más pueblos.')
+            + seccion_congreso('Próximos congresos', proximos,
+                               eyebrow='Lo que viene', ident='proximos')
+            + seccion_congreso('Ediciones anteriores', pasados,
+                               eyebrow='Lo ya celebrado', alterna=True,
+                               ident='anteriores'))
 
 
 # ============================================================
@@ -383,11 +964,7 @@ INICIO = f"""  <section class="portada portada--inicio" id="inicio">
         <cite>2 Timoteo 1:13 · RVR1960</cite>
       </p>
 
-      <a class="aviso" href="congreso.html" data-aviso>
-        <span class="aviso__marca" data-aviso-marca>Congreso anual</span>
-        <span class="aviso__texto" data-aviso-texto>Próxima sede y fecha por anunciar</span>
-        <span class="aviso__flecha" aria-hidden="true">→</span>
-      </a>
+{aviso_portada()}
 
       <div class="botones">
         <a class="boton boton--principal" href="remanente.html">¿Eres parte del remanente?</a>
@@ -396,6 +973,7 @@ INICIO = f"""  <section class="portada portada--inicio" id="inicio">
     </div>
   </section>
 
+""" + bloque_proximos() + f"""
   <section class="seccion seccion--centrada">
     <div class="contenedor contenedor--angosto">
       <div class="revelar">
@@ -665,35 +1243,30 @@ REMANENTE = cabecera(
     <div class="contenedor contenedor--angosto">
       <div class="seccion__encabezado revelar">
         <p class="seccion__eyebrow">Mantente conectado</p>
-        <h2>Suscríbete para más información</h2>
+        <h2>Quiero unirme al remanente</h2>
         <div class="plomada"></div>
-        <p>Recibe las fechas del congreso y los anuncios del movimiento.</p>
+        <p>Si tu iglesia defiende la sana doctrina y no transige con el error,
+           escríbenos y conversamos.</p>
       </div>
 
-      <!-- FASE DE DISEÑO: el envío se conecta más adelante -->
-      <form class="formulario revelar" data-formulario-contacto
-            data-destino="ig07644@gmail.com" data-asunto="Suscripción">
-        <div class="dosxdos">
-          <div class="campo">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" required autocomplete="given-name">
-          </div>
-          <div class="campo">
-            <label for="apellido">Apellido</label>
-            <input id="apellido" name="apellido" type="text" autocomplete="family-name">
-          </div>
-        </div>
-
-        <div class="campo">
-          <label for="correo">Correo electrónico</label>
-          <input id="correo" name="correo" type="email" required autocomplete="email">
-        </div>
-
-        <div>
-          <button class="boton boton--principal" type="submit">Suscribirme</button>
-        </div>
-        <p class="ayuda">Al enviar se abrirá tu programa de correo con los datos ya escritos.</p>
-      </form>
+""" + formulario('Unirse al remanente', '\n'.join([
+    '          <div class="dosxdos">',
+    campo('r-iglesia', 'iglesia', 'Nombre de la iglesia', requerido=True,
+          auto='organization'),
+    campo('r-pastor', 'pastor', 'Pastor', requerido=True, auto='name'),
+    '          </div>',
+    '          <div class="dosxdos">',
+    campo('r-ciudad', 'ciudad', 'Ciudad', requerido=True),
+    campo('r-estado', 'estado', 'Estado o provincia'),
+    '          </div>',
+    '          <div class="dosxdos">',
+    campo('r-pais', 'pais', 'País', requerido=True, auto='country-name'),
+    campo('r-telefono', 'telefono', 'Teléfono', tipo='tel', auto='tel'),
+    '          </div>',
+    campo('r-correo', 'correo', 'Correo electrónico', tipo='email',
+          requerido=True, auto='email'),
+    campo('r-mensaje', 'mensaje', 'Mensaje', area=True, requerido=True),
+]), 'Unirme al remanente', clase='revelar') + """
     </div>
   </section>
 """
@@ -798,98 +1371,6 @@ PASTORES = cabecera(
 """ + PREDICACION
 
 # ============================================================
-#  CONGRESO
-# ============================================================
-GALERIA = f"""  <section class="seccion seccion--alterna seccion--centrada" id="galeria">
-    <div class="contenedor">
-      <div class="seccion__encabezado revelar">
-        <p class="seccion__eyebrow">Galería</p>
-        <h2>Imágenes del congreso</h2>
-        <div class="plomada"></div>
-      </div>
-
-      <h3 class="programa__titulo revelar">Newark, Nueva Jersey · 23, 24 y 25 de mayo de 2025</h3>
-
-      <!-- PENDIENTE: faltan las fotos de Cartagena, Colombia (17, 18 y 19 de
-           julio de 2026). Cuando lleguen se añade debajo otro bloque igual:
-           un <h3 class="programa__titulo revelar"> con el rótulo de la
-           edición y su propio <div class="galeria revelar">.
-           Las fotos de Connecticut (22, 23 y 24 de mayo de 2026) están en
-           la galería de pastores.html. -->
-      <div class="galeria revelar">
-{foto("pastores-grupo", 900,
-      "Grupo de pastores con sus Biblias frente al emblema de La Sana Doctrina No Morirá",
-      pie="Los pastores")}
-{foto("congreso-cartel", 900,
-      "Presentación del cartel de bienvenida al congreso",
-      pie="Bienvenida al congreso")}
-{foto("congreso-oracion", 1200,
-      "Momento de oración junto al cartel de bienvenida al congreso",
-      pie="Oración de apertura")}
-{foto("congreso-asamblea", 900,
-      "Asistentes al congreso reunidos frente al emblema de La Sana Doctrina No Morirá",
-      pie="Los asistentes")}
-{foto("congreso-grupo-1", 900,
-      "Grupo de asistentes al congreso frente al emblema",
-      pie="Hermanas participantes")}
-{foto("congreso-grupo-2", 900,
-      "Tres asistentes al congreso frente al emblema",
-      pie="Participantes del congreso")}
-      </div>
-    </div>
-  </section>
-"""
-
-CONGRESO = cabecera(
-    'Cada año, en una ciudad distinta', 'El congreso',
-    'El Congreso “La Sana Doctrina No Morirá” se celebra una vez al año y cada '
-    'edición se realiza en un lugar diferente, para que la enseñanza alcance a '
-    'más iglesias y más pueblos.'
-) + """
-  <section class="seccion seccion--centrada" id="congreso">
-    <div class="contenedor">
-      <div class="seccion__encabezado revelar">
-        <p class="seccion__eyebrow">Próxima cita</p>
-        <h2>Próximo congreso</h2>
-        <div class="plomada"></div>
-      </div>
-
-      <!-- La sede y las fechas se editan en assets/js/main.js, en el bloque
-           CONGRESO que está al principio del archivo. -->
-      <article class="proximo revelar" data-proximo>
-        <p class="proximo__edicion" data-proximo-edicion>Próxima edición</p>
-        <h3 class="proximo__sede" data-proximo-sede>Sede por anunciar</h3>
-        <p class="proximo__fechas" data-proximo-fechas>Fechas por anunciar</p>
-
-        <!-- La cuenta se oculta a los lectores de pantalla: anunciar los
-             segundos sería insoportable. El resumen de abajo la sustituye. -->
-        <div class="cuenta" aria-hidden="true" hidden>
-          <div class="cuenta__caja"><span class="cuenta__cifra" data-dias>—</span><span class="cuenta__rotulo">Días</span></div>
-          <div class="cuenta__caja"><span class="cuenta__cifra" data-horas>—</span><span class="cuenta__rotulo">Horas</span></div>
-          <div class="cuenta__caja"><span class="cuenta__cifra" data-minutos>—</span><span class="cuenta__rotulo">Minutos</span></div>
-          <div class="cuenta__caja"><span class="cuenta__cifra" data-segundos>—</span><span class="cuenta__rotulo">Segundos</span></div>
-        </div>
-        <p class="cuenta__aviso" data-cuenta-mensaje hidden></p>
-        <p class="visualmente-oculto" aria-live="polite" data-cuenta-resumen></p>
-
-        <div class="botones seccion__pie">
-          <a class="boton boton--principal" href="contacto.html">Quiero asistir</a>
-          <a class="boton boton--fantasma" href="remanente.html#suscribete">Avísenme la fecha</a>
-        </div>
-      </article>
-
-      <!-- Programa de las ediciones ya celebradas. El contenido lo genera
-           main.js a partir del array EDICIONES; no se escribe aquí para no
-           tener los mismos datos en dos sitios. -->
-      <div data-ediciones></div>
-      <!-- Para publicar otra edición pasada basta con añadir un objeto más
-           al array EDICIONES de assets/js/main.js. -->
-    </div>
-  </section>
-
-""" + GALERIA
-
-# ============================================================
 #  CONTACTO
 # ============================================================
 CUERPO_CONTACTO = cabecera(
@@ -901,74 +1382,37 @@ CUERPO_CONTACTO = cabecera(
     <div class="contenedor">
       <div class="duo revelar">
         <!-- FASE DE DISEÑO: el envío se conecta más adelante -->
-        <form class="formulario" data-formulario-contacto
-              data-destino="ig07644@gmail.com" data-asunto="Contacto">
-          <div class="dosxdos">
-            <div class="campo">
-              <label for="c-nombre">Nombre completo</label>
-              <input id="c-nombre" name="nombre" type="text" required autocomplete="name">
-            </div>
-            <div class="campo">
-              <label for="c-iglesia">Iglesia o ministerio</label>
-              <input id="c-iglesia" name="iglesia" type="text" autocomplete="organization">
-            </div>
-          </div>
+""" + formulario('Contacto', '\n'.join([
+    '          <div class="dosxdos">',
+    campo('c-nombre', 'nombre', 'Nombre completo', requerido=True, auto='name'),
+    campo('c-iglesia', 'iglesia', 'Iglesia o ministerio', auto='organization'),
+    '          </div>',
+    '          <div class="dosxdos">',
+    campo('c-correo', 'correo', 'Correo electrónico', tipo='email',
+          requerido=True, auto='email'),
+    campo('c-ciudad', 'ciudad', 'Ciudad y país'),
+    '          </div>',
+    campo('c-motivo', 'motivo', 'Motivo', opciones=[
+        'Mi iglesia quiere unirse al movimiento',
+        'Proponer una sede para el próximo congreso',
+        'Información sobre el congreso',
+        'Invitación a predicar o enseñar',
+        'Pregunta bíblica o doctrinal',
+        'Petición de oración',
+        'Otro']),
+    campo('c-mensaje', 'mensaje', 'Mensaje', area=True, requerido=True),
+]), 'Enviar mensaje') + """
 
-          <div class="dosxdos">
-            <div class="campo">
-              <label for="c-correo">Correo electrónico</label>
-              <input id="c-correo" name="correo" type="email" required autocomplete="email">
-            </div>
-            <div class="campo">
-              <label for="c-ciudad">Ciudad y país</label>
-              <input id="c-ciudad" name="ciudad" type="text">
-            </div>
-          </div>
-
-          <div class="campo">
-            <label for="c-motivo">Motivo</label>
-            <select id="c-motivo" name="motivo">
-              <option>Mi iglesia quiere unirse al movimiento</option>
-              <option>Proponer una sede para el próximo congreso</option>
-              <option>Información sobre el congreso</option>
-              <option>Invitación a predicar o enseñar</option>
-              <option>Pregunta bíblica o doctrinal</option>
-              <option>Petición de oración</option>
-              <option>Otro</option>
-            </select>
-          </div>
-
-          <div class="campo">
-            <label for="c-mensaje">Mensaje</label>
-            <textarea id="c-mensaje" name="mensaje" required></textarea>
-          </div>
-
-          <div>
-            <button class="boton boton--principal" type="submit">Enviar mensaje</button>
-          </div>
-          <p class="ayuda">Al enviar se abrirá tu programa de correo con el mensaje ya redactado.</p>
-        </form>
-
+""" + f"""
         <div>
-          <!-- FASE DE DISEÑO: datos provisionales -->
+          <!-- Los datos salen del bloque CONTACTO de este archivo -->
           <div class="tarjeta">
             <span class="tarjeta__indice">Contacto directo</span>
-            <h3 class="tarjeta__titulo">Pastor Junior Castillo</h3>
-            <div class="dato">
-              <p class="dato__etiqueta">Teléfono</p>
-              <p class="dato__valor"><a href="tel:+18622416144">+1 862 241-6144 (EE.UU.)</a></p>
-            </div>
-            <div class="dato">
-              <p class="dato__etiqueta">WhatsApp</p>
-              <p class="dato__valor">
-                <a href="https://wa.me/18622416144"
-                   target="_blank" rel="noopener">+1 862 241-6144</a>
-              </p>
-            </div>
-            <div class="dato">
-              <p class="dato__etiqueta">Correo</p>
-              <p class="dato__valor"><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></p>
-            </div>
+            <h3 class="tarjeta__titulo">{CONTACTO['nombre']}</h3>
+{dato('Teléfono', f"<a href='tel:{tel_enlace()}'>{CONTACTO['telefono']} ({CONTACTO['pais_tel']})</a>")}
+{dato('WhatsApp', f"<a href='https://wa.me/{CONTACTO['whatsapp']}' target='_blank' rel='noopener'>{CONTACTO['telefono']}</a>")}
+{dato('Correo', f"<a href='mailto:{CONTACTO['correo']}'>{CONTACTO['correo']}</a>")}
+          </div>
           </div>
 
           <div class="tarjeta tarjeta--seguida">
@@ -1010,6 +1454,7 @@ NO_ENCONTRADA = cabecera(
 """
 
 
+
 PAGINAS = [
     ('index.html', 'Inicio',
      'Un llamado a permanecer firmes en la verdad: proyecto que une a las iglesias '
@@ -1035,9 +1480,9 @@ PAGINAS = [
     ('pastores.html', 'Pastores defensores de la sana doctrina',
      'Pastores defensores de la sana doctrina: siervos de Dios que se levantaron '
      'como firmes defensores de la verdad inmutable del Evangelio.', PASTORES, True),
-    ('congreso.html', 'El congreso',
-     'El congreso «La Sana Doctrina No Morirá» se celebra una vez al año y cada '
-     'edición se realiza en una ciudad diferente.', CONGRESO, True),
+    ('congresos/index.html', 'Congresos',
+     'Todas las ediciones del Congreso «La Sana Doctrina No Morirá»: las que '
+     'vienen y las ya celebradas. Entrada libre.', listado_congresos(), True),
     ('contacto.html', 'Contacto',
      'Contacto: escríbenos para sumar tu iglesia al movimiento, proponer una sede '
      'para el próximo congreso o hacer una consulta.', CUERPO_CONTACTO, True),
@@ -1046,18 +1491,74 @@ PAGINAS = [
      'sección del sitio.', NO_ENCONTRADA, False),
 ]
 
-for archivo, titulo, descripcion, cuerpo, indexable in PAGINAS:
-    with open(os.path.join(RAIZ, archivo), 'w', encoding='utf-8') as f:
-        f.write(pagina(archivo, titulo, descripcion, cuerpo, indexable))
+def escribir(archivo, texto):
+    destino = os.path.join(RAIZ, archivo)
+    os.makedirs(os.path.dirname(destino), exist_ok=True)
+    with open(destino, 'w', encoding='utf-8') as f:
+        f.write(texto)
     print('escrito:', archivo)
 
+
+# Solo la portada lleva los datos incrustados: es la única con cuenta
+# regresiva, y por tanto la única que necesita saber cuál es la edición más
+# cercana en el momento de abrirse. El resto de páginas ya trae escrito
+# todo lo que muestra.
+CON_DATOS = {'index.html'}
+
+for archivo, titulo, descripcion, cuerpo, indexable in PAGINAS:
+    extra = datos_js() if archivo in CON_DATOS else ''
+    escribir(archivo, pagina(archivo, titulo, descripcion, cuerpo, indexable,
+                             extra=extra))
+
+# ---------------- fichas de cada congreso ----------------
+for c in CONGRESOS:
+    d = ficha(c)
+    escribir(d['archivo'],
+             pagina(d['archivo'], d['titulo'], d['descripcion'], d['cuerpo'],
+                    d['indexable'], imagen=d['imagen'], imagen_alt=d['imagen_alt']))
+
+# ---------------- congreso.html: redirección ----------------
+# La página vieja se compartió por WhatsApp y está en enlaces ajenos, así
+# que no puede desaparecer: reenvía al listado. rel="canonical" le dice al
+# buscador cuál es la dirección buena y noindex evita que compitan entre sí.
+escribir('congreso.html', f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Congresos — La Sana Doctrina No Morirá</title>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="{SITIO}congresos/">
+<meta http-equiv="refresh" content="0; url=congresos/">
+<link rel="stylesheet" href="assets/css/estilo.css{V}">
+<link rel="icon" href="assets/img/favicon.png{V}" type="image/png">
+</head>
+<body>
+<main id="contenido">
+  <section class="portada portada--interior">
+    <div class="contenedor">
+      <h1>Esta página se mudó</h1>
+      <p class="portada__entrada">
+        Los congresos están ahora en <a href="congresos/">congresos</a>.
+      </p>
+    </div>
+  </section>
+</main>
+</body>
+</html>
+""")
+
 # ---------------- sitemap y robots ----------------
-hoy = '2026-08-01'
+# El sitemap es el único archivo, junto con las etiquetas canonical y og:,
+# donde el estándar exige la URL completa. Sale de la constante SITIO.
+rutas = [(a, '1.0' if a == 'index.html' else '0.8') for a, _ in TODAS]
+rutas += [(f'congresos/{c["slug"]}/', '0.7') for c in CONGRESOS
+          if estado_de(c) != 'por_anunciar']
 urls = '\n'.join(
     f'  <url>\n    <loc>{SITIO}{"" if a == "index.html" else a}</loc>\n'
-    f'    <lastmod>{hoy}</lastmod>\n'
-    f'    <priority>{"1.0" if a == "index.html" else "0.8"}</priority>\n  </url>'
-    for a, _ in TODAS)
+    f'    <lastmod>{ACTUALIZADO}</lastmod>\n'
+    f'    <priority>{prioridad}</priority>\n  </url>'
+    for a, prioridad in rutas)
 
 with open(os.path.join(RAIZ, 'sitemap.xml'), 'w', encoding='utf-8') as f:
     f.write(f"""<?xml version="1.0" encoding="UTF-8"?>

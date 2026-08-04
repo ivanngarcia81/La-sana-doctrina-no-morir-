@@ -104,74 +104,76 @@
     <div class="contenedor">
       <div class="duo revelar">
         <!-- FASE DE DISEÑO: el envío se conecta más adelante -->
-        <form class="formulario" data-formulario-contacto
-              data-destino="ig07644@gmail.com" data-asunto="Contacto">
+      <form class="formulario" data-formulario
+            data-asunto="Contacto" novalidate>
           <div class="dosxdos">
             <div class="campo">
               <label for="c-nombre">Nombre completo</label>
               <input id="c-nombre" name="nombre" type="text" required autocomplete="name">
+              <p class="campo__error" hidden></p>
             </div>
             <div class="campo">
               <label for="c-iglesia">Iglesia o ministerio</label>
               <input id="c-iglesia" name="iglesia" type="text" autocomplete="organization">
+              <p class="campo__error" hidden></p>
             </div>
           </div>
-
           <div class="dosxdos">
             <div class="campo">
               <label for="c-correo">Correo electrónico</label>
               <input id="c-correo" name="correo" type="email" required autocomplete="email">
+              <p class="campo__error" hidden></p>
             </div>
             <div class="campo">
               <label for="c-ciudad">Ciudad y país</label>
               <input id="c-ciudad" name="ciudad" type="text">
+              <p class="campo__error" hidden></p>
             </div>
           </div>
+            <div class="campo">
+              <label for="c-motivo">Motivo</label>
+              <select id="c-motivo" name="motivo">
+                <option>Mi iglesia quiere unirse al movimiento</option>
+                <option>Proponer una sede para el próximo congreso</option>
+                <option>Información sobre el congreso</option>
+                <option>Invitación a predicar o enseñar</option>
+                <option>Pregunta bíblica o doctrinal</option>
+                <option>Petición de oración</option>
+                <option>Otro</option>
+              </select>
+              <p class="campo__error" hidden></p>
+            </div>
+            <div class="campo">
+              <label for="c-mensaje">Mensaje</label>
+              <textarea id="c-mensaje" name="mensaje" required></textarea>
+              <p class="campo__error" hidden></p>
+            </div>
+        <div>
+          <button class="boton boton--principal" type="submit">Enviar mensaje</button>
+        </div>
+        <p class="formulario__estado" role="status" aria-live="polite"
+           data-estado-envio hidden></p>
+      </form>
 
-          <div class="campo">
-            <label for="c-motivo">Motivo</label>
-            <select id="c-motivo" name="motivo">
-              <option>Mi iglesia quiere unirse al movimiento</option>
-              <option>Proponer una sede para el próximo congreso</option>
-              <option>Información sobre el congreso</option>
-              <option>Invitación a predicar o enseñar</option>
-              <option>Pregunta bíblica o doctrinal</option>
-              <option>Petición de oración</option>
-              <option>Otro</option>
-            </select>
-          </div>
-
-          <div class="campo">
-            <label for="c-mensaje">Mensaje</label>
-            <textarea id="c-mensaje" name="mensaje" required></textarea>
-          </div>
-
-          <div>
-            <button class="boton boton--principal" type="submit">Enviar mensaje</button>
-          </div>
-          <p class="ayuda">Al enviar se abrirá tu programa de correo con el mensaje ya redactado.</p>
-        </form>
 
         <div>
-          <!-- FASE DE DISEÑO: datos provisionales -->
+          <!-- Los datos salen del bloque CONTACTO de este archivo -->
           <div class="tarjeta">
             <span class="tarjeta__indice">Contacto directo</span>
             <h3 class="tarjeta__titulo">Pastor Junior Castillo</h3>
             <div class="dato">
               <p class="dato__etiqueta">Teléfono</p>
-              <p class="dato__valor"><a href="tel:+18622416144">+1 862 241-6144 (EE.UU.)</a></p>
+              <p class="dato__valor"><a href='tel:+18622416144'>+1 862 241-6144 (EE.UU.)</a></p>
             </div>
             <div class="dato">
               <p class="dato__etiqueta">WhatsApp</p>
-              <p class="dato__valor">
-                <a href="https://wa.me/18622416144"
-                   target="_blank" rel="noopener">+1 862 241-6144</a>
-              </p>
+              <p class="dato__valor"><a href='https://wa.me/18622416144' target='_blank' rel='noopener'>+1 862 241-6144</a></p>
             </div>
             <div class="dato">
               <p class="dato__etiqueta">Correo</p>
-              <p class="dato__valor"><a href="mailto:ig07644@gmail.com">ig07644@gmail.com</a></p>
+              <p class="dato__valor"><a href='mailto:ig07644@gmail.com'>ig07644@gmail.com</a></p>
             </div>
+          </div>
           </div>
 
           <div class="tarjeta tarjeta--seguida">

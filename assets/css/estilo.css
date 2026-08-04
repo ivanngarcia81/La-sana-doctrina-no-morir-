@@ -718,3 +718,169 @@ body.sin-scroll { overflow: hidden; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .revelar { opacity: 1; transform: none; }
 }
+
+/* ==================================================================
+   CONGRESOS
+   ================================================================== */
+
+/* Insignia de estado. El texto y la clase los recalcula main.js con la
+   fecha de quien mira, para que una edición pasada no siga anunciándose
+   como próxima. */
+.estado {
+  display: inline-block; margin-bottom: 14px;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: .68rem; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+.estado--proximo     { color: var(--acento); }
+.estado--en_curso    { color: #1c6b3a; background: rgba(28,107,58,.09); }
+.estado--finalizado  { color: var(--texto-suave); }
+.estado--por_anunciar{ color: var(--oro-texto); }
+
+.portada--congreso .estado,
+.proximo .estado { color: var(--oro-claro); }
+.portada--congreso .estado--en_curso,
+.proximo .estado--en_curso { color: #7fdca2; background: rgba(127,220,162,.12); }
+
+.portada__fechas {
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  color: var(--texto-suave); margin-bottom: .6em;
+}
+.portada--interior .portada__fechas { color: var(--sobre-oscuro-suave); }
+
+/* Tarjeta de congreso en el listado y en la portada */
+.congreso-tarjeta { padding: 0; overflow: hidden; }
+.congreso-tarjeta__afiche {
+  display: block; background: var(--negro);
+  aspect-ratio: 3 / 4; overflow: hidden;
+}
+.congreso-tarjeta__afiche .afiche__imagen {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Mientras no hay afiche, el sello centrado sobre el azul del proyecto:
+   encaja con el diseño en vez de dejar un rectángulo gris. */
+.afiche__vacio {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  background:
+    radial-gradient(420px 240px at 50% 30%, var(--brillo), transparent 70%),
+    linear-gradient(180deg, var(--negro) 0%, var(--negro-osc) 100%);
+}
+.afiche__vacio img { width: 74px; height: auto; opacity: .78; }
+
+.congreso-tarjeta__texto { display: block; padding: 24px 24px 26px; }
+.congreso-tarjeta__fechas {
+  color: var(--texto-suave); font-size: .95rem; margin-bottom: 14px;
+}
+.congreso-tarjeta__mas {
+  font-size: .82rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--acento);
+}
+.congreso-tarjeta:hover .congreso-tarjeta__mas { text-decoration: underline; }
+
+/* Ficha: afiche grande junto al texto */
+.afiche {
+  display: grid; gap: clamp(24px, 4vw, 44px); align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+.afiche__marco {
+  margin: 0; border: 1px solid var(--borde); border-radius: var(--radio);
+  overflow: hidden; aspect-ratio: 3 / 4; background: var(--negro);
+}
+.afiche__marco .afiche__imagen { width: 100%; height: 100%; object-fit: cover; }
+.afiche__texto h2 { margin-bottom: .5em; }
+
+.aviso-libre {
+  margin: 22px 0; padding: 14px 18px;
+  border-left: 4px solid var(--filete); background: var(--superficie);
+  color: var(--texto-suave); font-size: .96rem;
+}
+.aviso-libre strong { color: var(--titulo); }
+
+/* Botones de calendario y compartir */
+.compartir { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.compartir[hidden] { display: none; }
+
+/* Predicadores */
+.predicador { text-align: center; }
+.predicador__foto {
+  width: 108px; height: 108px; border-radius: 50%;
+  object-fit: cover; margin: 0 auto 16px; display: block;
+}
+.predicador__procedencia {
+  color: var(--texto-suave); font-size: .9rem; margin-bottom: .7em;
+}
+
+/* Programa: bloques por hora dentro de cada jornada */
+.bloques { list-style: none; padding: 0; margin: 18px 0 0; }
+.bloques li {
+  display: grid; gap: 2px 16px; padding: 12px 0;
+  grid-template-columns: 5.5rem 1fr;
+  border-top: 1px solid var(--borde); font-size: .95rem;
+}
+.bloque__hora {
+  font-weight: 700; color: var(--acento); font-variant-numeric: tabular-nums;
+}
+.bloque__actividad { color: var(--texto); }
+.bloque__predicador {
+  grid-column: 2; color: var(--texto-suave); font-size: .88rem;
+}
+
+/* Preguntas frecuentes */
+.pregunta {
+  border: 1px solid var(--borde); border-radius: var(--radio);
+  padding: 0 20px; margin-bottom: 12px; background: var(--fondo);
+  text-align: left;
+}
+.pregunta summary {
+  cursor: pointer; padding: 18px 0; font-weight: 700; color: var(--titulo);
+  list-style-position: inside;
+}
+.pregunta summary:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+.pregunta p { padding-bottom: 18px; margin: 0; color: var(--texto-suave); }
+
+/* Estado vacío: se lee como una promesa, no como un error */
+.vacio {
+  max-width: 46ch; margin: 0 auto; padding: 30px 26px;
+  border: 1px dashed var(--borde); border-radius: var(--radio);
+  color: var(--texto-suave); text-align: center;
+}
+
+/* Formularios: errores y estado de envío */
+.campo__error {
+  margin: 0; font-size: .86rem; font-weight: 600; color: #a11f2c;
+}
+.campo__error[hidden] { display: none; }
+.campo input[aria-invalid="true"],
+.campo select[aria-invalid="true"],
+.campo textarea[aria-invalid="true"] {
+  border-color: #a11f2c;
+}
+.formulario__estado {
+  margin: 0; padding: 14px 18px; border-radius: var(--radio);
+  border: 1px solid var(--borde); background: var(--superficie);
+  font-size: .94rem; color: var(--texto-suave);
+}
+.formulario__estado[hidden] { display: none; }
+.formulario__estado--error {
+  border-color: #a11f2c; color: #a11f2c; background: rgba(161,31,44,.06);
+}
+.formulario__estado--exito {
+  border-color: #1c6b3a; color: #1c6b3a; background: rgba(28,107,58,.07);
+}
+.formulario__estado--aviso {
+  border-color: var(--oro-texto); color: var(--oro-texto);
+  background: rgba(201,162,39,.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  .campo__error,
+  .formulario__estado--error { color: #ff9aa4; }
+  .campo input[aria-invalid="true"],
+  .campo select[aria-invalid="true"],
+  .campo textarea[aria-invalid="true"] { border-color: #ff9aa4; }
+  .formulario__estado--error { border-color: #ff9aa4; background: rgba(255,154,164,.08); }
+  .formulario__estado--exito { color: #7fdca2; border-color: #7fdca2; background: rgba(127,220,162,.08); }
+  .formulario__estado--aviso { color: var(--oro-claro); border-color: var(--oro-claro); }
+  .estado--en_curso { color: #7fdca2; background: rgba(127,220,162,.1); }
+}

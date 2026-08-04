@@ -9,106 +9,19 @@
      el submenú solo con el puntero o el foco cuando esto no se ejecuta. */
   document.documentElement.classList.remove('sin-js');
 
-  /* ============================================================
-     CONGRESO y EDICIONES SON LOS DOS ÚNICOS BLOQUES QUE HAY QUE
-     ACTUALIZAR CADA AÑO. Todo lo demás del sitio se alimenta de aquí.
-     ============================================================ */
+  /* Los datos de los congresos ya no viven aquí: están en
+     data/congresos.json y generar.py los escribe en el HTML. Este archivo
+     solo se ocupa de lo que depende de la hora en que se abre la página
+     (el estado de cada congreso y la cuenta regresiva) y de los botones
+     de calendario y de compartir.
 
-  /* ------------------------------------------------------------
-     PRÓXIMO CONGRESO. Se usa en la página del congreso y en el
-     aviso de la portada.
-
-       edicion  Nombre de la edición, p. ej. 'Edición 2027'
-       sede     Ciudad y país,        p. ej. 'Ciudad de Panamá, Panamá'
-       fechas   Texto de las fechas,  p. ej. '16, 17 y 18 de julio de 2027'
-       inicio   Inicio en formato ISO con zona horaria,
-                p. ej. '2027-07-16T09:00:00-05:00'
-       fin      Cierre en el mismo formato
-
-     Si se dejan vacíos, la página muestra sola el aviso
-     "sede y fecha por anunciar".
-     ------------------------------------------------------------ */
-  var CONGRESO = {
-    edicion: '',
-    sede: '',
-    fechas: '',
-    inicio: '',
-    fin: ''
-  };
-
-  /* ------------------------------------------------------------
-     EDICIONES YA CELEBRADAS. De aquí sale el programa por jornadas
-     que aparece en congreso.html, para no tener los mismos datos
-     escritos también en el HTML.
-
-     La más reciente va primero. Cada edición lleva:
-
-       edicion   Nombre de la edición, p. ej. 'Edición 2026'
-       sede      Ciudad y país. Puede quedar vacío si aún no se confirma.
-       fechas    Texto del periodo, p. ej. 'julio de 2026'
-       jornadas  Una entrada por día, cada una con:
-                   fecha   Rótulo del día
-                   titulo  Título de la jornada
-                   texto   Descripción
-                 Puede omitirse: entonces solo se muestra el encabezado.
-
-     Para publicar otra edición basta con añadir un objeto más.
-     ------------------------------------------------------------ */
-  var EDICIONES = [
-    {
-      edicion: 'Tercera edición',
-      sede: 'Cartagena, Colombia',
-      fechas: 'viernes 17, sábado 18 y domingo 19 de julio de 2026',
-      jornadas: [
-        {
-          fecha: 'Viernes 17 julio 2026',
-          titulo: 'La Sana Doctrina No Morirá · Apertura en Cartagena, Colombia',
-          texto: 'Con gozo en el Señor, damos inicio al Congreso “La Sana Doctrina No ' +
-                 'Morirá”, un espacio dedicado a exaltar la verdad de la Palabra de Dios y ' +
-                 'afirmar nuestra fe en tiempos de confusión doctrinal. Hoy nos congregamos ' +
-                 'con un solo propósito: defender, vivir y proclamar la sana doctrina que ha ' +
-                 'sido transmitida por los apóstoles y permanece viva por el Espíritu Santo. ' +
-                 '¡Bienvenidos todos!'
-        },
-        {
-          fecha: 'Sábado 18 julio 2026',
-          titulo: 'La Sana Doctrina No Morirá · Segundo día',
-          texto: 'Damos la bienvenida al segundo día de nuestro Congreso “La Sana Doctrina ' +
-                 'No Morirá”, agradeciendo al Señor por lo que ya ha comenzado a hacer en ' +
-                 'medio de nosotros. Hoy continuamos fortaleciendo nuestras convicciones ' +
-                 'bíblicas, recibiendo enseñanza sólida y edificándonos unos a otros en el ' +
-                 'amor y la verdad de Cristo. Que cada palabra y cada momento de este día ' +
-                 'glorifique a Dios y afirme nuestro compromiso con Su doctrina eterna.'
-        },
-        {
-          fecha: 'Domingo 19 julio 2026',
-          titulo: 'La Sana Doctrina No Morirá · Tercer día',
-          texto: 'En este tercer día del congreso, nos reunimos con un mismo propósito: ' +
-                 'afirmar la verdad de la Palabra de Dios y permanecer firmes en la sana ' +
-                 'doctrina. Será un tiempo de enseñanza, predicación y edificación ' +
-                 'espiritual, donde la iglesia será llamada a no callar ante la apostasía, ' +
-                 'sino a defender con fidelidad el evangelio de Jesucristo.'
-        }
-      ]
-    },
-    {
-      /* En 2026 el congreso se celebró dos veces: esta en mayo y la de
-         Cartagena en julio. Fin de semana de Memorial Day, que en 2026
-         cayó en lunes 25 de mayo. */
-      edicion: 'Segunda edición',
-      sede: 'Connecticut',
-      fechas: 'viernes 22, sábado 23 y domingo 24 de mayo de 2026',
-      jornadas: []
-    },
-    {
-      /* La primera edición, la que inauguró el congreso. Se celebró el fin
-         de semana de Memorial Day, que cayó en lunes 26 de mayo de 2025. */
-      edicion: 'Primera edición',
-      sede: 'Newark, Nueva Jersey',
-      fechas: 'viernes 23, sábado 24 y domingo 25 de mayo de 2025',
-      jornadas: []
-    }
-  ];
+     Para cambiar sedes, fechas o programas: data/congresos.json. */
+  function datosCongresos() {
+    var caja = document.getElementById('datos-congresos');
+    if (!caja) return [];
+    try { return JSON.parse(caja.textContent) || []; }
+    catch (e) { return []; }
+  }
 
   /* ---------- Menú principal ----------
      Un solo comportamiento para escritorio y móvil:
@@ -280,38 +193,6 @@
     window.addEventListener('resize', alDesplazar, { passive: true });
   }
 
-  /* ---------- Ediciones ya celebradas ----------
-     Se dibujan desde el array EDICIONES para no repetir los datos en el
-     HTML. Va antes del observador de .revelar para que también las anime. */
-  var zonaEdiciones = document.querySelector('[data-ediciones]');
-
-  if (zonaEdiciones && EDICIONES.length) {
-    var trozos = [];
-
-    EDICIONES.forEach(function (ed, i) {
-      /* El encabezado se arma con lo que haya: sede y fechas son opcionales */
-      var partes = [i === 0 ? 'Última edición' : ed.edicion];
-      if (ed.sede) partes.push(ed.sede);
-      if (ed.fechas) partes.push(ed.fechas);
-      trozos.push('<h3 class="programa__titulo revelar">' + partes.join(' · ') + '</h3>');
-
-      var jornadas = ed.jornadas || [];
-      if (!jornadas.length) return;
-
-      trozos.push('<div class="rejilla rejilla--3 revelar">');
-      jornadas.forEach(function (j) {
-        trozos.push('<article class="jornada">' +
-                    '<p class="jornada__fecha">' + j.fecha + '</p>' +
-                    '<h3 class="tarjeta__titulo">' + j.titulo + '</h3>' +
-                    '<p>' + j.texto + '</p>' +
-                    '</article>');
-      });
-      trozos.push('</div>');
-    });
-
-    zonaEdiciones.innerHTML = trozos.join('');
-  }
-
   /* ---------- Revelar secciones al desplazarse ---------- */
   var revelables = document.querySelectorAll('.revelar');
   if ('IntersectionObserver' in window && revelables.length) {
@@ -328,78 +209,124 @@
     revelables.forEach(function (el) { el.classList.add('visible'); });
   }
 
-  /* ---------- Próximo congreso: aviso y cuenta regresiva ----------
-     Los datos salen del bloque CONGRESO de arriba. El aviso funciona en
-     cualquier página que lo incluya; la cuenta regresiva, en la página
-     del congreso.                                                        */
+  /* ---------- Estado de cada congreso ----------
+     El HTML sale con el estado del día en que se generó el sitio. Aquí se
+     vuelve a calcular con la fecha del visitante, para que una edición que
+     ya pasó deje de anunciarse como próxima aunque nadie haya regenerado
+     el sitio en meses. Las fechas se comparan como texto AAAA-MM-DD, que
+     ordena igual que el calendario y no arrastra husos horarios. */
+  var ROTULOS = {
+    por_anunciar: 'Por anunciar',
+    proximo: 'Próximo',
+    en_curso: 'En curso',
+    finalizado: 'Finalizado'
+  };
+
+  function dosCifras(n) { return n < 10 ? '0' + n : String(n); }
+
+  function hoyISO() {
+    var d = new Date();
+    return d.getFullYear() + '-' + dosCifras(d.getMonth() + 1) + '-' + dosCifras(d.getDate());
+  }
+
+  function estadoDe(inicio, fin) {
+    if (!inicio) return 'por_anunciar';
+    var hoy = hoyISO();
+    if (hoy < inicio) return 'proximo';
+    if (hoy <= (fin || inicio)) return 'en_curso';
+    return 'finalizado';
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-estado]'), function (el) {
+    var est = estadoDe(el.getAttribute('data-inicio'), el.getAttribute('data-fin'));
+    el.className = 'estado estado--' + est;
+    el.textContent = ROTULOS[est];
+  });
+
+  /* ---------- Cuenta regresiva ----------
+     La sede y las fechas ya vienen escritas en el HTML; aquí solo se añade
+     el reloj y se corrige el mensaje cuando el congreso empieza o termina. */
   var proximo = document.querySelector('[data-proximo]');
   var avisoMarca = document.querySelector('[data-aviso-marca]');
   var avisoTexto = document.querySelector('[data-aviso-texto]');
 
-  if (proximo || avisoMarca) {
-    var sede   = (CONGRESO.sede || '').trim();
-    var fechas = (CONGRESO.fechas || '').trim();
-    var inicio = new Date(CONGRESO.inicio).getTime();
-    var fin    = new Date(CONGRESO.fin).getTime();
-    if (isNaN(fin)) fin = inicio;
+  if (proximo) {
+    /* La tarjeta se generó apuntando a la edición más cercana del día en
+       que se construyó el sitio. Si esa ya pasó y hay otra por delante, se
+       asciende aquí: así la portada no se queda anclada a un congreso
+       terminado mientras nadie vuelve a generar. */
+    var pendientes = datosCongresos().filter(function (c) {
+      return c.inicio && estadoDe(c.inicio, c.fin) !== 'finalizado';
+    }).sort(function (a, b) { return a.inicio < b.inicio ? -1 : 1; });
 
-    var cuenta = proximo && proximo.querySelector('.cuenta');
-    var mensaje = proximo && proximo.querySelector('[data-cuenta-mensaje]');
-    /* Resumen para lectores de pantalla: la cuenta visible está marcada
-       como aria-hidden porque anunciar los segundos sería insoportable.
-       Este párrafo solo cambia cuando cambia el número de días. */
-    var resumen = proximo && proximo.querySelector('[data-cuenta-resumen]');
-    var casillas = {
-      dias: cuenta && cuenta.querySelector('[data-dias]'),
-      horas: cuenta && cuenta.querySelector('[data-horas]'),
-      minutos: cuenta && cuenta.querySelector('[data-minutos]'),
-      segundos: cuenta && cuenta.querySelector('[data-segundos]')
-    };
-
-    /* Sede, fechas y nombre de la edición en la tarjeta */
-    if (proximo) {
-      [['[data-proximo-edicion]', CONGRESO.edicion],
-       ['[data-proximo-sede]', sede],
-       ['[data-proximo-fechas]', fechas]].forEach(function (par) {
+    var elegido = pendientes[0];
+    if (elegido && elegido.slug !== proximo.getAttribute('data-slug')) {
+      var raiz = proximo.getAttribute('data-base') || '';
+      proximo.setAttribute('data-slug', elegido.slug);
+      proximo.setAttribute('data-inicio', elegido.inicio);
+      proximo.setAttribute('data-fin', elegido.fin || '');
+      [['.proximo__edicion', elegido.edicion],
+       ['.proximo__sede', elegido.lugar],
+       ['.proximo__fechas', elegido.fechas]].forEach(function (par) {
         var el = proximo.querySelector(par[0]);
         if (el && par[1]) el.textContent = par[1];
       });
+      var enlace = proximo.querySelector('.botones a');
+      if (enlace) {
+        enlace.href = raiz + 'congresos/' + elegido.slug + '/';
+        enlace.textContent = 'Ver detalles';
+      }
     }
+  }
 
-    function dosCifras(n) { return n < 10 ? '0' + n : String(n); }
+  if (proximo && proximo.getAttribute('data-inicio')) {
+    var inicioISO = proximo.getAttribute('data-inicio');
+    var finISO = proximo.getAttribute('data-fin') || inicioISO;
+    /* Sin hora anunciada, la cuenta va al primer minuto del día de apertura,
+       en la hora local de quien mira. */
+    var inicio = new Date(inicioISO + 'T00:00:00').getTime();
+    var fin = new Date(finISO + 'T23:59:59').getTime();
 
-    function anunciar(texto) {
-      if (cuenta) cuenta.hidden = true;
-      if (mensaje) { mensaje.textContent = texto; mensaje.hidden = false; }
-      resumir(texto);
-    }
+    var cuenta = proximo.querySelector('.cuenta');
+    var mensaje = proximo.querySelector('[data-cuenta-mensaje]');
+    /* Resumen para lectores de pantalla: la cuenta visible está marcada
+       como aria-hidden porque anunciar los segundos sería insoportable.
+       Este párrafo solo cambia cuando cambia el número de días. */
+    var resumen = proximo.querySelector('[data-cuenta-resumen]');
+    var casillas = {
+      dias: proximo.querySelector('[data-dias]'),
+      horas: proximo.querySelector('[data-horas]'),
+      minutos: proximo.querySelector('[data-minutos]'),
+      segundos: proximo.querySelector('[data-segundos]')
+    };
 
-    function resumir(texto) {
+    var resumir = function (texto) {
       /* Escribir el mismo texto volvería a anunciarlo, así que solo se
          toca el nodo cuando el contenido cambia de verdad. */
       if (resumen && resumen.textContent !== texto) resumen.textContent = texto;
-    }
+    };
 
-    function pintarAviso(marca, texto) {
+    var anunciar = function (texto) {
+      if (cuenta) cuenta.hidden = true;
+      if (mensaje) { mensaje.textContent = texto; mensaje.hidden = false; }
+      resumir(texto);
+    };
+
+    var pintarAviso = function (marca, texto) {
       if (avisoMarca) avisoMarca.textContent = marca;
       if (avisoTexto) avisoTexto.textContent = texto;
-    }
+    };
 
-    function refrescar() {
+    var sede = (proximo.querySelector('.proximo__sede') || {}).textContent || '';
+    var fechas = (proximo.querySelector('.proximo__fechas') || {}).textContent || '';
+
+    var refrescar = function () {
       var ahora = Date.now();
 
-      /* Todavía no hay fecha anunciada */
-      if (isNaN(inicio) || !sede) {
-        anunciar('Estamos preparando la próxima edición. Muy pronto anunciaremos la sede y las fechas.');
-        pintarAviso('Congreso anual', 'Próxima sede y fecha por anunciar');
-        return true;
-      }
-
-      /* El congreso ya empezó */
-      if (inicio - ahora <= 0) {
+      if (ahora >= inicio) {
         if (ahora <= fin) {
           anunciar('¡El congreso está en curso! Bienvenidos todos.');
-          pintarAviso('En curso', sede + ' · ' + fechas);
+          pintarAviso('En curso', sede);
         } else {
           anunciar('Esta edición ya se celebró. Pronto anunciaremos la sede del próximo congreso.');
           pintarAviso('Congreso anual', 'Próxima sede y fecha por anunciar');
@@ -407,7 +334,6 @@
         return true;
       }
 
-      /* Falta para el congreso: se actualiza la cuenta regresiva */
       if (cuenta) cuenta.hidden = false;
       if (mensaje) mensaje.hidden = true;
       pintarAviso('Próximo congreso', sede + (fechas ? ' · ' + fechas : ''));
@@ -421,7 +347,7 @@
       if (casillas.minutos) casillas.minutos.textContent = dosCifras(Math.floor(seg / 60) % 60);
       if (casillas.segundos) casillas.segundos.textContent = dosCifras(seg % 60);
       return false;
-    }
+    };
 
     if (!refrescar()) {
       var reloj = setInterval(function () {
@@ -430,34 +356,240 @@
     }
   }
 
+  /* ---------- Agregar al calendario y compartir ----------
+     El .ics se arma aquí mismo, sin librerías. Un congreso de varios días
+     se agenda como evento de día completo: es lo correcto y así no se
+     desplaza al cambiar de huso horario. En el formato .ics el día de fin
+     es exclusivo, por eso generar.py ya suma uno. */
+  var acciones = document.querySelector('[data-acciones]');
+
+  if (acciones) {
+    var congreso = {
+      nombre: acciones.getAttribute('data-nombre') || 'Congreso',
+      inicio: acciones.getAttribute('data-inicio') || '',
+      fin: acciones.getAttribute('data-fin') || '',
+      lugar: acciones.getAttribute('data-lugar') || '',
+      slug: acciones.getAttribute('data-slug') || 'congreso'
+    };
+    var sinGuiones = function (iso) { return iso.replace(/-/g, ''); };
+
+    var escaparICS = function (t) {
+      return String(t || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;')
+        .replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+    };
+
+    var sello = function () {
+      return new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    };
+
+    var textoICS = function () {
+      return [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//La Sana Doctrina No Morira//ES',
+        'CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT',
+        'UID:' + congreso.slug + '@lasanadoctrinanomorira',
+        'DTSTAMP:' + sello(),
+        'DTSTART;VALUE=DATE:' + sinGuiones(congreso.inicio),
+        'DTEND;VALUE=DATE:' + sinGuiones(congreso.fin),
+        'SUMMARY:' + escaparICS(congreso.nombre),
+        'LOCATION:' + escaparICS(congreso.lugar),
+        'DESCRIPTION:' + escaparICS('Entrada libre. ' + location.href),
+        'URL:' + location.href,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');   /* el formato .ics exige fin de línea CRLF */
+    };
+
+    var botonCal = acciones.querySelector('[data-calendario]');
+    if (botonCal && congreso.inicio) {
+      botonCal.hidden = false;
+      botonCal.addEventListener('click', function () {
+        var blob = new Blob([textoICS()], { type: 'text/calendar;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = congreso.slug + '.ics';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        /* Se libera algo después: revocarla en el acto cancela la descarga
+           en algunos navegadores. */
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      });
+
+      /* Google Calendar, para quien vive en el calendario del navegador */
+      var google = document.createElement('a');
+      google.className = 'boton boton--linea';
+      google.target = '_blank';
+      google.rel = 'noopener';
+      google.textContent = 'Google Calendar';
+      google.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+        + '&text=' + encodeURIComponent(congreso.nombre)
+        + '&dates=' + sinGuiones(congreso.inicio) + '/' + sinGuiones(congreso.fin)
+        + '&location=' + encodeURIComponent(congreso.lugar)
+        + '&details=' + encodeURIComponent('Entrada libre. ' + location.href);
+      acciones.appendChild(google);
+    }
+
+    var botonComp = acciones.querySelector('[data-compartir]');
+    var listaComp = document.querySelector('[data-compartir-lista]');
+
+    if (botonComp) {
+      botonComp.hidden = false;
+      botonComp.addEventListener('click', function () {
+        var datos = {
+          title: congreso.nombre,
+          text: congreso.nombre + ' — entrada libre.',
+          url: location.href
+        };
+        if (navigator.share) {
+          navigator.share(datos).catch(function () { /* cancelado por quien comparte */ });
+          return;
+        }
+        /* Sin API nativa: se despliega la lista de siempre */
+        if (!listaComp) return;
+        if (!listaComp.childNodes.length) {
+          var texto = encodeURIComponent(datos.text + ' ' + location.href);
+          listaComp.innerHTML =
+            '<a class="boton boton--linea" target="_blank" rel="noopener" href="https://wa.me/?text='
+            + texto + '">WhatsApp</a>'
+            + '<a class="boton boton--linea" target="_blank" rel="noopener" '
+            + 'href="https://www.facebook.com/sharer/sharer.php?u='
+            + encodeURIComponent(location.href) + '">Facebook</a>'
+            + '<button class="boton boton--linea" type="button" data-copiar>Copiar enlace</button>';
+
+          var copiar = listaComp.querySelector('[data-copiar]');
+          copiar.addEventListener('click', function () {
+            var listo = function () {
+              copiar.textContent = 'Enlace copiado';
+              setTimeout(function () { copiar.textContent = 'Copiar enlace'; }, 2500);
+            };
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText(location.href).then(listo, function () {});
+            } else {
+              /* Navegadores viejos: campo temporal y execCommand */
+              var campo = document.createElement('input');
+              campo.value = location.href;
+              document.body.appendChild(campo);
+              campo.select();
+              try { document.execCommand('copy'); listo(); } catch (e) {}
+              document.body.removeChild(campo);
+            }
+          });
+        }
+        listaComp.hidden = !listaComp.hidden;
+        botonComp.setAttribute('aria-expanded', String(!listaComp.hidden));
+      });
+      botonComp.setAttribute('aria-expanded', 'false');
+      if (listaComp && listaComp.id) botonComp.setAttribute('aria-controls', listaComp.id);
+    }
+  }
+
   /* ---------- Año actual en el pie ---------- */
   var anio = document.querySelector('[data-anio]');
   if (anio) anio.textContent = String(new Date().getFullYear());
 
-  /* ---------- Formularios (abren el programa de correo) ---------- */
-  var formularios = document.querySelectorAll('[data-formulario-contacto]');
+  /* ---------- Formularios ----------
+     FASE DE DISEÑO: no envían a ningún servicio. La validación y los
+     mensajes ya funcionan; cuando se rellene FORMULARIO_DESTINO en
+     generar.py el formulario saldrá con action y este mismo código lo
+     enviará, sin tocar nada más.
 
-  Array.prototype.forEach.call(formularios, function (formulario) {
-    formulario.addEventListener('submit', function (e) {
+     Se usa novalidate para escribir los mensajes en español y junto al
+     campo que falla, en vez de los globos del navegador, que se pierden
+     al desplazarse. */
+  function mensajeDe(campo) {
+    var v = campo.validity;
+    if (v.valueMissing) {
+      return campo.tagName === 'SELECT' ? 'Elige una opción.' : 'Falta rellenar este campo.';
+    }
+    if (v.typeMismatch && campo.type === 'email') {
+      return 'Escribe un correo válido, como nombre@ejemplo.com.';
+    }
+    if (v.typeMismatch && campo.type === 'tel') return 'Revisa el número de teléfono.';
+    if (v.tooShort) return 'Escribe al menos ' + campo.minLength + ' caracteres.';
+    return 'Revisa este dato.';
+  }
+
+  function pintarCampo(campo) {
+    var caja = campo.parentNode;
+    var aviso = caja && caja.querySelector ? caja.querySelector('.campo__error') : null;
+    if (campo.checkValidity()) {
+      campo.removeAttribute('aria-invalid');
+      if (aviso) { aviso.textContent = ''; aviso.hidden = true; }
+      return true;
+    }
+    campo.setAttribute('aria-invalid', 'true');
+    if (aviso) { aviso.textContent = mensajeDe(campo); aviso.hidden = false; }
+    return false;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-formulario]'), function (form) {
+    var estado = form.querySelector('[data-estado-envio]');
+    var boton = form.querySelector('button[type="submit"]');
+
+    var avisar = function (texto, clase) {
+      if (!estado) return;
+      estado.textContent = texto;
+      estado.className = 'formulario__estado' + (clase ? ' ' + clase : '');
+      estado.hidden = false;
+    };
+
+    /* Se revalida al salir del campo, pero solo después del primer intento
+       de envío: corregir a alguien mientras escribe molesta. */
+    var intentado = false;
+    Array.prototype.forEach.call(form.elements, function (campo) {
+      if (!campo.name) return;
+      campo.addEventListener('blur', function () { if (intentado) pintarCampo(campo); });
+      campo.addEventListener('input', function () { if (intentado) pintarCampo(campo); });
+    });
+
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
+      intentado = true;
 
-      var destino = formulario.getAttribute('data-destino') || '';
-      var etiqueta = formulario.getAttribute('data-asunto') || 'Mensaje del sitio';
-      var datos = new FormData(formulario);
-      var lineas = [];
-
-      datos.forEach(function (valor, clave) {
-        var texto = String(valor).trim();
-        if (!texto) return;
-        lineas.push(clave.charAt(0).toUpperCase() + clave.slice(1) + ': ' + texto);
+      var malos = Array.prototype.filter.call(form.elements, function (campo) {
+        return campo.name && !pintarCampo(campo);
       });
 
-      var asunto = '[La Sana Doctrina No Morirá] ' + etiqueta;
-      var cuerpo = lineas.join('\n');
+      if (malos.length) {
+        avisar(malos.length === 1 ? 'Falta un dato por revisar.'
+                                  : 'Faltan ' + malos.length + ' datos por revisar.',
+               'formulario__estado--error');
+        malos[0].focus();
+        return;
+      }
 
-      window.location.href = 'mailto:' + destino +
-        '?subject=' + encodeURIComponent(asunto) +
-        '&body=' + encodeURIComponent(cuerpo);
+      var destino = form.getAttribute('action');
+      if (!destino) {
+        /* Todavía sin conectar: se dice claro, en vez de fingir un envío. */
+        avisar('El formulario aún no está conectado. Mientras tanto puedes '
+               + 'escribirnos por WhatsApp o al correo que aparece al pie de la página.',
+               'formulario__estado--aviso');
+        return;
+      }
+
+      if (boton) boton.disabled = true;
+      avisar('Enviando…', '');
+
+      fetch(destino, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      }).then(function (r) {
+        if (!r.ok) throw new Error('respuesta ' + r.status);
+        form.reset();
+        intentado = false;
+        avisar('Mensaje enviado. Gracias por escribir: respondemos en cuanto podamos.',
+               'formulario__estado--exito');
+      }).catch(function () {
+        avisar('No se pudo enviar. Revisa tu conexión e inténtalo de nuevo, o '
+               + 'escríbenos por WhatsApp.', 'formulario__estado--error');
+      }).then(function () {
+        if (boton) boton.disabled = false;
+      });
     });
   });
 })();

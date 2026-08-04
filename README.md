@@ -14,17 +14,22 @@ Cada apartado del menú es **una página independiente**, con su propia direcci�
 concreta y ayuda a que Google la encuentre.
 
 ```
-index.html                Portada: logotipo, presentación y accesos a todo el sitio
+generar.py                EL GENERADOR: escribe todas las páginas. Ver abajo.
+data/congresos.json       Única fuente de verdad de los congresos
+data/COMO-AGREGAR-UN-CONGRESO.md   Instrucciones paso a paso
+index.html                Portada: presentación, próximo congreso y cuenta regresiva
 que-es.html               ¿Qué es? + Un Movimiento de Dios
 apostasia.html            Enfrentando la Apostasía
 mision.html               Nuestra Misión: los cuatro compromisos
 iglesias.html             Iglesias que Viven la Sana Doctrina
-remanente.html            ¿Eres Parte del Remanente? + suscripción
+remanente.html            ¿Eres Parte del Remanente? + «Quiero unirme»
 pastores.html             Pastores Defensores (videos del congreso)
-congreso.html             Próximo congreso, cuenta regresiva y programa
+congresos/                Listado de congresos y una página por edición
+congreso.html             Redirección a congresos/ (la dirección vieja, ya compartida)
 contacto.html             Formulario y contacto directo
+CNAME.ejemplo             Plantilla para cuando se compre el dominio propio
 assets/css/estilo.css     Estilos (paleta azul marino y oro; el tema lo pone el sistema)
-assets/js/main.js         Menú, barra de progreso, animaciones, formularios
+assets/js/main.js         Menú, cuenta regresiva, calendario, compartir, formularios
 assets/img/logo.webp      Logotipo oficial (el que se muestra en la portada)
 assets/img/logo.png       Respaldo del logotipo para navegadores antiguos
 assets/img/logo-original.png  Copia maestra del logotipo, 1024 × 1024
@@ -36,12 +41,34 @@ assets/img/fotos/         Fotografías del congreso (WebP + respaldo JPG)
 assets/video/             Carpeta para los videos de los pastores
 ```
 
-### Si hay que cambiar el menú o el pie de página
+## El generador: `generar.py`
 
-El encabezado (con el menú) y el pie se repiten en las nueve páginas, porque un sitio
-estático no tiene forma de compartirlos. Si se agrega o se quita una sección, hay que
-hacer el cambio en los nueve archivos `.html`. Lo demás —textos, imágenes, colores—
-se edita en su propia página sin tocar las otras.
+Los archivos `.html` **no se editan a mano**: los escribe `generar.py`. Por eso el
+menú y el pie salen idénticos en todas las páginas sin tener que repetir el cambio
+catorce veces.
+
+Después de tocar `generar.py`, `data/congresos.json` o cualquier texto:
+
+```bash
+python3 generar.py
+```
+
+No hay que instalar nada: solo Python 3, que ya viene en Mac y Linux.
+
+El generador escribe el HTML **ya terminado**. Eso importa: WhatsApp, Facebook y
+Google no ejecutan JavaScript, así que el contenido y la imagen de vista previa
+tienen que estar escritos en el archivo. El JavaScript solo se ocupa de lo que
+depende de la hora en que alguien abre la página.
+
+### Los tres valores que se cambian a mano
+
+Están juntos al principio de `generar.py`, bajo `CONFIGURACIÓN`:
+
+| Constante | Qué es |
+|---|---|
+| `SITIO` | El dominio. Es el **único** sitio donde aparece la dirección completa. |
+| `CONTACTO` | Nombre, teléfono, WhatsApp y correo. Se cambian aquí y salen en todas las páginas. |
+| `FORMULARIO_DESTINO` | Vacío a propósito: los formularios aún no envían. |
 
 ## Cómo verlo en tu computadora
 
@@ -63,56 +90,40 @@ El archivo `.nojekyll` ya está incluido para que GitHub publique los archivos t
 
 ## Cómo anunciar el congreso de cada año
 
-El congreso se celebra una vez al año y en una ciudad distinta. **Los dos únicos
-bloques que se actualizan cada año** están al principio de `assets/js/main.js`:
-`CONGRESO` (la próxima edición) y `EDICIONES` (las ya celebradas).
+Todos los congresos —los que vienen y los ya celebrados— salen de un solo archivo:
+**`data/congresos.json`**. Ahí se edita, se ejecuta `python3 generar.py` y las
+páginas se reescriben solas.
 
-```js
-var CONGRESO = {
-  edicion: 'Edición 2027',
-  sede:    'Ciudad de Panamá, Panamá',
-  fechas:  '16, 17 y 18 de julio de 2027',
-  inicio:  '2027-07-16T09:00:00-05:00',
-  fin:     '2027-07-18T23:59:00-05:00'
-};
-```
+Las instrucciones campo por campo están en
+[`data/COMO-AGREGAR-UN-CONGRESO.md`](data/COMO-AGREGAR-UN-CONGRESO.md).
 
-- `inicio` y `fin` van en formato ISO con la zona horaria de la sede
-  (`-05:00` para Colombia y Panamá, `-04:00` para Nueva York en verano).
-- Con eso se actualizan solos: la tarjeta de `congreso.html`, la cuenta regresiva y
-  el aviso de la portada. No hay que tocar nada más.
+De ese archivo salen cuatro cosas a la vez:
 
-La página se comporta sola en los tres casos:
+1. El bloque de próximos congresos de la portada.
+2. La cuenta regresiva.
+3. El listado de `congresos/`.
+4. Una página propia por cada edición, en `congresos/<slug>/`.
+
+### El estado no se escribe nunca
+
+No hay ningún campo que diga «próximo» o «finalizado». Se deduce de las fechas, y
+se vuelve a deducir cada vez que alguien abre la página. Por eso una edición que
+termina deja de anunciarse como próxima **aunque nadie regenere el sitio en meses**.
 
 | Situación | Qué muestra |
 |---|---|
-| Datos vacíos | «Sede por anunciar» + «Estamos preparando la próxima edición» |
+| Sin fecha confirmada | «Sede por anunciar» + «Estamos preparando la próxima edición» |
 | Falta para el congreso | Cuenta regresiva en días, horas, minutos y segundos |
 | Congreso en curso | «¡El congreso está en curso! Bienvenidos todos» |
-| Ya terminó | «Esta edición ya se celebró. Pronto anunciaremos la sede del próximo» |
+| Ya terminó | Pasa a «Ediciones anteriores» y la portada asciende al siguiente |
 
-El programa por jornadas que aparece debajo de esa tarjeta **no está escrito en el
-HTML**: lo genera `main.js` a partir del array `EDICIONES`, para no tener los mismos
-datos en dos sitios.
+### La dirección de cada congreso no cambia
 
-```js
-var EDICIONES = [
-  {
-    edicion: 'Edición 2026',
-    sede: 'Cartagena, Colombia',
-    fechas: 'julio de 2026',
-    jornadas: [
-      { fecha: 'Viernes 17 julio 2026', titulo: '…', texto: '…' }
-    ]
-  }
-];
-```
+Cada edición vive en `congresos/<slug>/`, por ejemplo
+`congresos/2026-cartagena/`. Ese `slug` **no se cambia nunca** después de
+publicarlo: si se cambia, se rompen los enlaces que la gente ya compartió.
 
-La edición más reciente va primero y se titula sola «Última edición». Para publicar
-otro congreso pasado basta con añadir un objeto más al array. `sede` y `jornadas`
-pueden quedar vacíos: entonces solo se muestra el encabezado de esa edición, que es
-justo el caso de la primera edición mientras no se confirmen ciudad y fechas.
-
+La dirección vieja `congreso.html` sigue funcionando: redirige al listado.
 ## Las fotografías del congreso
 
 Están en `assets/img/fotos/`, cada una en WebP (la que carga casi todo el mundo) y
@@ -128,14 +139,14 @@ Las catorce que hay ahora se reparten por sede:
 
 | Archivos | Dónde aparecen |
 |---|---|
-| `pastores-grupo` | Foto destacada de `pastores.html` |
-| `predicacion-1` … `predicacion-8` | Galería «Momentos de predicación» de `pastores.html` |
-| `congreso-cartel`, `congreso-oracion`, `congreso-asamblea`, `congreso-grupo-1`, `congreso-grupo-2` | Galería «Imágenes del congreso» de `congreso.html` |
+| `pastor-retrato-*`, `pastor-predicando-*` | Galería de pastores de `pastores.html` |
+| `predicacion-1` … `predicacion-8` | Connecticut: en `pastores.html` y en `congresos/2026-connecticut/` |
+| `pastores-grupo`, `congreso-cartel`, `congreso-oracion`, `congreso-asamblea`, `congreso-grupo-1`, `congreso-grupo-2` | Newark: `congresos/2025-newark/` |
 
-Cuando lleguen las de Cartagena 2026, van en un bloque nuevo dentro de la misma
-galería de `congreso.html`: un `<h3 class="programa__titulo revelar">` con el rótulo
-de la edición y debajo su propio `<div class="galeria revelar">`. En el HTML hay un
-comentario que lo indica.
+Las galerías de cada congreso salen del campo `galeria` de
+`data/congresos.json`, no del HTML. Cuando lleguen las fotos de Cartagena 2026,
+se optimizan como las demás y se añaden a la lista `galeria` de ese congreso, con
+su ancho y alto reales.
 
 Para añadir más fotos, súbelas al repositorio y regenera las versiones web:
 
@@ -180,23 +191,28 @@ Las instrucciones también están como comentario dentro del propio `pastores.ht
 
 ## Qué falta por confirmar
 
-- **Sede y fechas del próximo congreso**: el de Cartagena (17–19 de julio de 2026)
-  ya se celebró, así que la tarjeta está en modo «por anunciar». En cuanto se
-  definan, se rellenan los cinco datos del bloque CONGRESO explicado arriba.
-- **Fecha del tercer día de Cartagena**: en la captura no aparecía. Como el congreso
-  empezó el viernes 17, se puso «domingo 19 julio 2026»; conviene confirmarlo.
-- **Fechas de la primera edición**: la sede ya consta (Newark, Nueva Jersey) pero no
-  los días exactos, así que la línea de tiempo muestra solo el año.
-- **Año de Connecticut**: la galería de `pastores.html` se rotula solo con la sede,
-  porque no está confirmado a qué edición corresponde.
-- **Fotos de Cartagena 2026**: pendientes de conseguir.
-- **Correo de contacto**: se usa `ig07644@gmail.com` en los dos formularios y en la
-  tarjeta de contacto. Si el correo oficial es otro, cámbialo en `contacto.html` y en
-  `remanente.html` (atributos `data-destino` y los enlaces `mailto:`).
-- **Vista previa al compartir**: `og:image` apunta a una ruta relativa. Cuando el
-  sitio tenga dominio propio conviene poner la dirección completa
-  (`https://tudominio.com/assets/img/logo.png`) para que el logo salga al pegar el
-  enlace en WhatsApp o Facebook.
+Todo esto son datos que aún no tenemos. El sitio funciona sin ellos: los bloques
+vacíos sencillamente no se dibujan, y la página irá creciendo a medida que se
+rellene `data/congresos.json`.
+
+- **Sede y fechas del próximo congreso.** Los tres celebrados ya pasaron, así que
+  la portada está en modo «por anunciar». Cuando se confirme, se añade un congreso
+  nuevo al JSON y se borra la entrada `por-anunciar`.
+- **Fotos de Cartagena 2026** y su **afiche**. Sin afiche, al compartir el enlace
+  de un congreso por WhatsApp sale el logo del proyecto en vez del cartel.
+- **Nombres de los pastores.** Los pies de foto describen la escena sin nombrar a
+  nadie. Con los nombres mejoran también los textos alternativos.
+- **Datos de cada congreso**: dirección, mapa, iglesia anfitriona, predicadores,
+  horas del programa, logística y preguntas frecuentes. Todos los campos existen
+  ya en el JSON, vacíos.
+- **Tiempo verbal del programa de Cartagena.** Los textos se escribieron antes del
+  congreso y siguen en futuro («Será un tiempo de enseñanza…»).
+- **Correo de contacto.** Se usa `ig07644@gmail.com`. Si el oficial es otro, se
+  cambia en el bloque `CONTACTO` de `generar.py`, en un solo sitio.
+- **Envío de los formularios.** `FORMULARIO_DESTINO` está vacío: validan y avisan,
+  pero no envían. Al poner ahí la URL de Formspree o Netlify Forms empiezan a
+  funcionar sin tocar nada más.
+- **Dominio propio.** Al comprarlo se sigue lo que explica `CNAME.ejemplo`.
 
 ## El logotipo
 
@@ -239,8 +255,8 @@ fav.resize((64, 64), Image.LANCZOS).save('assets/img/favicon.png', optimize=True
 ## Cómo cambiar los colores
 
 Todos los colores están definidos como variables al principio de
-`assets/css/estilo.css`, dentro del bloque `:root`. Cambiarlos ahí los cambia en las
-nueve páginas de golpe.
+`assets/css/estilo.css`, dentro del bloque `:root`. Cambiarlos ahí los cambia en
+todas las páginas de golpe.
 
 ```css
 :root {
