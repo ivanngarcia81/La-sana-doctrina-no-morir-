@@ -119,6 +119,12 @@ strong { font-weight: 700; color: var(--titulo); }
 .contenedor--angosto { max-width: 760px; }
 
 /* Texto que solo leen los lectores de pantalla */
+/* El atributo hidden lo pisa cualquier clase que declare display, y en
+   este sitio casi todas lo hacen (.boton es inline-flex). Sin esto, un
+   elemento marcado como oculto se seguiría viendo. Va con !important a
+   propósito: hidden significa oculto, sin excepciones. */
+[hidden] { display: none !important; }
+
 .visualmente-oculto {
   position: absolute;
   width: 1px; height: 1px;
@@ -611,7 +617,6 @@ body.sin-scroll { overflow: hidden; }
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px; max-width: 480px; margin: 0 auto;
 }
-.cuenta[hidden] { display: none; }
 .cuenta__caja {
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.14);
@@ -630,7 +635,6 @@ body.sin-scroll { overflow: hidden; }
   background: rgba(7, 20, 38, .55); border: 1px solid rgba(233,200,119,.45);
   border-radius: var(--radio); color: var(--oro-claro); font-weight: 700;
 }
-.cuenta__aviso[hidden] { display: none; }
 
 /* Programa y ediciones */
 .programa__titulo {
@@ -812,7 +816,6 @@ body.sin-scroll { overflow: hidden; }
 
 /* Botones de calendario y compartir */
 .compartir { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-.compartir[hidden] { display: none; }
 
 /* Predicadores */
 .predicador { text-align: center; }
@@ -863,7 +866,6 @@ body.sin-scroll { overflow: hidden; }
 .campo__error {
   margin: 0; font-size: .86rem; font-weight: 600; color: #a11f2c;
 }
-.campo__error[hidden] { display: none; }
 .campo input[aria-invalid="true"],
 .campo select[aria-invalid="true"],
 .campo textarea[aria-invalid="true"] {
@@ -874,7 +876,6 @@ body.sin-scroll { overflow: hidden; }
   border: 1px solid var(--borde); background: var(--superficie);
   font-size: .94rem; color: var(--texto-suave);
 }
-.formulario__estado[hidden] { display: none; }
 .formulario__estado--error {
   border-color: #a11f2c; color: #a11f2c; background: rgba(161,31,44,.06);
 }

@@ -764,6 +764,7 @@ def ficha(c):
           <div class="botones" data-acciones
                data-nombre="{c.get('nombre', 'Congreso La Sana Doctrina No Morirá')} — {lugar(c)}"
                data-inicio="{ini_ics}" data-fin="{fin_ics}"
+               data-hasta="{c.get('fecha_fin', '')}"
                data-lugar="{lugar_completo(c)}"
                data-slug="{c['slug']}">
             <!-- Los dos botones nacen ocultos y los enseña main.js: sin
@@ -1052,8 +1053,9 @@ INICIO = f"""  <section class="portada portada--inicio" id="inicio">
                 'Viven en santidad, predican la Palabra sin alterarla y disciernen los tiempos.')}
 {tarjeta_enlace('pastores.html', 'Testimonios', 'Pastores defensores',
                 'Siervos que se levantaron como firmes defensores de la sana doctrina.')}
-{tarjeta_enlace('congreso.html', 'Cada año', 'El congreso',
-                'Una vez al año, en una ciudad distinta, para que la enseñanza alcance más pueblos.')}
+{tarjeta_enlace('congresos/', 'Las sedes', 'Los congresos',
+                'Varias ediciones al año, cada una en una ciudad distinta, para que la '
+                'enseñanza alcance más pueblos.')}
       </div>
     </div>
   </section>
@@ -1403,7 +1405,7 @@ PASTORES = cabecera(
       </div>
 
       <div class="botones seccion__pie">
-        <a class="boton boton--linea" href="congreso.html">Ver el próximo congreso</a>
+        <a class="boton boton--linea" href="congresos/">Ver los congresos</a>
       </div>
     </div>
   </section>

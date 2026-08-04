@@ -402,8 +402,15 @@
       ].join('\r\n');   /* el formato .ics exige fin de línea CRLF */
     };
 
+    /* El calendario solo tiene sentido en un congreso que aún no ha
+       terminado: agendar algo que ya pasó no sirve de nada. Se decide aquí
+       y no al generar, para que una edición que termina deje de ofrecerlo
+       sola. data-hasta es el último día real; data-fin lleva un día de más
+       porque el formato .ics lo exige. */
+    var terminado = estadoDe(congreso.inicio,
+                             acciones.getAttribute('data-hasta')) === 'finalizado';
     var botonCal = acciones.querySelector('[data-calendario]');
-    if (botonCal && congreso.inicio) {
+    if (botonCal && congreso.inicio && !terminado) {
       botonCal.hidden = false;
       botonCal.addEventListener('click', function () {
         var blob = new Blob([textoICS()], { type: 'text/calendar;charset=utf-8' });
