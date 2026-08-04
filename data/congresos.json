@@ -1,0 +1,152 @@
+{
+  "_leeme": "Única fuente de verdad de los congresos. Al editar este archivo hay que volver a ejecutar 'python3 generar.py' para que los cambios lleguen a las páginas. JSON no admite comentarios: las instrucciones paso a paso están en data/COMO-AGREGAR-UN-CONGRESO.md. El estado (próximo / en curso / finalizado) NO se escribe aquí: se calcula solo a partir de las fechas.",
+
+  "congresos": [
+    {
+      "slug": "por-anunciar",
+      "edicion": "Cuarta edición",
+      "nombre": "Congreso La Sana Doctrina No Morirá",
+      "tema": "",
+      "descripcion": "",
+      "fecha_inicio": "",
+      "fecha_fin": "",
+      "hora_inicio": "",
+      "zona_horaria": "",
+      "ciudad": "",
+      "estado": "",
+      "pais": "",
+      "direccion": "",
+      "mapa": "",
+      "iglesia_madre": "",
+      "iglesia_anfitriona": "",
+      "predicadores": [],
+      "programa": [],
+      "galeria": [],
+      "afiche": "",
+      "modalidad": "presencial",
+      "transmision": "",
+      "logistica": {},
+      "faq": [],
+      "contacto": {}
+    },
+
+    {
+      "slug": "2026-cartagena",
+      "edicion": "Tercera edición",
+      "nombre": "Congreso La Sana Doctrina No Morirá",
+      "tema": "",
+      "descripcion": "Tercera edición del congreso, la primera fuera de los Estados Unidos.",
+      "fecha_inicio": "2026-07-17",
+      "fecha_fin": "2026-07-19",
+      "hora_inicio": "",
+      "zona_horaria": "America/Bogota",
+      "ciudad": "Cartagena",
+      "estado": "Bolívar",
+      "pais": "Colombia",
+      "direccion": "",
+      "mapa": "",
+      "iglesia_madre": "",
+      "iglesia_anfitriona": "",
+      "predicadores": [],
+      "programa": [
+        {
+          "fecha": "2026-07-17",
+          "titulo": "Apertura en Cartagena, Colombia",
+          "descripcion": "Con gozo en el Señor, damos inicio al Congreso “La Sana Doctrina No Morirá”, un espacio dedicado a exaltar la verdad de la Palabra de Dios y afirmar nuestra fe en tiempos de confusión doctrinal. Hoy nos congregamos con un solo propósito: defender, vivir y proclamar la sana doctrina que ha sido transmitida por los apóstoles y permanece viva por el Espíritu Santo. ¡Bienvenidos todos!",
+          "bloques": []
+        },
+        {
+          "fecha": "2026-07-18",
+          "titulo": "Segundo día",
+          "descripcion": "Damos la bienvenida al segundo día de nuestro Congreso “La Sana Doctrina No Morirá”, agradeciendo al Señor por lo que ya ha comenzado a hacer en medio de nosotros. Hoy continuamos fortaleciendo nuestras convicciones bíblicas, recibiendo enseñanza sólida y edificándonos unos a otros en el amor y la verdad de Cristo. Que cada palabra y cada momento de este día glorifique a Dios y afirme nuestro compromiso con Su doctrina eterna.",
+          "bloques": []
+        },
+        {
+          "fecha": "2026-07-19",
+          "titulo": "Tercer día",
+          "descripcion": "En este tercer día del congreso, nos reunimos con un mismo propósito: afirmar la verdad de la Palabra de Dios y permanecer firmes en la sana doctrina. Será un tiempo de enseñanza, predicación y edificación espiritual, donde la iglesia será llamada a no callar ante la apostasía, sino a defender con fidelidad el evangelio de Jesucristo.",
+          "bloques": []
+        }
+      ],
+      "galeria": [],
+      "afiche": "",
+      "modalidad": "presencial",
+      "transmision": "",
+      "logistica": {},
+      "faq": [],
+      "contacto": {}
+    },
+
+    {
+      "slug": "2026-connecticut",
+      "edicion": "Segunda edición",
+      "nombre": "Congreso La Sana Doctrina No Morirá",
+      "tema": "",
+      "descripcion": "Segunda edición del congreso, celebrada el fin de semana de Memorial Day.",
+      "fecha_inicio": "2026-05-22",
+      "fecha_fin": "2026-05-24",
+      "hora_inicio": "",
+      "zona_horaria": "America/New_York",
+      "ciudad": "",
+      "estado": "Connecticut",
+      "pais": "Estados Unidos",
+      "direccion": "",
+      "mapa": "",
+      "iglesia_madre": "",
+      "iglesia_anfitriona": "",
+      "predicadores": [],
+      "programa": [],
+      "galeria": [
+        { "archivo": "predicacion-1", "ancho": 1089, "alto": 966, "alt": "Predicador con micrófono y la mano levantada durante el mensaje", "pie": "" },
+        { "archivo": "predicacion-2", "ancho": 1600, "alto": 1200, "alt": "Predicador en el púlpito con los pastores sentados detrás", "pie": "" },
+        { "archivo": "predicacion-3", "ancho": 1600, "alto": 900, "alt": "Ministración desde el púlpito durante el congreso", "pie": "" },
+        { "archivo": "predicacion-4", "ancho": 1600, "alto": 900, "alt": "Predicación con la congregación de pie", "pie": "" },
+        { "archivo": "predicacion-5", "ancho": 1600, "alto": 900, "alt": "Momento de enseñanza durante una de las jornadas", "pie": "" },
+        { "archivo": "predicacion-6", "ancho": 1600, "alto": 900, "alt": "Predicador dirigiéndose a la congregación", "pie": "" },
+        { "archivo": "predicacion-7", "ancho": 1600, "alto": 900, "alt": "Mensaje desde el púlpito del congreso", "pie": "" },
+        { "archivo": "predicacion-8", "ancho": 1600, "alto": 900, "alt": "Cierre de una de las jornadas de predicación", "pie": "" }
+      ],
+      "afiche": "",
+      "modalidad": "presencial",
+      "transmision": "",
+      "logistica": {},
+      "faq": [],
+      "contacto": {}
+    },
+
+    {
+      "slug": "2025-newark",
+      "edicion": "Primera edición",
+      "nombre": "Congreso La Sana Doctrina No Morirá",
+      "tema": "",
+      "descripcion": "La edición que inauguró el congreso, celebrada el fin de semana de Memorial Day.",
+      "fecha_inicio": "2025-05-23",
+      "fecha_fin": "2025-05-25",
+      "hora_inicio": "",
+      "zona_horaria": "America/New_York",
+      "ciudad": "Newark",
+      "estado": "Nueva Jersey",
+      "pais": "Estados Unidos",
+      "direccion": "",
+      "mapa": "",
+      "iglesia_madre": "",
+      "iglesia_anfitriona": "",
+      "predicadores": [],
+      "programa": [],
+      "galeria": [
+        { "archivo": "pastores-grupo", "ancho": 1600, "alto": 900, "alt": "Grupo de pastores con sus Biblias frente al emblema de La Sana Doctrina No Morirá", "pie": "Los pastores" },
+        { "archivo": "congreso-cartel", "ancho": 1600, "alto": 900, "alt": "Presentación del cartel de bienvenida al congreso", "pie": "Bienvenida al congreso" },
+        { "archivo": "congreso-oracion", "ancho": 1600, "alto": 1200, "alt": "Momento de oración durante el congreso", "pie": "Tiempo de oración" },
+        { "archivo": "congreso-asamblea", "ancho": 1600, "alto": 900, "alt": "Asamblea reunida durante una de las jornadas", "pie": "La asamblea reunida" },
+        { "archivo": "congreso-grupo-1", "ancho": 1600, "alto": 900, "alt": "Participantes del congreso reunidos", "pie": "" },
+        { "archivo": "congreso-grupo-2", "ancho": 1600, "alto": 900, "alt": "Participantes del congreso al cierre de una jornada", "pie": "" }
+      ],
+      "afiche": "",
+      "modalidad": "presencial",
+      "transmision": "",
+      "logistica": {},
+      "faq": [],
+      "contacto": {}
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+# Plantilla del dominio propio. Este archivo NO hace nada por sí solo.
+#
+# Cuando compres el dominio:
+#
+#   1. Renombra este archivo a  CNAME  (sin extensión, en mayúsculas).
+#   2. Borra TODAS estas líneas de comentario y deja únicamente el dominio,
+#      en una sola línea, sin https:// y sin barra final. Por ejemplo:
+#
+#          lasanadoctrinanomorira.com
+#
+#      GitHub Pages NO admite comentarios ni líneas en blanco dentro del
+#      CNAME: si queda cualquier cosa además del dominio, el sitio deja de
+#      responder en esa dirección.
+#
+#   3. En el panel de tu proveedor de dominios, apunta los registros DNS a
+#      GitHub Pages.
+#
+#   4. Cambia la constante SITIO en generar.py por el mismo dominio, con
+#      https:// delante y barra al final, y ejecuta:
+#
+#          python3 generar.py
+#
+#      Eso reescribe las etiquetas canonical, og: y el sitemap.xml, que son
+#      los únicos sitios del código donde aparece el dominio completo.
