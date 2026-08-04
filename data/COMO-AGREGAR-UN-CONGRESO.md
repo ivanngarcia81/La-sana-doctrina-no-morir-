@@ -92,11 +92,17 @@ Una lista de fotos ya publicadas en `assets/img/fotos/`. Cada una lleva:
 - `alt` — la descripción para quien no ve la imagen.
 - `pie` — el texto bajo la foto, opcional.
 
+Una de esas fotos puede además servir de **portada** de la edición: se pone su
+nombre en el campo `portada`. Entonces es la que sale en la tarjeta del listado
+y la que se ve al pegar el enlace en WhatsApp, en lugar del logotipo genérico.
+El texto alternativo se reaprovecha del que ya tiene en la galería.
+
 ### Lo demás
 
 | Campo | Para qué sirve |
 |---|---|
-| `afiche` | Ruta de la imagen promocional, por ejemplo `assets/img/afiches/2027-panama.jpg`. Es la imagen que se ve al compartir el enlace por WhatsApp. Mientras no exista se muestra el sello del proyecto. |
+| `portada` | La foto que representa a esa edición: el nombre **sin extensión** de una de `assets/img/fotos/`, igual que en la galería. Sale en la tarjeta del listado y al compartir el enlace. |
+| `afiche` | Ruta de la imagen promocional, por ejemplo `assets/img/afiches/2027-panama.jpg`. **Si hay afiche, manda sobre la portada.** |
 | `modalidad` | `presencial`, `virtual` o `hibrido`. |
 | `transmision` | Enlace de la transmisión en vivo, si la hay. |
 | `logistica` | Bloque opcional con `estacionamiento`, `hospedajes`, `aeropuertos`, `transporte` y `ninos`. Cada uno aparece solo si tiene texto. |

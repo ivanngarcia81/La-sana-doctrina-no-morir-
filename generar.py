@@ -490,10 +490,15 @@ def fechas_cortas(c):
 
 
 def lugar(c):
-    """Ciudad y país, que es como se nombra una sede de viva voz."""
-    if c.get('ciudad') and c.get('pais'):
-        return f"{c['ciudad']}, {c['pais']}"
-    partes = [p for p in (c.get('ciudad'), c.get('estado'), c.get('pais')) if p]
+    """El nombre corto de una sede, como se dice de viva voz: la ciudad con
+       su estado si lo tiene («Newark, Nueva Jersey»), y si no, con el país
+       («Cartagena, Colombia»). Sin ciudad, el estado con su país
+       («Connecticut, Estados Unidos»)."""
+    ciudad, estado, pais = (c.get('ciudad'), c.get('estado'), c.get('pais'))
+    if ciudad:
+        segundo = estado or pais
+        return f'{ciudad}, {segundo}' if segundo else ciudad
+    partes = [p for p in (estado, pais) if p]
     return ', '.join(partes) or 'Sede por anunciar'
 
 
@@ -557,18 +562,46 @@ def insignia(c):
             f'data-fin="{c.get("fecha_fin", "")}">{ROTULO_ESTADO[est]}</span>')
 
 
-def afiche_img(c, base='', clase='', prioridad=False):
-    """El afiche promocional. Mientras no exista se muestra el sello del
-       proyecto, que encaja con el diseño y no deja un hueco gris."""
-    ruta = c.get('afiche', '')
-    if ruta:
-        carga = ('fetchpriority="high"' if prioridad
-                 else 'loading="lazy" decoding="async"')
-        return (f'<img class="afiche__imagen{clase}" src="{base}{ruta}{V}" '
-                f'alt="Afiche del {c.get("nombre", "congreso")} — '
-                f'{lugar(c)}" {carga}>')
-    return f"""<span class="afiche__vacio{clase}" role="img"
-              aria-label="Afiche pendiente de publicar">
+def imagen_de(c):
+    """La imagen que representa a una edición, por orden de preferencia:
+
+         1. el afiche oficial, si ya existe;
+         2. la foto de portada, una de las de la galería;
+         3. nada, y entonces se dibuja el sello del proyecto.
+
+       Devuelve (ruta relativa, tipo, texto alternativo)."""
+    if c.get('afiche'):
+        return (c['afiche'], 'afiche',
+                f'Afiche del congreso en {lugar(c)}')
+    if c.get('portada'):
+        nombre = c['portada']
+        # El texto alternativo se reutiliza de la galería, para no
+        # describir la misma foto dos veces con palabras distintas.
+        alt = next((g.get('alt', '') for g in c.get('galeria', [])
+                    if g.get('archivo') == nombre), '')
+        return (f'assets/img/fotos/{nombre}.jpg', 'foto',
+                alt or f'Fotografía del congreso en {lugar(c)}')
+    return ('', '', '')
+
+
+def afiche_img(c, base='', prioridad=False):
+    """La imagen de la edición, con WebP y respaldo. Mientras no haya ni
+       afiche ni foto se muestra el sello del proyecto, que encaja con el
+       diseño en vez de dejar un hueco gris."""
+    ruta, tipo, alt = imagen_de(c)
+    carga = ('fetchpriority="high"' if prioridad
+             else 'loading="lazy" decoding="async"')
+    if tipo == 'foto':
+        webp = ruta[:-4] + '.webp'
+        return f"""<picture>
+            <source srcset="{base}{webp}{V}" type="image/webp">
+            <img class="afiche__imagen" src="{base}{ruta}{V}" alt="{alt}" {carga}>
+          </picture>"""
+    if tipo == 'afiche':
+        return (f'<img class="afiche__imagen" src="{base}{ruta}{V}" '
+                f'alt="{alt}" {carga}>')
+    return f"""<span class="afiche__vacio" role="img"
+              aria-label="Imagen pendiente de publicar">
           <img src="{base}assets/img/sello.png{V}" alt="" width="159" height="160"
                loading="lazy" decoding="async">
         </span>"""
@@ -670,11 +703,10 @@ def aviso_portada(base=''):
 
 def bloque_proximos(base=''):
     """Sección de la portada: cuenta regresiva y tarjetas de lo que viene."""
-    tarjetas = ''
-    if PROXIMOS:
-        tarjetas = ('\n      <div class="rejilla rejilla--3 revelar">\n'
-                    + '\n'.join(tarjeta_congreso(c, base) for c in PROXIMOS)
-                    + '\n      </div>')
+    # Si ya hay una edición con fecha, la cuenta regresiva de arriba habla
+    # de ella: repetirla en tarjeta sería decir dos veces lo mismo.
+    otros = [c for c in PROXIMOS if c.get('fecha_inicio')][1:]
+    tarjetas = '\n' + rejilla_congresos(otros, base) if otros else ''
     return f"""  <section class="seccion seccion--centrada" id="proximo-congreso">
     <div class="contenedor">
       <div class="seccion__encabezado revelar">
@@ -721,7 +753,7 @@ def ficha(c):
     partes.append(f"""  <section class="seccion" id="resumen">
     <div class="contenedor">
       <div class="afiche revelar">
-        <figure class="afiche__marco">
+        <figure class="afiche__marco afiche__marco--{imagen_de(c)[1] or 'vacio'}">
           {afiche_img(c, b, prioridad=True)}
         </figure>
         <div class="afiche__texto">
@@ -886,9 +918,11 @@ def ficha(c):
                   f'No Morirá en {lugar(c)}.')
     if c.get('fecha_inicio'):
         resumen = f'{resumen} {fechas_largas(c).capitalize()}. Entrada libre.'
-    imagen = c.get('afiche') or 'assets/img/logo.png'
-    alt = (f'Afiche del congreso en {lugar(c)}' if c.get('afiche')
-           else 'Escudo con espada y la cinta «La sana doctrina no morirá»')
+    # Vista previa al compartir: el afiche si lo hay, si no la foto de la
+    # edición, y solo como último recurso el logotipo genérico.
+    ruta_img, _, alt_img = imagen_de(c)
+    imagen = ruta_img or 'assets/img/logo.png'
+    alt = alt_img or 'Escudo con espada y la cinta «La sana doctrina no morirá»'
     return {
         'archivo': f'congresos/{c["slug"]}/index.html',
         'titulo': titular or 'Congreso',
@@ -916,24 +950,29 @@ def tarjeta_congreso(c, base=''):
         </a>"""
 
 
-def listado_congresos():
-    """congresos/index.html — próximos arriba, pasados abajo."""
-    b = '../'
-    if PROXIMOS:
-        proximos = ('      <div class="rejilla rejilla--3 revelar">\n'
-                    + '\n'.join(tarjeta_congreso(c, b) for c in PROXIMOS)
-                    + '\n      </div>')
-    else:
-        proximos = """      <p class="vacio revelar">
+VACIO_PROXIMOS = """      <p class="vacio revelar">
         Estamos preparando la próxima edición. En cuanto se confirmen la sede
         y las fechas aparecerán aquí.
       </p>"""
-    if PASADOS:
-        pasados = ('      <div class="rejilla rejilla--3 revelar">\n'
-                   + '\n'.join(tarjeta_congreso(c, b) for c in PASADOS)
-                   + '\n      </div>')
-    else:
-        pasados = ''
+
+
+def rejilla_congresos(lista, base=''):
+    """Tarjetas de una lista de congresos, o el estado vacío si no hay
+       ninguno con fecha confirmada. Una edición sin fecha no merece
+       tarjeta: no habría nada que enseñar al entrar en ella."""
+    con_fecha = [c for c in lista if c.get('fecha_inicio')]
+    if not con_fecha:
+        return VACIO_PROXIMOS
+    return ('      <div class="rejilla rejilla--congresos revelar">\n'
+            + '\n'.join(tarjeta_congreso(c, base) for c in con_fecha)
+            + '\n      </div>')
+
+
+def listado_congresos():
+    """congresos/index.html — próximos arriba, pasados abajo."""
+    b = '../'
+    proximos = rejilla_congresos(PROXIMOS, b)
+    pasados = rejilla_congresos(PASADOS, b) if PASADOS else ''
     return (cabecera('Una ciudad distinta cada vez', 'Congresos',
                      'El Congreso “La Sana Doctrina No Morirá” cambia de sede en '
                      'cada edición, para que la enseñanza alcance a más iglesias '
@@ -1511,7 +1550,10 @@ for archivo, titulo, descripcion, cuerpo, indexable in PAGINAS:
                              extra=extra))
 
 # ---------------- fichas de cada congreso ----------------
-for c in CONGRESOS:
+# Una edición sin fecha confirmada no tiene página propia: nada enlazaría a
+# ella y no habría nada que leer dentro. Aparece como estado vacío en el
+# listado hasta que se le pongan fechas.
+for c in [x for x in CONGRESOS if x.get('fecha_inicio')]:
     d = ficha(c)
     escribir(d['archivo'],
              pagina(d['archivo'], d['titulo'], d['descripcion'], d['cuerpo'],
