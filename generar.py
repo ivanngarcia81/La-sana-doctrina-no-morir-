@@ -1094,8 +1094,14 @@ INICIO = f"""  <section class="portada portada--inicio" id="inicio">
 QUE_ES = cabecera(
     'El proyecto', '¿Qué es “La Sana Doctrina No Morirá”?',
     'No es una organización, sino un clamor espiritual.'
-) + """
+) + f"""
   <section class="seccion seccion--centrada" id="que-es">
+    <div class="contenedor">
+{foto('fundadores', 1067, 'Los dos fundadores de La Sana Doctrina No Morirá abrazados ante '
+      'el emblema del proyecto, con sus Biblias en la mano',
+      clase='foto--destacada revelar', pie='Los fundadores del proyecto',
+      prioridad=True, ancho=1600)}
+    </div>
     <div class="contenedor contenedor--angosto">
       <div class="revelar">
         <p class="texto-guia">
