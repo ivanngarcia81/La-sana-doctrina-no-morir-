@@ -161,7 +161,7 @@
         { "archivo": "congreso-asamblea", "ancho": 1600, "alto": 900, "alt": "Pastores y hermanas con sus Biblias frente al emblema de La Sana Doctrina No Morirá, con las pantallas del congreso a ambos lados", "pie": "Los participantes del congreso" },
         { "archivo": "congreso-grupo-1", "ancho": 1600, "alto": 900, "alt": "Grupo de hermanas con sus Biblias frente al emblema de La Sana Doctrina No Morirá", "pie": "" },
         { "archivo": "congreso-grupo-2", "ancho": 1600, "alto": 900, "alt": "Las pastoras Iliana Alejandro, Marta Morales y Dennys Castillo, de izquierda a derecha, con sus Biblias frente al emblema de La Sana Doctrina No Morirá", "pie": "Las pastoras Iliana Alejandro, Marta Morales y Dennys Castillo" },
-        { "archivo": "congreso-pastores", "ancho": 1200, "alto": 1600, "alt": "Los pastores Carlos Arroyo, Orlando Alejandro y Sagastume, de izquierda a derecha, con sus Biblias frente al emblema de La Sana Doctrina No Morirá", "pie": "Los pastores Carlos Arroyo, Orlando Alejandro y Sagastume" }
+        { "archivo": "congreso-pastores", "ancho": 1200, "alto": 1600, "alt": "Los pastores Carlos Arroyos, Orlando Alejandro y Geovanni Sagastume, de izquierda a derecha, con sus Biblias frente al emblema de La Sana Doctrina No Morirá", "pie": "Los pastores Carlos Arroyos, Orlando Alejandro y Geovanni Sagastume" }
       ],
       "portada": "congreso-asamblea",
       "afiche": "",
