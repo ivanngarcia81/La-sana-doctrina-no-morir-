@@ -70,6 +70,9 @@
         }
       ],
       "galeria": [
+        { "archivo": "cartagena-asamblea-completa", "ancho": 1600, "alto": 900, "alt": "Toda la asamblea del congreso reunida al aire libre para la fotografía de grupo, con las banderas de los países representados", "pie": "Toda la asamblea del congreso" },
+        { "archivo": "cartagena-pastores-2", "ancho": 1280, "alto": 960, "alt": "Pastores reunidos ante el cartel «Despertar de la sana doctrina», junto a la bandera de Colombia", "pie": "Los pastores en Cartagena" },
+        { "archivo": "cartagena-pastores-1", "ancho": 960, "alto": 1280, "alt": "Cinco pastores ante el cartel del congreso, con las banderas de Estados Unidos, Puerto Rico y República Dominicana", "pie": "" },
         { "archivo": "cartagena-grupo-1", "ancho": 1080, "alto": 1085, "alt": "Grupo numeroso de pastores y hermanos frente al cartel del congreso en Cartagena", "pie": "Los participantes del congreso" },
         { "archivo": "cartagena-grupo-2", "ancho": 540, "alto": 402, "alt": "Pastores posando frente al cartel «Cartagena, tierra de avivamiento»", "pie": "" },
         { "archivo": "cartagena-grupo-3", "ancho": 540, "alto": 405, "alt": "Grupo de asistentes frente al cartel del congreso, con las banderas de Colombia y Puerto Rico", "pie": "" },
@@ -85,7 +88,7 @@
         { "archivo": "cartagena-hermanos-1", "ancho": 960, "alto": 1280, "alt": "Dos asistentes al congreso posando en la calle", "pie": "" },
         { "archivo": "cartagena-hermanos-2", "ancho": 540, "alto": 727, "alt": "Tres asistentes al congreso durante una de las jornadas", "pie": "" }
       ],
-      "portada": "cartagena-grupo-1",
+      "portada": "cartagena-asamblea-completa",
       "afiche": "",
       "modalidad": "presencial",
       "transmision": "",
