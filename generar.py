@@ -1097,9 +1097,13 @@ QUE_ES = cabecera(
 ) + f"""
   <section class="seccion seccion--centrada" id="que-es">
     <div class="contenedor">
-{foto('fundadores', 1067, 'Los dos fundadores de La Sana Doctrina No Morirá abrazados ante '
-      'el emblema del proyecto, con sus Biblias en la mano',
-      clase='foto--destacada revelar', pie='Los fundadores del proyecto',
+{foto('fundadores', 1067,
+      'Los pastores Junior Castillo y Geovanni Sagastume, fundadores de La Sana '
+      'Doctrina No Morirá, abrazados ante el emblema del proyecto con sus Biblias '
+      'en la mano',
+      clase='foto--destacada revelar',
+      pie='Los fundadores del proyecto: los pastores Junior Castillo y '
+          'Geovanni Sagastume',
       prioridad=True, ancho=1600)}
     </div>
     <div class="contenedor contenedor--angosto">
