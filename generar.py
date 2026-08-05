@@ -1380,6 +1380,8 @@ PASTORES_GALERIA = f"""      <div class="galeria galeria--natural revelar">
 {foto("pastor-predicando-3", 1050, "Ministra leyendo la Palabra desde el púlpito", ancho=1400)}
 {foto("pastor-predicando-4", 1050, "Ministra predicando con los pastores de pie detrás", ancho=1400)}
 {foto("pastor-predicando-5", 788, "Predicador dirigiéndose a la congregación", ancho=1400)}
+{foto("pastores-oracion", 1600, "Tres pastores abrazados y quebrantados en un momento "
+      "de oración", ancho=900, pie="Un momento de oración entre pastores")}
       </div>
 """
 
