@@ -1373,13 +1373,20 @@ PREDICACION = f"""  <section class="seccion seccion--alterna seccion--centrada" 
 """
 
 PASTORES_GALERIA = f"""      <div class="galeria galeria--natural revelar">
-{foto("pastor-retrato-1", 1400, "Retrato de un pastor con su Biblia", ancho=1231, prioridad=True)}
-{foto("pastor-retrato-2", 1400, "Retrato de un pastor con su Biblia", ancho=1050)}
-{foto("pastor-predicando-1", 1400, "Pastor predicando desde el púlpito", ancho=1050)}
-{foto("pastor-predicando-2", 1400, "Ministra predicando desde el púlpito", ancho=1050)}
-{foto("pastor-predicando-3", 1050, "Ministra leyendo la Palabra desde el púlpito", ancho=1400)}
-{foto("pastor-predicando-4", 1050, "Ministra predicando con los pastores de pie detrás", ancho=1400)}
-{foto("pastor-predicando-5", 788, "Predicador dirigiéndose a la congregación", ancho=1400)}
+{foto("pastor-retrato-1", 1400, "Retrato del pastor Orlando Alejandro con su Biblia",
+      ancho=1231, prioridad=True, pie="Pastor Orlando Alejandro")}
+{foto("pastor-retrato-2", 1400, "Retrato del pastor Dennis Herrera con su Biblia",
+      ancho=1050, pie="Pastor Dennis Herrera")}
+{foto("pastor-predicando-1", 1400, "El pastor Henry Morales predicando desde el púlpito",
+      ancho=1050, pie="Pastor Henry Morales")}
+{foto("pastor-predicando-2", 1400, "La pastora Marta Morales predicando desde el púlpito",
+      ancho=1050, pie="Pastora Marta Morales")}
+{foto("pastor-predicando-3", 1050, "La pastora Dennys Castillo leyendo la Palabra desde el púlpito",
+      ancho=1400, pie="Pastora Dennys Castillo")}
+{foto("pastor-predicando-4", 1050, "La pastora Iliana Alejandro predicando, con los pastores de pie detrás",
+      ancho=1400, pie="Pastora Iliana Alejandro")}
+{foto("pastor-predicando-5", 788, "El pastor Junior Castillo dirigiéndose a la congregación",
+      ancho=1400, pie="Pastor Junior Castillo")}
       </div>
 """
 
